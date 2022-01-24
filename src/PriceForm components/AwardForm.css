@@ -1,0 +1,162 @@
+.awardMain {
+  margin: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 80px;
+}
+.awardMain__background {
+  background-image: linear-gradient(to right, #2980b9, #6dd5fa),
+    url("https://firebasestorage.googleapis.com/v0/b/touronapp-248e4.appspot.com/o/award.jpeg?alt=media&token=5577377b-0b5e-4ec0-a61f-1d7c00f19f51");
+  height: 70vh;
+  background-size: cover;
+  background-blend-mode: screen;
+  position: relative;
+}
+.awardMain__head {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+}
+.awardMain__head__title {
+  color: #fff;
+  text-transform: uppercase;
+  background-image: linear-gradient(to right bottom, #6dd5fa, #2980b9);
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 40px;
+  font-family: "newyorklargeblack";
+}
+.awardMain__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+.awardMain__form__sub {
+  width: 48%;
+  text-align: center;
+  box-shadow: 0 5px 10px #297fb983;
+  padding: 20px 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.awardMain__form__sub h4 {
+  margin-bottom: 10px;
+  font-family: "andika";
+  color: #2980b9;
+  font-weight: 700;
+}
+.award__Combine {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+.award__Name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+.award__category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.award__Name h6,
+.award__category h6 {
+  margin-right: 10px;
+}
+.award__category label {
+  margin-bottom: 0;
+}
+.award__name {
+  box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  padding: 5px 0px;
+  position: relative;
+  cursor: pointer;
+  width: 140px;
+}
+.award__Name-List {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  background-color: #fff;
+  z-index: 1;
+  overflow: hidden;
+  width: 140px;
+  text-align: center;
+}
+.award__Name-List li {
+  cursor: pointer;
+  list-style: none;
+  padding: 5px 0px;
+  transition: all 0.4s;
+}
+.award__Name-List li:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+.radioo-label {
+  position: relative;
+  font-size: 16px;
+  padding-left: 30px;
+  font-family: "Mont";
+  cursor: pointer;
+  margin-right: 8px;
+}
+.cutsom-radioo {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: 3px solid #2980b9;
+  display: inline-block;
+  position: absolute;
+  left: 5%;
+  top: 2px;
+}
+
+.cutsom-radioo::after {
+  content: "";
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #2980b9;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.radioo-input {
+  display: none;
+}
+.radioo-input:checked ~ .radioo-label .cutsom-radioo::after {
+  opacity: 1;
+}
+.awardMain-button button,
+.awardMain-button button:link,
+.awardMain-button button:visited {
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #2980b9;
+  font-family: "andika";
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s;
+}
+.awardMain-button button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.5);
+}

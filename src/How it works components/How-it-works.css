@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Andika&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.work_img {
+  /* background-image: url(../assests/howitworks.jpg); */
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/touronapp-248e4.appspot.com/o/howitworks.jpg?alt=media&token=ec261253-65f4-48aa-94ba-0c7994671ebf");
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.work_img::after {
+  height: 100vh;
+  opacity: 0.3;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+}
+.work_title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.work_overview {
+  background-color: #fafafa;
+  padding: 20px 30px;
+  text-align: justify !important;
+  line-height: 27px;
+  margin: 50px 50px 60px;
+}
+.work_overview h4 {
+  color: #ff7f00;
+  font-size: 25px;
+  margin-bottom: 25px;
+  font-family: "Andika", sans-serif;
+}
+.work_overview p {
+  font-size: 16px;
+  font-family: "Andika", sans-serif;
+}
+.work_overview:hover {
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}

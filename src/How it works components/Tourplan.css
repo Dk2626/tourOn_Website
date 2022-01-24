@@ -1,0 +1,55 @@
+.work_categories {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: #000;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+.work_cat-image {
+  height: 67px;
+  text-align: center;
+  width: 67px;
+  border-radius: 50%;
+}
+/* .work_cat-title a {
+  text-decoration: none;
+  color: #fff;
+} */
+.work_cat-title {
+  color: #fff;
+  margin-top: 10px;
+  flex-direction: column;
+}
+.work_cat-body {
+  border-right: 1px solid rgba(255, 255, 255, 0.13);
+  padding-right: 70px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.work_cat-bod {
+  padding-right: 60px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.work_cat-body p,
+.work_cat-bod p {
+  font-weight: 500;
+}
+.work_cat-body p:hover,
+.work_cat-bod p:hover {
+  color: #ff7f00;
+  cursor: pointer;
+}
+#work_luxurytour,
+#work_honeytour,
+#work_plannedtour,
+#work_surprisetour,
+#work_roadtour {
+  padding: 60px 30px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.08);
+  margin: 40px 40px;
+}

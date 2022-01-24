@@ -1,0 +1,252 @@
+.onBoardListMainn {
+  background-image: url("../assests/onboardlist.jpg");
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.onBoardListMainn::after {
+  content: "";
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+}
+.onBoardListMainns {
+  position: relative;
+  z-index: 1;
+}
+.onBoardListHead {
+  text-align: center;
+  padding: 20px;
+}
+.onBoardListH1 {
+  font-family: "Avenir";
+  font-weight: 700;
+  color: #ff7f00;
+}
+.upcomingText {
+  font-family: "Avenir";
+  color: #6ec72d;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+.completedText {
+  font-family: "Avenir";
+  color: #e21717;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+.upcomingContent,
+.completedContent {
+  margin-right: 10px;
+}
+.scroll-containerr {
+  height: 285px;
+}
+.scroll-containerr::-webkit-scrollbar {
+  width: 8px;
+  display: inline;
+  overflow-x: hidden;
+}
+.scroll-containerr::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.scroll-containerr::-webkit-scrollbar-thumb {
+  background: #ff7f00;
+  border-radius: 10px;
+}
+.scroll-containerr::-webkit-scrollbar-thumb:hover {
+  background: #9e5a1e;
+  border-radius: 10px;
+}
+.upcoimgInnerContentMain {
+  background-color: #fff;
+  width: 700px;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  /* box-shadow: 0px 2px 8px #ccc; */
+  margin-bottom: 20px;
+}
+.completedInnerContentMain {
+  background-color: #fff;
+  width: 700px;
+  padding: 20px;
+  border-radius: 15px;
+  /* box-shadow: 0px 2px 8px #ccc; */
+  margin-bottom: 20px;
+}
+
+.upcoimgInnerContent,
+.completedInnerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upcoimgInnerContent1,
+.completedInnerContent1 {
+  width: 70%;
+}
+.upcoimgInnerContent2,
+.completedInnerContent2 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upcoimgInnerContentname {
+  font-family: "Andika";
+  font-weight: 600;
+  padding: 5px;
+  color: black;
+}
+.upcoimgInnerContentdest {
+  font-family: "Andika";
+  font-weight: 500;
+  padding: 5px;
+  color: black;
+}
+.upcoimgInnerContentemail {
+  font-family: "Avenir";
+  font-weight: 700;
+  padding: 5px;
+  color: black;
+}
+
+.completedInnerContentname {
+  font-family: "Andika";
+  font-weight: 600;
+  padding: 5px;
+  color: grey;
+}
+.completedInnerContentdest {
+  font-family: "Andika";
+  font-weight: 500;
+  padding: 5px;
+  color: grey;
+}
+.completedInnerContentemail {
+  font-family: "Avenir";
+  font-weight: 700;
+  padding: 5px;
+  color: grey;
+}
+.onBoardImg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.onBoardImg img {
+  width: 450px;
+  height: 450px;
+}
+.onBoardImg h6 {
+  font-family: "Avenir";
+  font-weight: 700;
+  font-size: 20px;
+}
+.OnBoardUC {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .scroll-containerr {
+    height: 200px;
+  }
+  .onBoardImg img {
+    width: 400px;
+    height: 370px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    width: 450px;
+  }
+  .onBoardListH1 {
+    font-size: 27px;
+  }
+  .upcomingText,
+  .completedText {
+    font-size: 20px;
+  }
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .scroll-containerr {
+    height: 190px;
+  }
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    width: 320px;
+  }
+  .upcoimgInnerContent,
+  .completedInnerContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .upcoimgInnerContent1,
+  .completedInnerContent1 {
+    width: 100%;
+  }
+  .upcoimgInnerContent2,
+  .completedInnerContent2 {
+    flex-direction: row;
+    width: 100%;
+  }
+  .onBoardImg img {
+    width: 300px;
+    height: 320px;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .scroll-containerr {
+    height: 240px;
+  }
+  .onBoardListH1 {
+    font-size: 24px;
+  }
+  .upcomingText,
+  .completedText {
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    width: 250px;
+    padding: 5px;
+  }
+  .upcoimgInnerContentname,
+  .upcoimgInnerContentemail,
+  .upcoimgInnerContentdest,
+  .completedInnerContentname,
+  .completedInnerContentemail,
+  .completedInnerContentdest {
+    font-size: 13px;
+  }
+  .onBoardImg img {
+    width: 280px;
+    height: 320px;
+  }
+}
