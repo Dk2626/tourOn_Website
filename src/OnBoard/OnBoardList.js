@@ -25,6 +25,8 @@ const OnBoardList = () => {
 
   const upcoming = custDocuments.filter((cust) => date < cust.returnDate)
 
+  console.log("upcoming", upcoming)
+
   const completed = custDocuments
     .filter((cust) => date >= cust.returnDate)
     .reverse()
@@ -104,17 +106,20 @@ const OnBoardList = () => {
                     <div className="upcomingContent">
                       {upcoming.map((item, key) => {
                         const {
+                          customerName,
                           email,
                           destination,
                           tourType,
                           onwardDate,
                           returnDate,
                           bookingValue,
+                          adults,
+                          children,
                         } = item
                         return (
                           <Link
                             to={{
-                              pathname: `/onboardform/${email}/${destination}/${tourType}/${onwardDate}/${returnDate}/${bookingValue}`,
+                              pathname: `/onboardform/${customerName}/${email}/${destination}/${tourType}/${onwardDate}/${returnDate}/${bookingValue}/${adults}/${children}`,
                             }}
                             className="plink"
                             key={key}
@@ -188,109 +193,6 @@ const OnBoardList = () => {
           </div>
         )}
       </div>
-      // <div className="onBoardListMainn">
-      //   <div className="onBoardListMainns">
-      //     <div className="onBoardListHead">
-      //       <h1 className="onBoardListH1">On Board List</h1>
-      //     </div>
-      //     <div>
-      //       {custDocuments.length == 0 ? (
-      //         <div className="onBoardImg">
-      //           <img src={onboard} />
-      //           <h6>No On Board List Yet</h6>
-      //         </div>
-      //       ) : (
-      //         <div className="OnBoardUC">
-      //           {upcoming.length !== 0 && (
-      //             <div>
-      //               <h3 className="upcomingText">Upcoming</h3>
-      //               <div className="upcomingContent">
-      //                 {upcoming.map((item, key) => {
-      //                   const {
-      //                     email,
-      //                     destination,
-      //                     tourType,
-      //                     onwardDate,
-      //                     returnDate,
-      //                     bookingValue,
-      //                   } = item
-      //                   return (
-      //                     <Link
-      //                       to={{
-      //                         pathname: `/onboardform/${email}/${destination}/${tourType}/${onwardDate}/${returnDate}/${bookingValue}`,
-      //                       }}
-      //                       className="plink"
-      //                       key={key}
-      //                     >
-      //                       <div className="upcoimgInnerContentMain">
-      //                         <div className="upcoimgInnerContent">
-      //                           <div className="upcoimgInnerContent1">
-      //                             <h5 className="upcoimgInnerContentname">
-      //                               {item.customerName}
-      //                             </h5>
-      //                             <h5 className="upcoimgInnerContentemail">
-      //                               {item.email}
-      //                             </h5>
-      //                           </div>
-      //                           <div className="upcoimgInnerContent2">
-      //                             <ImLocation2 size={20} color="#ff7f00" />
-      //                             <h5 className="upcoimgInnerContentdest">
-      //                               {item.destination}
-      //                             </h5>
-      //                           </div>
-      //                         </div>
-      //                       </div>
-      //                     </Link>
-      //                   )
-      //                 })}
-      //               </div>
-      //             </div>
-      //           )}
-
-      //           {completed.length !== 0 && (
-      //             <div>
-      //               <h3 className="completedText">Completed</h3>
-      //               <ScrollContainer
-      //                 className="scroll-containerr"
-      //                 vertical={true}
-      //                 hideScrollbars={false}
-      //                 innerRef={container}
-      //               >
-      //                 <div className="completedContent">
-      //                   {completed.map((item, key) => {
-      //                     return (
-      //                       <div
-      //                         key={key}
-      //                         className="completedInnerContentMain"
-      //                       >
-      //                         <div className="completedInnerContent">
-      //                           <div className="completedInnerContent1">
-      //                             <h5 className="completedInnerContentname">
-      //                               {item.customerName}
-      //                             </h5>
-      //                             <h5 className="completedInnerContentemail">
-      //                               {item.email}
-      //                             </h5>
-      //                           </div>
-      //                           <div className="completedInnerContent2">
-      //                             <ImLocation2 size={20} color="#E07C24" />
-      //                             <h5 className="completedInnerContentdest">
-      //                               {item.destination}
-      //                             </h5>
-      //                           </div>
-      //                         </div>
-      //                       </div>
-      //                     )
-      //                   })}
-      //                 </div>
-      //               </ScrollContainer>
-      //             </div>
-      //           )}
-      //         </div>
-      //       )}
-      //     </div>
-      //   </div>
-      // </div>
     )
 }
 

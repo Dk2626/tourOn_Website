@@ -1,19 +1,16 @@
 .onBoardFormHead {
   padding: 20px;
-  /* position: fixed; */
-  /* background-color: #fff; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* margin: auto; */
-  /* width: 100%; */
+  text-align: center;
 }
 .onBoardFormH1 {
   font-family: "Avenir";
   font-weight: 700;
+  /* color: #12b0e8; */
+  color: #472ecd;
 }
 .onBoardMainForm {
-  padding: 40px 40px 0 40px;
+  text-align: center;
+  padding-top: 20px;
 }
 .travelListField {
   display: flex;
@@ -21,28 +18,55 @@
   justify-content: center;
   padding: 10px;
 }
-.onBoardFormButton {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 20px;
-  /* position: fixed; */
-  /* top: 50px; */
-  /* right: 0; */
-}
-.disableOnBoard {
+.vrfyOnBoard {
   border: none;
-  background-color: #207398;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: #cad5e2;
-}
-.saveOnBoard {
-  border: none;
-  background-color: blue;
+  background-color: #472ecd;
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.rptOnBoard {
+  border: none;
+  background-color: #d82e2f;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.prevOnBoard {
+  border: none;
+  background-color: #12b0e8;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+}
+.disableOnBoard {
+  border: none;
+  background-color: #45388a;
+  padding: 10px 20px;
+  border-radius: 10px;
+  /* color: #cad5e2; */
+  color: rgb(161, 161, 161);
+  margin-bottom: 10px;
+  font-family: "Andika";
+}
+.saveOnBoard {
+  border: none;
+  /* background-color: blue; */
+  background-color: #472ecd;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  font-family: "Andika";
 }
 .addtravellerMB {
   display: flex;
@@ -65,64 +89,120 @@
   border-radius: 10px;
   color: #cad5e2;
 }
+.OnBoardSubmitDoc {
+  text-align: center;
+}
 .OnBoardSubmit {
   border: none;
-  background-color: #23c4ed;
+  /* background-color: #23c4ed; */
+  background-color: #472ecd;
   padding: 10px 20px;
   border-radius: 10px;
-  color: black;
+  color: white;
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: "Andika";
 }
 .OnBoardSubmitDisable {
   border: none;
-  background-color: #207398;
+  /* background-color: #207398; */
+  background-color: #45388a;
   padding: 10px 20px;
   border-radius: 10px;
-  color: #cad5e2;
+  /* color: #cad5e2; */
+  color: rgb(161, 161, 161);
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: "Andika";
 }
 .travelListCN {
   display: flex;
 }
 .travelListCNTitle {
   font-family: "Avenir";
+  width: 60px;
 }
 .travelListCNBody {
   font-family: "Andika";
   padding-left: 5px;
 }
+.travelListFormInner {
+  box-shadow: 0px 2px 8px #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  /* width: 28%; */
+  justify-content: space-between;
+}
 .travelListForm {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
-  box-shadow: 0px 2px 8px #ccc;
-  width: 40%;
-  border-radius: 15px;
-  margin: auto;
-  margin-bottom: 10px;
+  justify-content: center;
+  /* border: 1px solid rgb(51, 50, 50); */
+  /* border-radius: 10px; */
+  /* padding: 10px; */
+  /* width: 100%; */
 }
-.travelListFormInner {
+.travelIndex {
+  box-shadow: 0px 2px 8px #472ecd;
+  background-color: white;
   display: flex;
-  justify-content: space-evenly;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  border-radius: 50%;
+}
+.travelIndexM {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .travelListEditDel {
-  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
-.travelListEdit {
-  margin-right: 5px;
-}
+.travelListEdit,
 .travelListDel {
-  margin-left: 5px;
+  margin: 5px 0px;
+}
+.travelIndexName {
+  margin-left: 10px;
+}
+.travelIndexButtonM {
+  text-align: center;
+}
+.travelIndexButtonm {
+  border: none;
+  background-color: #472ecd;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Andika";
+}
+.travelIndexButtonmdis {
+  border: none;
+  background-color: #45388a;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: rgb(161, 161, 161);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Andika";
 }
 .fileForm {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.fileFormTextInput {
+  display: flex;
 }
 .FileChange {
   display: flex;
@@ -133,11 +213,262 @@
 }
 .ChangeFileBtn {
   border: none;
-  background-color: #23c4ed;
+  /* background-color: #23c4ed; */
+  background-color: #472ecd;
   padding: 10px 20px;
   border-radius: 10px;
-  color: black;
+  /* color: black; */
+  color: white;
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.fileFlex {
+  display: flex;
+  margin: 5px;
+}
+.fileflexLab {
+  width: 170px;
+  font-family: "Avenir";
+  font-size: 18px;
+}
+.fileflexLabm {
+  font-family: "Andika";
+}
+
+.onBFM {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.onBFMF {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.onBFullval {
+  margin: 10px;
+}
+.onBFMm {
+  width: 70%;
+  height: 500px;
+  padding: 10px;
+  box-shadow: 0px 2px 8px #ccc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.onBFMmm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.onBFMm1 {
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 500px;
+  padding: 10px;
+  box-shadow: 0px 2px 8px #ccc;
+  border-radius: 10px;
+}
+.onBFullval label {
+  margin-bottom: 0;
+}
+.onBFullval label {
+  color: #472ecd;
+  font-family: "Avenir";
+  font-weight: 600;
+  font-size: 18px;
+}
+.OnBFval {
+  border-bottom: 2px solid #472ecd;
+  width: 280px;
+  font-size: 16px;
+  font-family: "Andika";
+  padding: 4px;
+}
+.onBFM1 {
+  width: 35%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.mySwiper {
+  width: 100%;
+  height: 100%;
+}
+.mySwiperImg {
+  width: 100%;
+  height: 100%;
+}
+.onBFM2 {
+  width: 65%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choLabel {
+  background-color: #472ecd;
+  color: white;
+  padding: 5px;
+  width: 120px;
+  font-family: "Andika";
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+}
+.onBAdress {
+  text-align: center;
+}
+.onBAdressInput {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 50px 20px;
+}
+.onBDocInput {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+.onBAdressInput label,
+.onBDocInput label {
+  align-self: flex-start;
+  font-family: "Avenir";
+  font-size: 18px;
+}
+.onBAdressInput input,
+.onBDocInput input {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #472ecd;
+  font-family: "Andika";
+}
+.docOnBoardA {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.docOnBoardA h5 {
+  font-family: "Avenir";
+  font-weight: 700;
+}
+.docOnBoardABtn {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  background-color: #472ecd;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+.docOnBoardABtnDis {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  background-color: #45388a;
+  color: gray;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+@media screen and (max-width: 1024px) {
+  .onBFMm {
+    width: 90%;
+    height: 400px;
+    margin-bottom: 20px;
+  }
+  .onBFMm1 {
+    width: 90%;
+    height: 400px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .onBFMm {
+    height: 500px;
+  }
+  .travelListFormInner {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 620px) {
+  .onBFMm {
+    height: 800px;
+  }
+  .fileFormTextInput {
+    flex-direction: column;
+    align-items: center;
+  }
+  .travelListFormInner {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .fileFormTextBox {
+    text-align: center;
+  }
+  .fileFormControll {
+    width: 220px;
+  }
+  .travelListFormInner {
+    width: 70%;
+  }
+  .onBFM1 {
+    display: none;
+  }
+}
+@media screen and (max-width: 360px) {
+  .onBoardFormH1 {
+    font-size: 26px;
+  }
+  .onBFMm1 {
+    height: 400px;
+    margin-bottom: 20px;
+  }
+  .onBFullval label {
+    font-size: 16px;
+  }
+  .OnBFval {
+    font-size: 15px;
+  }
+
+  .onBDocInput label,
+  .fileflexLab {
+    font-size: 16px;
+  }
+  .onBAdressInput {
+    width: 260px;
+  }
+  .docOnBoardA h5 {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 280px) {
+  .onBFMm {
+    box-shadow: none;
+  }
+  .onBoardFormH1 {
+    font-size: 25px;
+  }
+  .onBoardMainForm {
+    padding-top: 0;
+  }
+  .travelListCNBody {
+    width: 130px;
+  }
+  .travelListFormInner {
+    width: 90%;
+  }
+  .prevOnBoard {
+    padding: 7px 10px;
+  }
+  .OnBFval {
+    width: 260px;
+  }
 }

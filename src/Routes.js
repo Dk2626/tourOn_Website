@@ -138,7 +138,7 @@ export default function Routes() {
               <Route path="/access-denied" component={AccessDenied} />
               <Route path="/onboard" component={OnBoardList} />
               <Route
-                path="/onboardform/:emails/:dest/:type/:onward/:returns/:bv"
+                path="/onboardform/:names/:emails/:dest/:type/:onward/:returns/:bv/:adult/:child"
                 component={OnBoardForm}
               />
               <AdminRoute exact path="/resort" component={Resort} />
