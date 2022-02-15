@@ -2,25 +2,12 @@ import React, { useState, useEffect, useRef } from "react"
 import { useParams, useHistory } from "react-router-dom"
 import "./OnBoardForm.css"
 import Box from "@mui/material/Box"
-import TextField from "@mui/material/TextField"
 import { v4 as uuidv4 } from "uuid"
-import Radio from "@mui/material/Radio"
-import RadioGroup from "@mui/material/RadioGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import FormControl from "@mui/material/FormControl"
-import FormLabel from "@mui/material/FormLabel"
 import { firedb, fireStorage } from "../firebase"
 import LinearProgress from "@mui/material/LinearProgress"
 import { MdEdit, MdDelete } from "react-icons/md"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import Select from "@mui/material/Select"
-// import { styled } from "@mui/material/styles"
-// import { Swiper, SwiperSlide } from "swiper/react"
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react"
-// Import Swiper styles
 import "swiper/swiper.min.css"
-// import required modules
 import { Autoplay } from "swiper"
 import onBimg1 from "../assests/onBImg/onBimg1.jpg"
 import onBimg2 from "../assests/onBImg/onBimg2.jpg"
@@ -30,7 +17,6 @@ const OnBoardForm = () => {
   const [width, setWidth] = useState(window.innerWidth)
   const { names, emails, dest, type, onward, returns, bv, adult, child } =
     useParams()
-  const messagesEndRef = useRef(null)
   const [onBoardForm, setOnBoardForm] = useState({
     namee: names,
     email: emails,
@@ -109,9 +95,6 @@ const OnBoardForm = () => {
   const [uploading, setUploading] = useState(false)
   const [edit, setEdit] = useState(false)
   const [travelKey, setTravelKey] = useState("")
-  const [openTravellerForm, setOpenTravellerForm] = useState(false)
-  const [person, setPerson] = useState("")
-  const [update, setUpdate] = useState(false)
   const [step, setStep] = useState(1)
   const [innerStep, setInnerStep] = useState(1)
   let history = useHistory()
@@ -255,7 +238,6 @@ const OnBoardForm = () => {
       return travel
     })
     setEdit(false)
-    // setOpenTravellerForm(false)
     setTraveller({
       id: uuidv4(),
       name: "",
@@ -280,7 +262,6 @@ const OnBoardForm = () => {
       return child
     })
     setEdit(false)
-    // setOpenTravellerForm(false)
     setChildren({
       idc: uuidv4(),
       namec: "",
@@ -308,16 +289,6 @@ const OnBoardForm = () => {
       childrens: childrensFilter,
     })
   }
-
-  // const filterfile = (fileId) => {
-  //   const fileFilter = documents.filter(
-  //     (document) => document.fileId !== fileId
-  //   )
-  //   setTraveller({
-  //     ...traveller,
-  //     documents: fileFilter,
-  //   })
-  // }
 
   const addOnBoardForm = () => {
     firedb
@@ -423,32 +394,6 @@ const OnBoardForm = () => {
     getTravellers()
   }, [])
 
-  // const scroll = () => {
-  //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-  // }
-
-  // useEffect(scroll, [openTravellerForm])
-
-  // const CssTextField = styled(TextField)({
-  //   "& label.Mui-focused": {
-  //     color: "#472ecd",
-  //   },
-  //   "& .MuiInput-underline:after": {
-  //     borderBottomColor: "#472ecd",
-  //   },
-  //   // "& .MuiOutlinedInput-root": {
-  //   //   "& fieldset": {
-  //   //     borderColor: "red",
-  //   //   },
-  //   //   "&:hover fieldset": {
-  //   //     borderColor: "yellow",
-  //   //   },
-  //   //   "&.Mui-focused fieldset": {
-  //   //     borderColor: "green",
-  //   //   },
-  //   // },
-  // })
-
   const renderInnerForm = () => {
     switch (innerStep) {
       case 1:
@@ -494,8 +439,6 @@ const OnBoardForm = () => {
                               cursor="pointer"
                               onClick={() => {
                                 editTraveller(id)
-                                // setOpenTravellerForm(true)
-                                // setUpdate(true)
                               }}
                             />
                             <MdDelete
@@ -557,8 +500,6 @@ const OnBoardForm = () => {
                                 cursor="pointer"
                                 onClick={() => {
                                   editChildren(idc)
-                                  // setOpenTravellerForm(true)
-                                  // setUpdate(true)
                                 }}
                               />
                               <MdDelete
@@ -640,37 +581,51 @@ const OnBoardForm = () => {
                 }
               />
             </div>
-            <FormControl
-              component="fieldset"
-              // className="fileFormControll"
-              className="onBDocInput"
-            >
-              {/* <FormLabel component="legend">Gender</FormLabel> */}
+            <div className="onBDocInput">
               <label>Gender</label>
-              <RadioGroup
-                row
-                aria-label="gender"
-                name="row-radio-buttons-group"
-                value={gender}
-                onChange={(e) =>
-                  setTraveller({
-                    ...traveller,
-                    gender: e.target.value,
-                  })
-                }
-              >
-                <FormControlLabel
-                  value="Male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="Female"
-                  control={<Radio />}
-                  label="Female"
-                />
-              </RadioGroup>
-            </FormControl>
+              <div className="onBDocInputRadio">
+                <div>
+                  <input
+                    type="radio"
+                    className="onBGI"
+                    id="onBGMale"
+                    name="onBGen"
+                    value="Male"
+                    checked={gender == "Male"}
+                    onChange={(e) =>
+                      setTraveller({
+                        ...traveller,
+                        gender: e.target.value,
+                      })
+                    }
+                  />
+                  <label htmlFor="onBGMale" className="onBGL">
+                    <span className="onBGL-radio"></span>
+                    <div className="onBGL-label">Male</div>
+                  </label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    className="onBGI"
+                    id="onBGFemale"
+                    name="onBGen"
+                    value="Female"
+                    checked={gender == "Female"}
+                    onChange={(e) =>
+                      setTraveller({
+                        ...traveller,
+                        gender: e.target.value,
+                      })
+                    }
+                  />
+                  <label htmlFor="onBGFemale" className="onBGL">
+                    <span className="onBGL-radio"></span>
+                    <div className="onBGL-label">Female</div>
+                  </label>
+                </div>
+              </div>
+            </div>
             <div>
               <div>
                 {uploading && (
@@ -885,7 +840,6 @@ const OnBoardForm = () => {
                         documents: [],
                       })
                       setInnerStep(1)
-                      // setOpenTravellerForm(false)
                     }
                   }}
                   className={
@@ -943,37 +897,51 @@ const OnBoardForm = () => {
                 }
               />
             </div>
-            <FormControl
-              component="fieldset"
-              // className="fileFormControll"
-              className="onBDocInput"
-            >
-              {/* <FormLabel component="legend">Gender</FormLabel> */}
+            <div className="onBDocInput">
               <label>Gender</label>
-              <RadioGroup
-                row
-                aria-label="gender"
-                name="row-radio-buttons-group"
-                value={genderc}
-                onChange={(e) =>
-                  setChildren({
-                    ...children,
-                    genderc: e.target.value,
-                  })
-                }
-              >
-                <FormControlLabel
-                  value="Male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="Female"
-                  control={<Radio />}
-                  label="Female"
-                />
-              </RadioGroup>
-            </FormControl>
+              <div className="onBDocInputRadio">
+                <div>
+                  <input
+                    type="radio"
+                    className="onBGI"
+                    id="onBGMale"
+                    name="onBGen"
+                    value="Male"
+                    checked={genderc == "Male"}
+                    onChange={(e) =>
+                      setChildren({
+                        ...children,
+                        genderc: e.target.value,
+                      })
+                    }
+                  />
+                  <label htmlFor="onBGMale" className="onBGL">
+                    <span className="onBGL-radio"></span>
+                    <div className="onBGL-label">Male</div>
+                  </label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    className="onBGI"
+                    id="onBGFemale"
+                    name="onBGen"
+                    value="Female"
+                    checked={genderc == "Female"}
+                    onChange={(e) =>
+                      setChildren({
+                        ...children,
+                        genderc: e.target.value,
+                      })
+                    }
+                  />
+                  <label htmlFor="onBGFemale" className="onBGL">
+                    <span className="onBGL-radio"></span>
+                    <div className="onBGL-label">Female</div>
+                  </label>
+                </div>
+              </div>
+            </div>
             <div>
               <div>
                 {uploading && (
@@ -1178,7 +1146,6 @@ const OnBoardForm = () => {
                         documentsc: [],
                       })
                       setInnerStep(1)
-                      // setOpenTravellerForm(false)
                     }
                   }}
                   className={
@@ -1321,103 +1288,6 @@ const OnBoardForm = () => {
               </div>
             </div>
           </div>
-          //   <div>
-          //     <div className="onBoardMainForm">
-          //       <Box
-          //         component="form"
-          //         sx={{
-          //           "& > :not(style)":
-          //             width > 280
-          //               ? { m: 3, width: "45ch" }
-          //               : { m: 3, width: "35ch" },
-          //         }}
-          //         noValidate
-          //         autoComplete="off"
-          //       >
-          //         <TextField
-          //           label="Name"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={namee}
-          //         />
-          //         <TextField
-          //           label="Email"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={email}
-          //         />
-          //         <TextField
-          //           label="Destination"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={destination}
-          //         />
-          //         <TextField
-          //           label="Destination Type"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={destinationType}
-          //         />
-          //         <TextField
-          //           label="Adult"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={adults}
-          //         />
-          //         <TextField
-          //           label="Child"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={childs}
-          //         />
-          //         <TextField
-          //           label="Onward Date"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={onwardDate}
-          //         />
-          //         <TextField
-          //           label="Return Date"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={returnDate}
-          //         />
-          //         <TextField
-          //           label="Booking Value"
-          //           variant="outlined"
-          //           disabled={true}
-          //           value={bookingValue}
-          //         />
-          //         {/* <TextField
-          //           label="Address"
-          //           variant="outlined"
-          //           value={address}
-          //           onChange={(e) =>
-          //             setOnBoardForm({
-          //               ...onBoardForm,
-          //               address: e.target.value,
-          //             })
-          //           }
-          //         />
-          //         <TextField
-          //           label="Pincode"
-          //           variant="outlined"
-          //           value={pincode}
-          //           type="number"
-          //           onChange={(e) =>
-          //             setOnBoardForm({
-          //               ...onBoardForm,
-          //               pincode: e.target.value,
-          //             })
-          //           }
-          //         /> */}
-          //       </Box>
-          //       <button className="vrfyOnBoard" onClick={() => setStep(step + 1)}>
-          //         Verify
-          //       </button>
-          //       <button className="rptOnBoard">Report</button>
-          //     </div>
-          //   </div>
         )
 
       case 2:
@@ -1451,399 +1321,7 @@ const OnBoardForm = () => {
               </div>
             </div>
           </div>
-          // <div>
-          //   <div>
-          //     <button onClick={() => setStep(step - 1)} className="prevOnBoard">
-          //       Previous
-          //     </button>
-          //   </div>
-          //   <div>Add Adults {adults} document</div>
-          //   <button
-          //     style={{ cursor: "pointer" }}
-          //     disabled={adults == travellers.length}
-          //     onClick={() => setStep(step + 1)}
-          //   >
-          //     +
-          //   </button>
-          //  </div>
         )
-
-      // case 3:
-      //   return (
-      //     <div>
-      //       <div className="onBoardFormHead">
-      //         <h1 className="onBoardFormH1">Add Traveller</h1>
-      //       </div>
-      //       <div>
-      //         <button onClick={() => setStep(step - 1)} className="prevOnBoard">
-      //           Previous
-      //         </button>
-      //       </div>
-      //       <div>
-      //         {travellers.length !== 0 && (
-      //           <div className="travelListForm">
-      //             {travellers.map((traveller, i) => {
-      //               const { id, name, age, gender, documents } = traveller
-      //               // if (name == person) {
-      //               return (
-      //                 <div key={i} className="travelListFormInner">
-      //                   <div>
-      //                     <div className="travelListCN">
-      //                       <h6 className="travelListCNTitle">Name: </h6>
-      //                       <h6 className="travelListCNBody">{name}</h6>
-      //                     </div>
-      //                     <div className="travelListCN">
-      //                       <h6 className="travelListCNTitle">Age: </h6>
-      //                       <h6 className="travelListCNBody">{age}</h6>
-      //                     </div>
-      //                     <div className="travelListCN">
-      //                       <h6 className="travelListCNTitle">Gender: </h6>
-      //                       <h6 className="travelListCNBody">{gender}</h6>
-      //                     </div>
-      //                     <div>
-      //                       {documents.map((document, i) => {
-      //                         return (
-      //                           <div key={i}>
-      //                             <div className="travelListCN">
-      //                               <h6 className="travelListCNTitle">
-      //                                 {`Document ${i + 1}` == "Document 1"
-      //                                   ? "Passport: "
-      //                                   : `Document ${i + 1}` == "Document 2"
-      //                                   ? "Photo: "
-      //                                   : "Id Proof: "}
-      //                               </h6>
-      //                               <h6 className="travelListCNBody">
-      //                                 {document.fileName}
-      //                               </h6>
-      //                             </div>
-      //                           </div>
-      //                         )
-      //                       })}
-      //                     </div>
-      //                   </div>
-      //                   <div className="travelListEditDel">
-      //                     <MdEdit
-      //                       className="travelListEdit"
-      //                       size={20}
-      //                       color="blue"
-      //                       cursor="pointer"
-      //                       onClick={() => {
-      //                         editTraveller(id)
-      //                         // setOpenTravellerForm(true)
-      //                         setUpdate(true)
-      //                       }}
-      //                     />
-      //                     <MdDelete
-      //                       className="travelListDel"
-      //                       size={20}
-      //                       color="red"
-      //                       cursor="pointer"
-      //                       onClick={() => {
-      //                         deleteTraveller(id)
-      //                       }}
-      //                     />
-      //                   </div>
-      //                 </div>
-      //               )
-      //               // }
-      //             })}
-      //           </div>
-      //         )}
-      //       </div>
-      //       <div>
-      //         <div className="fileForm">
-      //           <div className="fileFormTextInput">
-      //             <Box
-      //               component="form"
-      //               sx={{
-      //                 "& > :not(style)": { m: 1, width: "35ch" },
-      //               }}
-      //               noValidate
-      //               autoComplete="off"
-      //               className="fileFormTextBox"
-      //             >
-      //               <TextField
-      //                 label="Name"
-      //                 variant="outlined"
-      //                 value={name}
-      //                 onChange={(e) =>
-      //                   setTraveller({
-      //                     ...traveller,
-      //                     name: e.target.value,
-      //                   })
-      //                 }
-      //               />
-      //               <TextField
-      //                 label="Age"
-      //                 variant="outlined"
-      //                 value={age}
-      //                 type="number"
-      //                 onChange={(e) =>
-      //                   setTraveller({
-      //                     ...traveller,
-      //                     age: e.target.value,
-      //                   })
-      //                 }
-      //               />
-      //             </Box>
-      //             <FormControl
-      //               component="fieldset"
-      //               className="fileFormControll"
-      //             >
-      //               <FormLabel component="legend">Gender</FormLabel>
-      //               <RadioGroup
-      //                 row
-      //                 aria-label="gender"
-      //                 name="row-radio-buttons-group"
-      //                 value={gender}
-      //                 onChange={(e) =>
-      //                   setTraveller({
-      //                     ...traveller,
-      //                     gender: e.target.value,
-      //                   })
-      //                 }
-      //               >
-      //                 <FormControlLabel
-      //                   value="Male"
-      //                   control={<Radio />}
-      //                   label="Male"
-      //                 />
-      //                 <FormControlLabel
-      //                   value="Female"
-      //                   control={<Radio />}
-      //                   label="Female"
-      //                 />
-      //               </RadioGroup>
-      //             </FormControl>
-      //           </div>
-
-      //           <div>
-      //             {uploading && (
-      //               <div>
-      //                 <Box sx={{ width: "100%" }}>
-      //                   <LinearProgress
-      //                     variant="determinate"
-      //                     value={progress}
-      //                   />
-      //                 </Box>
-      //                 <h6>
-      //                   {progress > 0
-      //                     ? `Uploading ${progress} %`
-      //                     : "Uploading please wait..."}
-      //                 </h6>
-      //               </div>
-      //             )}
-      //           </div>
-
-      //           <div>
-      //             {destinationType == "Domestic" ? (
-      //               <div className="FileChange">
-      //                 <div>
-      //                   <div className="fileFlex">
-      //                     <label>Passport Size Photo +</label>
-      //                     {documents[0]?.fileName ? (
-      //                       <div>{documents[0]?.fileName}</div>
-      //                     ) : (
-      //                       <input
-      //                         type="file"
-      //                         onChange={(e) => {
-      //                           if (documents[0]?.fileName) {
-      //                             uploadFile(e, documents[0]?.fileId)
-      //                           } else {
-      //                             uploadFile(e, "")
-      //                           }
-      //                         }}
-      //                       />
-      //                     )}
-      //                   </div>
-      //                   <div claclassName="fileFlex">
-      //                     <label>Id Proof(aadhar/pan) +</label>
-      //                     {documents[1]?.fileName ? (
-      //                       <div>{documents[1]?.fileName}</div>
-      //                     ) : (
-      //                       <input
-      //                         type="file"
-      //                         onChange={(e) => {
-      //                           if (documents[1]?.fileName) {
-      //                             uploadFile(e, documents[1]?.fileId)
-      //                           } else {
-      //                             uploadFile(e, "")
-      //                           }
-      //                         }}
-      //                       />
-      //                     )}
-      //                   </div>
-      //                 </div>
-      //                 <div>
-      //                   {documents.length >= 2 && (
-      //                     <button
-      //                       className="ChangeFileBtn"
-      //                       onClick={() =>
-      //                         setTraveller({
-      //                           ...traveller,
-      //                           documents: [],
-      //                         })
-      //                       }
-      //                     >
-      //                       Change files
-      //                     </button>
-      //                   )}
-      //                 </div>
-      //               </div>
-      //             ) : (
-      //               <div className="FileChange">
-      //                 <div>
-      //                   <div className="fileFlex">
-      //                     <label>Passport +</label>
-      //                     {documents[0]?.fileName ? (
-      //                       <div>{documents[0]?.fileName}</div>
-      //                     ) : (
-      //                       <input
-      //                         type="file"
-      //                         onChange={(e) => {
-      //                           if (documents[0]?.fileName) {
-      //                             uploadFile(e, documents[0]?.fileId)
-      //                           } else {
-      //                             uploadFile(e, "")
-      //                           }
-      //                         }}
-      //                       />
-      //                     )}
-      //                   </div>
-      //                   <div className="fileFlex">
-      //                     <label>Passport Size Photo +</label>
-      //                     {documents[1]?.fileName ? (
-      //                       <div>{documents[1]?.fileName}</div>
-      //                     ) : (
-      //                       <input
-      //                         type="file"
-      //                         onChange={(e) => {
-      //                           if (documents[1]?.fileName) {
-      //                             uploadFile(e, documents[1]?.fileId)
-      //                           } else {
-      //                             uploadFile(e, "")
-      //                           }
-      //                         }}
-      //                       />
-      //                     )}
-      //                   </div>
-      //                   <div className="fileFlex">
-      //                     <label>Id Proof(aadhar/pan) +</label>
-      //                     {documents[2]?.fileName ? (
-      //                       <div>{documents[2]?.fileName}</div>
-      //                     ) : (
-      //                       <input
-      //                         type="file"
-      //                         onChange={(e) => {
-      //                           if (documents[2]?.fileName) {
-      //                             uploadFile(e, documents[2]?.fileId)
-      //                           } else {
-      //                             uploadFile(e, "")
-      //                           }
-      //                         }}
-      //                       />
-      //                     )}
-      //                   </div>
-      //                 </div>
-      //                 <div className="chngBtnFile">
-      //                   {documents.length >= 3 && (
-      //                     <button
-      //                       className="ChangeFileBtn"
-      //                       onClick={() =>
-      //                         setTraveller({
-      //                           ...traveller,
-      //                           documents: [],
-      //                         })
-      //                       }
-      //                     >
-      //                       Change files
-      //                     </button>
-      //                   )}
-      //                 </div>
-      //               </div>
-      //             )}
-      //           </div>
-      //           <div style={{ display: "flex", alignItems: "center" }}>
-      //             <button
-      //               onClick={() => {
-      //                 if (edit) {
-      //                   updateTraveller(traveller.id)
-      //                 } else {
-      //                   setOnBoardForm({
-      //                     ...onBoardForm,
-      //                     travellers: [...travellers, traveller],
-      //                   })
-      //                   setTraveller({
-      //                     id: uuidv4(),
-      //                     name: "",
-      //                     age: "",
-      //                     gender: "",
-      //                     documents: [],
-      //                   })
-      //                   // setOpenTravellerForm(false)
-      //                 }
-      //               }}
-      //               className={
-      //                 !name ||
-      //                 !age ||
-      //                 !gender ||
-      //                 (destinationType == "Domestic"
-      //                   ? documents.length < 2
-      //                   : documents.length < 3)
-      //                   ? "OnBoardSubmitDisable"
-      //                   : "OnBoardSubmit"
-      //               }
-      //               disabled={
-      //                 !name ||
-      //                 !age ||
-      //                 !gender ||
-      //                 (destinationType == "Domestic"
-      //                   ? documents.length < 2
-      //                   : documents.length < 3)
-      //               }
-      //             >
-      //               Save
-      //             </button>
-
-      //             <div className="onBoardFormButton">
-      //               {travelKey ? (
-      //                 <>
-      //                   {travellers.length !== 0 && (
-      //                     <button
-      //                       // disabled={update == false}
-      //                       // className={
-      //                       //   update == false ? "disableOnBoard" : "saveOnBoard"
-      //                       // }
-      //                       className="saveOnBoard"
-      //                       onClick={() => updateOnBoardForm()}
-      //                     >
-      //                       Update
-      //                     </button>
-      //                   )}
-      //                 </>
-      //               ) : (
-      //                 <>
-      //                   {travellers.length !== 0 && (
-      //                     <button
-      //                       // disabled={travellers.length == 0}
-      //                       // className={
-      //                       //   travellers.length == 0 ? "disableOnBoard" : "saveOnBoard"
-      //                       // }
-      //                       className="saveOnBoard"
-      //                       onClick={() => addOnBoardForm()}
-      //                     >
-      //                       Complete
-      //                     </button>
-      //                   )}
-      //                 </>
-      //               )}
-      //             </div>
-      //           </div>
-      //         </div>
-      //         {/* <div ref={messagesEndRef} /> */}
-      //       </div>
-      //     </div>
-      //   )
 
       default:
     }
@@ -1854,71 +1332,7 @@ const OnBoardForm = () => {
       <div className="onBoardFormHead">
         <h1 className="onBoardFormH1">On Board Form</h1>
       </div>
-      {/* <div className="onBoardFormButton">
-        {travelKey ? (
-          <button
-            disabled={update == false}
-            className={update == false ? "disableOnBoard" : "saveOnBoard"}
-            onClick={() => updateOnBoardForm()}
-          >
-            Update
-          </button>
-        ) : (
-          <button
-            disabled={travellers.length == 0}
-            className={
-              travellers.length == 0 ? "disableOnBoard" : "saveOnBoard"
-            }
-            onClick={() => addOnBoardForm()}
-          >
-            Save
-          </button>
-        )}
-      </div> */}
-
       <div>{renderForm()}</div>
-
-      {/* {travellers.length !== 0 && (
-        <div className="travelListField">
-          <FormControl sx={{ minWidth: 300 }}>
-            <InputLabel id="demo-simple-select-label">
-              Traveller List
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={person}
-              label="Traveller List"
-              onChange={(e) => setPerson(e.target.value)}
-            >
-              {travellers.map((persons) => {
-                return <MenuItem value={persons.name}>{persons.name}</MenuItem>
-              })}
-            </Select>
-          </FormControl>
-        </div>
-      )} */}
-
-      {/* <div className="addtravellerMB">
-        <button
-          onClick={() => {
-            setOpenTravellerForm(true)
-            setUpdate(true)
-            setEdit(false)
-            setTraveller({
-              id: uuidv4(),
-              name: "",
-              age: "",
-              gender: "",
-              documents: [],
-            })
-          }}
-          disabled={!address || !pincode}
-          className={!address || !pincode ? "disabletravelB" : "activetravelB"}
-        >
-          Add traveller
-        </button>
-      </div> */}
     </div>
   )
 }
