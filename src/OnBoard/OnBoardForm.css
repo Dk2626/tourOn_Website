@@ -133,8 +133,8 @@
   border-radius: 10px;
   margin: 10px;
   display: flex;
-  /* width: 28%; */
   justify-content: space-between;
+  align-items: center;
 }
 .travelListForm {
   display: flex;
@@ -152,7 +152,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 20px;
+  padding: 10px 14px;
   border-radius: 50%;
 }
 .travelIndexM {
@@ -428,15 +428,20 @@
   }
   .onBFMm1 {
     width: 90%;
-    height: 400px;
+    height: fit-content;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  .onBFM1 {
+    display: none;
+  }
+  .onBFM2 {
+    width: 100%;
   }
 }
 @media screen and (max-width: 768px) {
   .onBFMm {
     height: 500px;
-  }
-  .travelListFormInner {
-    width: 40%;
   }
 }
 @media screen and (max-width: 620px) {
@@ -447,9 +452,6 @@
     flex-direction: column;
     align-items: center;
   }
-  .travelListFormInner {
-    width: 50%;
-  }
 }
 @media screen and (max-width: 480px) {
   .fileFormTextBox {
@@ -458,21 +460,12 @@
   .fileFormControll {
     width: 220px;
   }
-  .travelListFormInner {
-    width: 70%;
-  }
-  .onBFM1 {
-    display: none;
-  }
 }
 @media screen and (max-width: 360px) {
   .onBoardFormH1 {
     font-size: 26px;
   }
-  .onBFMm1 {
-    height: 400px;
-    margin-bottom: 20px;
-  }
+
   .onBFullval label {
     font-size: 16px;
   }
@@ -490,9 +483,17 @@
   .docOnBoardA h5 {
     text-align: center;
   }
+  .travelListEditDel {
+    flex-direction: row;
+  }
+  .travelListEdit,
+  .travelListDel {
+    margin: 0px 5px;
+  }
 }
 @media screen and (max-width: 280px) {
-  .onBFMm {
+  .onBFMm,
+  .onBFMm1 {
     box-shadow: none;
   }
   .onBoardFormH1 {
@@ -504,13 +505,15 @@
   .travelListCNBody {
     width: 130px;
   }
-  .travelListFormInner {
-    width: 90%;
-  }
   .prevOnBoard {
     padding: 7px 10px;
   }
   .OnBFval {
     width: 260px;
+  }
+  .fileFlex {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }

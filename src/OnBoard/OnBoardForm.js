@@ -51,6 +51,58 @@ const OnBoardForm = () => {
     //       },
     //     ],
     //   },
+    //   {
+    //     id: "123",
+    //     name: "Dinesh",
+    //     age: "23",
+    //     gender: "Male",
+    //     documents: [
+    //       {
+    //         fileId: "234",
+    //         fileName: "dk.jpg",
+    //         fileUrl: "https",
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: "123",
+    //     name: "Dinesh",
+    //     age: "23",
+    //     gender: "Male",
+    //     documents: [
+    //       {
+    //         fileId: "234",
+    //         fileName: "dk.jpg",
+    //         fileUrl: "https",
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: "123",
+    //     name: "Dinesh",
+    //     age: "23",
+    //     gender: "Male",
+    //     documents: [
+    //       {
+    //         fileId: "234",
+    //         fileName: "dk.jpg",
+    //         fileUrl: "https",
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: "123",
+    //     name: "Dinesh",
+    //     age: "23",
+    //     gender: "Male",
+    //     documents: [
+    //       {
+    //         fileId: "234",
+    //         fileName: "dk.jpg",
+    //         fileUrl: "https",
+    //       },
+    //     ],
+    //   },
     // ],
     travellers: [],
     childrens: [],
@@ -324,7 +376,8 @@ const OnBoardForm = () => {
           adults: "",
           childs: "",
         })
-        history.goBack()
+        // history.goBack()
+        history.push("/")
       })
       .catch((error) => console.log(error))
   }
@@ -363,7 +416,8 @@ const OnBoardForm = () => {
           adults: "",
           childs: "",
         })
-        history.goBack()
+        // history.goBack()
+        history.push("/")
       })
       .catch((error) => console.log(error))
   }
@@ -559,6 +613,7 @@ const OnBoardForm = () => {
               <label>Name</label>
               <input
                 type="text"
+                placeholder="Ex: John"
                 value={name}
                 onChange={(e) =>
                   setTraveller({
@@ -572,6 +627,7 @@ const OnBoardForm = () => {
               <label>Age</label>
               <input
                 type="number"
+                placeholder="Ex: 18 & Above"
                 value={age}
                 onChange={(e) =>
                   setTraveller({
@@ -875,6 +931,7 @@ const OnBoardForm = () => {
               <label>Name</label>
               <input
                 type="text"
+                placeholder="Ex: John"
                 value={namec}
                 onChange={(e) =>
                   setChildren({
@@ -888,6 +945,7 @@ const OnBoardForm = () => {
               <label>Age</label>
               <input
                 type="number"
+                placeholder="Below 18"
                 value={agec}
                 onChange={(e) =>
                   setChildren({
@@ -1181,6 +1239,7 @@ const OnBoardForm = () => {
               <label>Address</label>
               <input
                 type="text"
+                placeholder="Ex: Door no, Area, Street, City"
                 value={address}
                 onChange={(e) =>
                   setOnBoardForm({
@@ -1194,6 +1253,7 @@ const OnBoardForm = () => {
               <label>Pincode</label>
               <input
                 type="number"
+                placeholder="Ex: 600028"
                 value={pincode}
                 onChange={(e) =>
                   setOnBoardForm({
