@@ -1,127 +1,127 @@
-import React, { useState, useEffect } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import "./Adminusers.css";
-import { HiCheck, HiPencilAlt, HiTrash, HiX } from "react-icons/hi";
-import { AiOutlinePlus } from "react-icons/ai";
-import { ErrorMessage, Field, Formik } from "formik";
-import * as Yup from "yup";
-import { firedb } from "../firebase";
-import { useToasts } from "react-toast-notifications";
+import React, { useState, useEffect } from "react"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
+import "./Adminusers.css"
+import { HiCheck, HiPencilAlt, HiTrash, HiX } from "react-icons/hi"
+import { AiOutlinePlus } from "react-icons/ai"
+import { ErrorMessage, Field, Formik } from "formik"
+import * as Yup from "yup"
+import { firedb } from "../firebase"
+import { useToasts } from "react-toast-notifications"
 
 const Adminusers = () => {
-  const { addToast } = useToasts();
-  const [modal, setModal] = useState(true);
-  const [desig, setDesig] = useState("");
-  const closeModal = () => setModal(false);
-  const openModal = () => setModal(true);
-  const [delModal, setDelModal] = useState(false);
-  const closeDelModal = () => setDelModal(false);
-  const openDelModal = () => setDelModal(true);
-  const [employees, setEmployees] = useState({});
-  const [edit, setEdit] = useState(false);
-  const [designations, setDesignations] = useState({});
-  const [empId, setEmpId] = useState("");
+  const { addToast } = useToasts()
+  const [modal, setModal] = useState(false)
+  const [desig, setDesig] = useState("")
+  const closeModal = () => setModal(false)
+  const openModal = () => setModal(true)
+  const [delModal, setDelModal] = useState(false)
+  const closeDelModal = () => setDelModal(false)
+  const openDelModal = () => setDelModal(true)
+  const [employees, setEmployees] = useState({})
+  const [edit, setEdit] = useState(false)
+  const [designations, setDesignations] = useState({})
+  const [empId, setEmpId] = useState("")
   const [prevValues, setPrevValues] = useState({
     prevName: "",
     prevEmail: "",
     prevDesignation: "",
     prevIsAdmin: false,
-  });
-  const [openDes, setOpenDes] = useState(false);
+  })
+  const [openDes, setOpenDes] = useState(false)
 
-  const { prevName, prevDesignation, prevEmail, prevIsAdmin } = prevValues;
+  const { prevName, prevDesignation, prevEmail, prevIsAdmin } = prevValues
 
   const initialValues = {
     name: edit ? prevName : "",
     email: edit ? prevEmail : "",
     designation: edit ? prevDesignation : "",
     isAdmin: edit ? prevIsAdmin : false,
-  };
+  }
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Required!"),
     email: Yup.string().email("Invalid Email").required("Required!"),
     designation: Yup.string().required("Required"),
     isAdmin: Yup.boolean(),
-  });
+  })
 
   const onSubmit = (values) => {
     if (edit) {
-      updateEmployee(values);
+      updateEmployee(values)
     } else {
-      addEmployee(values);
+      addEmployee(values)
     }
-  };
+  }
 
   const addEmployee = (values) => {
     firedb
       .ref("employeeDetail")
       .push(values)
       .then(() => {
-        setModal(false);
+        setModal(false)
         addToast("Employee added successfully", {
           appearance: "success",
-        });
+        })
       })
       .catch((err) => {
-        console.log("err", err);
-      });
-  };
+        console.log("err", err)
+      })
+  }
 
   const updateEmployee = (values) => {
     firedb
       .ref(`employeeDetail/${empId}`)
       .set(values)
       .then(() => {
-        setModal(false);
-        setEdit(false);
-        setEmpId("");
+        setModal(false)
+        setEdit(false)
+        setEmpId("")
         addToast("Employee updated successfully", {
           appearance: "info",
-        });
+        })
       })
       .catch((err) => {
-        console.log("err", err);
-      });
-  };
+        console.log("err", err)
+      })
+  }
 
   const deleteEmployee = () => {
     firedb
       .ref(`employeeDetail/${empId}`)
       .remove()
       .then(() => {
-        setDelModal(false);
-        setEmpId("");
+        setDelModal(false)
+        setEmpId("")
         addToast("Employee deleted successfully", {
           appearance: "error",
-        });
+        })
       })
       .catch((err) => {
-        console.log("err", err);
-      });
-  };
+        console.log("err", err)
+      })
+  }
 
   const getEmployee = () => {
     firedb.ref("employeeDetail").on("value", (snapshot) => {
       if (snapshot.val() != null)
         setEmployees({
           ...snapshot.val(),
-        });
-    });
-  };
+        })
+    })
+  }
   const getDesignations = () => {
     firedb.ref("designations").on("value", (snapshot) => {
       if (snapshot.val() != null)
         setDesignations({
           ...snapshot.val(),
-        });
-    });
-  };
+        })
+    })
+  }
 
   useEffect(() => {
-    getEmployee();
-    getDesignations();
-  }, []);
+    getEmployee()
+    getDesignations()
+  }, [])
 
   const desg = [
     "CEO",
@@ -129,7 +129,7 @@ const Adminusers = () => {
     "Travel Associate",
     "Travel Consultant",
     "Junior Software Engg",
-  ];
+  ]
 
   const addDesignation = () => {
     firedb
@@ -138,12 +138,12 @@ const Adminusers = () => {
       .then(() => {
         addToast("Designations added successfully", {
           appearance: "success",
-        });
+        })
       })
       .catch((err) => {
-        console.log("err", err);
-      });
-  };
+        console.log("err", err)
+      })
+  }
   return (
     <>
       <Modal isOpen={delModal}>
@@ -191,7 +191,7 @@ const Adminusers = () => {
                             <div className="errMsg">
                               <h6>{msg}</h6>
                             </div>
-                          );
+                          )
                         }}
                       </ErrorMessage>
                     </div>
@@ -204,7 +204,7 @@ const Adminusers = () => {
                             <div className="errMsg">
                               <h6>{msg}</h6>
                             </div>
-                          );
+                          )
                         }}
                       </ErrorMessage>
                     </div>
@@ -247,7 +247,7 @@ const Adminusers = () => {
                             <div className="errMsg">
                               <h6>{msg}</h6>
                             </div>
-                          );
+                          )
                         }}
                       </ErrorMessage>
                       {openDes && (
@@ -292,7 +292,7 @@ const Adminusers = () => {
                   )}
                 </ModalFooter>
               </>
-            );
+            )
           }}
         </Formik>
       </Modal>
@@ -357,10 +357,10 @@ const Adminusers = () => {
                             prevEmail: employees[emp].email,
                             prevDesignation: employees[emp].designation,
                             prevIsAdmin: employees[emp].isAdmin,
-                          });
-                          setEmpId(emp);
-                          setEdit(true);
-                          openModal();
+                          })
+                          setEmpId(emp)
+                          setEdit(true)
+                          openModal()
                         }}
                       />
                       <HiTrash
@@ -370,20 +370,20 @@ const Adminusers = () => {
                           cursor: "pointer",
                         }}
                         onClick={() => {
-                          setEmpId(emp);
-                          openDelModal();
+                          setEmpId(emp)
+                          openDelModal()
                         }}
                       />
                     </div>
                   </h5>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Adminusers;
+export default Adminusers
