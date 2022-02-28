@@ -343,6 +343,26 @@ const OnBoardForm = () => {
       .catch((error) => console.log(error))
   }
 
+  const onboardReport = () => {
+    firedb
+      .ref(`onBoardReport`)
+      .push({
+        name: names,
+        email: emails,
+        destination: dest,
+        destinationType: type,
+        onwardDate: onward,
+        returnDate: returns,
+        bookingValue: bv,
+        adults: adult,
+        childs: child,
+      })
+      .then(() => {
+        setReportModal(true)
+      })
+      .catch((error) => console.log(error))
+  }
+
   const getTravellers = () => {
     firedb.ref(`/onBoard`).on("value", (data) => {
       if (data) {
@@ -1309,10 +1329,7 @@ const OnBoardForm = () => {
                 >
                   Verify
                 </button>
-                <button
-                  className="rptOnBoard"
-                  onClick={() => setReportModal(true)}
-                >
+                <button className="rptOnBoard" onClick={() => onboardReport()}>
                   Report
                 </button>
               </div>
@@ -1358,7 +1375,7 @@ const OnBoardForm = () => {
   }
 
   return (
-    <div>
+    <div className="onBoardFormHeadMain">
       <div className="onBoardFormHead">
         <h1 className="onBoardFormH1">On Board Form</h1>
       </div>

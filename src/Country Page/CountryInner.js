@@ -1,66 +1,66 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useParams, NavLink } from "react-router-dom";
-import "./CountryInner.css";
-import axios from "axios";
-import { API } from "../backend";
-import SimilarTour from "./SimilarTour";
-import { ApiContext } from "../Context/ApiContext";
-import Slider from "react-slick";
-import { Link } from "react-scroll";
-import { SemipolarLoading } from "react-loadingg";
-import { Form } from "reactstrap";
-import { AiOutlineUserAdd, AiOutlineWhatsApp } from "react-icons/ai";
-import { FaCity, FaRegMoneyBillAlt } from "react-icons/fa";
-import { GiPerson, GiCalendar } from "react-icons/gi";
-import { MdDateRange } from "react-icons/md";
-import { HiOutlineCalendar } from "react-icons/hi";
-import { RiCalendar2Line } from "react-icons/ri";
-import { BiDuplicate } from "react-icons/bi";
-import DatePicker from "react-datepicker";
-import { isAuthenticated } from "../Login components/auth";
-import { firedb } from "../firebase";
-import Modals from "./../Tour Categories/Modal";
-import { useToasts } from "react-toast-notifications";
-import TourCountryTestimonials from "../TourCountryTestimonials/TourCountryTestimonials";
-import Navbar from "../Home components/Navbar/Navbar";
-import Footer from "../Home components/Footer/Footer";
-import moment from "moment";
+import React, { useEffect, useState, useContext } from "react"
+import { useParams, NavLink } from "react-router-dom"
+import "./CountryInner.css"
+import axios from "axios"
+import { API } from "../backend"
+import SimilarTour from "./SimilarTour"
+import { ApiContext } from "../Context/ApiContext"
+import Slider from "react-slick"
+import { Link } from "react-scroll"
+import { SemipolarLoading } from "react-loadingg"
+import { Form } from "reactstrap"
+import { AiOutlineUserAdd, AiOutlineWhatsApp } from "react-icons/ai"
+import { FaCity, FaRegMoneyBillAlt } from "react-icons/fa"
+import { GiPerson, GiCalendar } from "react-icons/gi"
+import { MdDateRange } from "react-icons/md"
+import { HiOutlineCalendar } from "react-icons/hi"
+import { RiCalendar2Line } from "react-icons/ri"
+import { BiDuplicate } from "react-icons/bi"
+import DatePicker from "react-datepicker"
+import { isAuthenticated } from "../Login components/auth"
+import { firedb } from "../firebase"
+import Modals from "./../Tour Categories/Modal"
+import { useToasts } from "react-toast-notifications"
+import TourCountryTestimonials from "../TourCountryTestimonials/TourCountryTestimonials"
+import Navbar from "../Home components/Navbar/Navbar"
+import Footer from "../Home components/Footer/Footer"
+import moment from "moment"
 
 const CountryInner = () => {
-  const { addToast } = useToasts();
-  const [testimonials, setTestimonials] = useState([]);
-  const { countryname } = useParams();
-  const { countries } = useContext(ApiContext);
-  const [countryDetails, setCountryDetails] = useState({});
-  const [tourDetails, setTourDetails] = useState([]);
-  const [cityDetails, setCityDetails] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedTour, setSelectedTour] = useState("");
-  const [countryLoaded, setCountryLoaded] = useState(false);
-  const [dateModel, setDateModel] = useState(false);
-  const [personsModel, setPersonsModel] = useState(false);
-  const [adult, setAdult] = useState(0);
-  const [children, setChildren] = useState(0);
-  const [toggleInfo, setToggleInfo] = useState("Flexible");
-  const [tourCategories, setTourCategories] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [departure, setDeparture] = useState("");
-  const [date, setDate] = useState();
-  const [month, setMonth] = useState();
-  const [budget, setBudget] = useState("");
-  const [year, setYear] = useState();
-  const { user } = isAuthenticated();
-  let random;
-  let formatedMonth;
-  const [startDate, setStartDate] = useState("");
-  const [week, setWeek] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const { addToast } = useToasts()
+  const [testimonials, setTestimonials] = useState([])
+  const { countryname } = useParams()
+  const { countries } = useContext(ApiContext)
+  const [countryDetails, setCountryDetails] = useState({})
+  const [tourDetails, setTourDetails] = useState([])
+  const [cityDetails, setCityDetails] = useState([])
+  const [selectedCity, setSelectedCity] = useState("")
+  const [selectedTour, setSelectedTour] = useState("")
+  const [countryLoaded, setCountryLoaded] = useState(false)
+  const [dateModel, setDateModel] = useState(false)
+  const [personsModel, setPersonsModel] = useState(false)
+  const [adult, setAdult] = useState(0)
+  const [children, setChildren] = useState(0)
+  const [toggleInfo, setToggleInfo] = useState("Flexible")
+  const [tourCategories, setTourCategories] = useState("")
+  const [name, setName] = useState("")
+  const [number, setNumber] = useState("")
+  const [departure, setDeparture] = useState("")
+  const [date, setDate] = useState()
+  const [month, setMonth] = useState()
+  const [budget, setBudget] = useState("")
+  const [year, setYear] = useState()
+  const { user } = isAuthenticated()
+  let random
+  let formatedMonth
+  const [startDate, setStartDate] = useState("")
+  const [week, setWeek] = useState("")
+  const [modalIsOpen, setIsOpen] = useState(false)
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true)
   }
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
 
   const submitData = (e) => {
@@ -87,7 +87,7 @@ const CountryInner = () => {
       tourCategory: tourCategories,
       requestDate: new Date().toDateString(),
       receivedFrom: "Website",
-    };
+    }
 
     if (name !== "" && number !== "" && departure !== "") {
       firedb
@@ -96,50 +96,50 @@ const CountryInner = () => {
         .then((data) => {
           addToast("Submitted Successfully", {
             appearance: "success",
-          });
+          })
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) => console.log("err", err))
     } else {
       addToast("All fields Required", {
         appearance: "error",
-      });
+      })
     }
-  };
+  }
 
   const getCurrentUserData = () => {
     firedb.ref(`userGeneralInfo/${user.uid}`).on("value", (data) => {
       if (data !== null) {
-        let val = data.val();
-        setName(val.name);
-        setNumber(val.phoneNumber);
+        let val = data.val()
+        setName(val.name)
+        setNumber(val.phoneNumber)
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     if (user) {
-      getCurrentUserData();
+      getCurrentUserData()
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    random = Math.floor((Math.random() + 4) * 345334);
-    const requestDate = new Date();
-    let currentYear = requestDate.getFullYear();
-    setMonth(requestDate.getMonth() + 1);
-    setDate(requestDate.getDate());
-    setYear(currentYear.toString().slice(2, 4));
-    formatedMonth = month < 10 ? "0" + month : month;
-  });
+    random = Math.floor((Math.random() + 4) * 345334)
+    const requestDate = new Date()
+    let currentYear = requestDate.getFullYear()
+    setMonth(requestDate.getMonth() + 1)
+    setDate(requestDate.getDate())
+    setYear(currentYear.toString().slice(2, 4))
+    formatedMonth = month < 10 ? "0" + month : month
+  })
 
   const openDateModel = () => {
-    setDateModel(!dateModel);
-  };
+    setDateModel(!dateModel)
+  }
 
   const openPersonsModel = () => {
-    setPersonsModel(!personsModel);
-    setDateModel(false);
-  };
+    setPersonsModel(!personsModel)
+    setDateModel(false)
+  }
 
   const months = [
     "Jan",
@@ -154,76 +154,76 @@ const CountryInner = () => {
     "Oct",
     "Nov",
     "Dec",
-  ];
+  ]
 
-  const weeks = ["1st week", "2nd week", "3rd week", "4th week"];
+  const weeks = ["1st week", "2nd week", "3rd week", "4th week"]
 
   var sectionStyle = {
     backgroundImage: `url(${countryDetails.imageUrl})`,
-  };
+  }
 
   const getCountries = async () => {
-    setCountryLoaded(true);
+    setCountryLoaded(true)
     try {
-      const countryResponse = await axios.get(`${API}/country/${countryname}`);
-      setCountryDetails(countryResponse.data[0]);
-      setCountryLoaded(false);
+      const countryResponse = await axios.get(`${API}/country/${countryname}`)
+      setCountryDetails(countryResponse.data[0])
+      setCountryLoaded(false)
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, "err")
     }
-  };
+  }
   const getCities = async () => {
     try {
       const cityResponse = await axios.get(
         `${API}/city/countryname/${countryname}`
-      );
-      setCityDetails(cityResponse.data);
+      )
+      setCityDetails(cityResponse.data)
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, "err")
     }
-  };
+  }
   const getTours = async () => {
     try {
       const tourResponse = await axios.get(
         `${API}/tour/countryname/${countryname}`
-      );
-      setTourDetails(tourResponse.data);
+      )
+      setTourDetails(tourResponse.data)
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, "err")
     }
-  };
+  }
   const getTestimonial = () => {
     firedb.ref("testimonials").on("value", (data) => {
       if (data !== null) {
-        let req = [];
+        let req = []
         data.forEach((d) => {
-          if (d.val().tourPlace === countryname) req.push(d.val());
-        });
-        setTestimonials(req);
+          if (d.val().tourPlace === countryname) req.push(d.val())
+        })
+        setTestimonials(req)
       }
-    });
-  };
+    })
+  }
 
   const getFirstCityName = () => {
     setTimeout(() => {
       if (cityDetails.length > 0 && selectedCity === "") {
-        setSelectedCity(cityDetails[0].cityName);
+        setSelectedCity(cityDetails[0].cityName)
       }
-    }, 2000);
-  };
-  getFirstCityName();
+    }, 2000)
+  }
+  getFirstCityName()
   useEffect(() => {
-    getCountries();
-  }, [countryname]);
+    getCountries()
+  }, [countryname])
   useEffect(() => {
-    getCities();
-  }, [countryname]);
+    getCities()
+  }, [countryname])
   useEffect(() => {
-    getTours();
-  }, []);
+    getTours()
+  }, [])
   useEffect(() => {
-    getTestimonial();
-  }, []);
+    getTestimonial()
+  }, [])
 
   // const filterC = () => {
   //   const filterCountry = testimonials.filter((c) => {
@@ -293,7 +293,7 @@ const CountryInner = () => {
         },
       },
     ],
-  };
+  }
   return (
     <>
       <Navbar />
@@ -474,9 +474,9 @@ const CountryInner = () => {
                         required
                         onChange={(e) => {
                           if (isAuthenticated()) {
-                            setName(e.target.value);
+                            setName(e.target.value)
                           } else {
-                            return openModal();
+                            return openModal()
                           }
                         }}
                         value={name}
@@ -485,17 +485,18 @@ const CountryInner = () => {
                     <div className="countryInner_no">
                       <AiOutlineWhatsApp className="countryInner_i" />
                       <input
-                        type="number"
+                        type="text"
                         placeholder="Whatsapp no."
                         required
                         onChange={(e) => {
                           if (isAuthenticated()) {
-                            setNumber(e.target.value);
+                            setNumber(e.target.value)
                           } else {
-                            return openModal();
+                            return openModal()
                           }
                         }}
                         value={number}
+                        maxLength="10"
                       />
                     </div>
                     <div className="countryInner_mail">
@@ -506,9 +507,9 @@ const CountryInner = () => {
                         required
                         onChange={(e) => {
                           if (isAuthenticated()) {
-                            setDeparture(e.target.value);
+                            setDeparture(e.target.value)
                           } else {
-                            return openModal();
+                            return openModal()
                           }
                         }}
                         value={departure}
@@ -546,7 +547,7 @@ const CountryInner = () => {
                             <div
                               className="adult-sub"
                               onClick={() => {
-                                if (adult !== 0) setAdult(adult - 1);
+                                if (adult !== 0) setAdult(adult - 1)
                               }}
                             >
                               -
@@ -555,7 +556,7 @@ const CountryInner = () => {
                             <div
                               className="adult-add"
                               onClick={() => {
-                                setAdult(adult + 1);
+                                setAdult(adult + 1)
                               }}
                             >
                               +
@@ -568,7 +569,7 @@ const CountryInner = () => {
                             <div
                               className="child-sub"
                               onClick={() => {
-                                if (children !== 0) setChildren(children - 1);
+                                if (children !== 0) setChildren(children - 1)
                               }}
                             >
                               -
@@ -580,7 +581,7 @@ const CountryInner = () => {
                               <div
                                 className="child-add"
                                 onClick={() => {
-                                  setChildren(children + 1);
+                                  setChildren(children + 1)
                                 }}
                               >
                                 +
@@ -628,7 +629,7 @@ const CountryInner = () => {
                         <div className="countryInner-date-model-cat">
                           <div
                             onClick={() => {
-                              setToggleInfo("Flexible");
+                              setToggleInfo("Flexible")
                             }}
                             className={
                               toggleInfo === "Flexible"
@@ -640,7 +641,7 @@ const CountryInner = () => {
                           </div>
                           <div
                             onClick={() => {
-                              setToggleInfo("Fixed");
+                              setToggleInfo("Fixed")
                             }}
                             className={
                               toggleInfo === "Fixed"
@@ -724,7 +725,7 @@ const CountryInner = () => {
                                   .format("YYYY-MM-DD")}
                                 onChange={(e) => {
                                   // const d = date.toDateString();
-                                  setStartDate(e.target.value);
+                                  setStartDate(e.target.value)
                                 }}
                                 data-date-inline-picker="true"
                               />
@@ -748,7 +749,7 @@ const CountryInner = () => {
                       <select
                         required
                         onChange={(e) => {
-                          setTourCategories(e.target.value);
+                          setTourCategories(e.target.value)
                         }}
                       >
                         <option value="" disabled selected hidden>
@@ -769,7 +770,7 @@ const CountryInner = () => {
                           placeholder="Budget"
                           required
                           onChange={(e) => {
-                            setBudget(e.target.value);
+                            setBudget(e.target.value)
                           }}
                           value={budget}
                         />
@@ -781,7 +782,7 @@ const CountryInner = () => {
                               placeholder="Budget - Min.75000"
                               required
                               onChange={(e) => {
-                                setBudget(e.target.value);
+                                setBudget(e.target.value)
                               }}
                               value={budget}
                             />
@@ -793,7 +794,7 @@ const CountryInner = () => {
                                   placeholder="Budget - Min.20000"
                                   required
                                   onChange={(e) => {
-                                    setBudget(e.target.value);
+                                    setBudget(e.target.value)
                                   }}
                                   value={budget}
                                 />
@@ -803,7 +804,7 @@ const CountryInner = () => {
                                   placeholder="Budget - Min.40000"
                                   required
                                   onChange={(e) => {
-                                    setBudget(e.target.value);
+                                    setBudget(e.target.value)
                                   }}
                                   value={budget}
                                 />
@@ -822,7 +823,7 @@ const CountryInner = () => {
                             className="countryInner_button"
                             onClick={(e) => {
                               if (isAuthenticated()) {
-                                submitData(e);
+                                submitData(e)
                               }
                             }}
                           >
@@ -843,7 +844,7 @@ const CountryInner = () => {
                                 className="countryInner_button"
                                 onClick={(e) => {
                                   if (isAuthenticated()) {
-                                    submitData(e);
+                                    submitData(e)
                                   }
                                 }}
                               >
@@ -865,7 +866,7 @@ const CountryInner = () => {
                                     className="countryInner_button"
                                     onClick={(e) => {
                                       if (isAuthenticated()) {
-                                        submitData(e);
+                                        submitData(e)
                                       }
                                     }}
                                   >
@@ -932,7 +933,7 @@ const CountryInner = () => {
                         {city.cityName}
                       </div>
                     </div>
-                  );
+                  )
                 })}
               </div>
               <div className="highlights_about">
@@ -943,7 +944,7 @@ const CountryInner = () => {
                         <h2>{city.cityName}</h2>
                         <p>{city.aboutCity}</p>
                       </div>
-                    );
+                    )
                 })}
               </div>
             </div>
@@ -981,7 +982,7 @@ const CountryInner = () => {
                           {country.countryName}
                         </div>
                       </div>
-                    );
+                    )
                 })}
               </Slider>
             </div>
@@ -991,7 +992,7 @@ const CountryInner = () => {
       </div>
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default CountryInner;
+export default CountryInner

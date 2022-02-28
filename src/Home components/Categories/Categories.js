@@ -1,12 +1,12 @@
-import React from "react";
-import "./Categories.css";
-import { Link } from "react-router-dom";
-import Plan from "../../assests/Category/Plan.jpg";
-import Lux from "../../assests/Category/Lux.jpg";
-import Hon from "../../assests/Category/Hon.jpg";
-import Road from "../../assests/Category/Road.jpg";
-import Sur from "../../assests/Category/Sur.jpg";
-import Wild from "../../assests/Category/Wild.jpg";
+import React from "react"
+import "./Categories.css"
+import { Link } from "react-router-dom"
+import Plan from "../../assests/Category/Plan.jpg"
+import Lux from "../../assests/Category/Lux.jpg"
+import Hon from "../../assests/Category/Hon.jpg"
+import Road from "../../assests/Category/Road.jpg"
+import Sur from "../../assests/Category/Sur.jpg"
+import Wild from "../../assests/Category/Wild.jpg"
 
 export default function Categories() {
   const categories = [
@@ -25,11 +25,11 @@ export default function Categories() {
       route: "/planned-tour",
       image: Plan,
     },
-    {
-      name: "Surprise Tour",
-      route: "/surprise-tour",
-      image: Sur,
-    },
+    // {
+    //   name: "Surprise Tour",
+    //   route: "/surprise-tour",
+    //   image: Sur,
+    // },
     {
       name: "Wildlife",
       route: "/wildlife-tour",
@@ -40,7 +40,7 @@ export default function Categories() {
       route: "/roadtrip-tour",
       image: Road,
     },
-  ];
+  ]
   return (
     <div className="categories">
       {categories.map((c, index) => (
@@ -54,5 +54,5 @@ export default function Categories() {
         </Link>
       ))}
     </div>
-  );
+  )
 }
