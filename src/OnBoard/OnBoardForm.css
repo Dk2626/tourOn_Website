@@ -208,6 +208,12 @@
   display: flex;
   align-items: center;
 }
+.FileChangeStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .chngBtnFile {
   margin-left: 10px;
 }
@@ -318,6 +324,7 @@
   color: white;
   padding: 5px;
   width: 120px;
+  height: 33px;
   font-family: "Andika";
   cursor: pointer;
   border-radius: 10px;
@@ -366,6 +373,7 @@
   margin-left: 5px;
   margin-right: 10px;
   font-family: "Andika";
+  font-size: 16px;
 }
 .onBGL-radio {
   height: 20px;
@@ -420,6 +428,91 @@
   padding: 5px 15px;
   border-radius: 10px;
 }
+.onboardReportModal {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  animation: popupSlow 0.3s ease-out;
+}
+.onboardReportModalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 50%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.onboardReportModalContentInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.onboardReportModalContentInner h5 {
+  font-family: "Andika";
+  margin: 10px 0px;
+}
+.onboardReportModalContentInner button {
+  border: none;
+  outline: none;
+  background-color: #472ecd;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-family: "Andika";
+  margin-top: 10px;
+}
+.onboardReportModalClose {
+  cursor: pointer;
+  text-align: end;
+  font-size: 25px;
+  margin-right: 10px;
+}
+.caseMainss {
+  position: relative;
+}
+.caseMainss1 {
+  position: absolute;
+  top: -157px;
+  right: -144px;
+}
+.caseMainss2 {
+  position: absolute;
+  top: -57px;
+  right: -144px;
+}
+.caseMainss3 {
+  position: absolute;
+  top: -117px;
+  right: -77px;
+}
+.prevBtns {
+  border: none;
+  outline: none;
+  background-color: #472ecd;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+.canBtns {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  background-color: #d82e2f;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
 @media screen and (max-width: 1024px) {
   .onBFMm {
     width: 90%;
@@ -437,6 +530,14 @@
   }
   .onBFM2 {
     width: 100%;
+  }
+  .caseMainss1,
+  .caseMainss2,
+  .caseMainss3 {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -462,6 +563,10 @@
   }
 }
 @media screen and (max-width: 360px) {
+  .onBFMm,
+  .onBFMm1 {
+    box-shadow: none;
+  }
   .onBoardFormH1 {
     font-size: 26px;
   }
@@ -472,7 +577,9 @@
   .OnBFval {
     font-size: 15px;
   }
-
+  .onBGL-label {
+    font-size: 15px;
+  }
   .onBDocInput label,
   .fileflexLab {
     font-size: 16px;
@@ -492,10 +599,6 @@
   }
 }
 @media screen and (max-width: 280px) {
-  .onBFMm,
-  .onBFMm1 {
-    box-shadow: none;
-  }
   .onBoardFormH1 {
     font-size: 25px;
   }
@@ -515,5 +618,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .docOnBoardA h5 {
+    width: 150px;
   }
 }

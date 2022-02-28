@@ -177,7 +177,7 @@
 @media screen and (max-width: 480px) {
   .upcoimgInnerContentMain,
   .completedInnerContentMain {
-    width: 450px;
+    width: 350px;
   }
   .onBoardListH1 {
     font-size: 27px;
@@ -189,16 +189,6 @@
   .upcoimgInnerContentMain,
   .completedInnerContentMain {
     padding: 15px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .scroll-containerr {
-    height: 190px;
-  }
-  .upcoimgInnerContentMain,
-  .completedInnerContentMain {
-    width: 320px;
   }
   .upcoimgInnerContent,
   .completedInnerContent {
@@ -214,6 +204,17 @@
     flex-direction: row;
     width: 100%;
   }
+}
+
+@media screen and (max-width: 360px) {
+  .scroll-containerr {
+    height: 190px;
+  }
+  .upcoimgInnerContentMain,
+  .completedInnerContentMain {
+    width: 320px;
+  }
+
   .onBoardImg img {
     width: 300px;
     height: 320px;

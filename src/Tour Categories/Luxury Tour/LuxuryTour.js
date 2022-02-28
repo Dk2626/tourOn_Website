@@ -20,7 +20,6 @@ import Ack from "../../assests/1.png"
 import Luxury from "../../assests/Category/Lux.jpg"
 import moment from "moment"
 
-
 const LuxuryTour = () => {
   const [subLoaded, setSubLoaded] = useState(false)
 

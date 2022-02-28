@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import "./Checkout.css";
-import "./Destination.css";
-import { Ripple } from "react-spinners-css";
-import { firedb } from "../../firebase";
-import { isAuthenticated } from "../../Login components/auth";
+import React, { useEffect } from "react"
+import "./Checkout.css"
+import "./Destination.css"
+import { Ripple } from "react-spinners-css"
+import { firedb } from "../../firebase"
+import { isAuthenticated } from "../../Login components/auth"
 
 const Checkout = ({
   setName,
@@ -18,20 +18,20 @@ const Checkout = ({
   tourCategory,
   tourType,
 }) => {
-  const { user } = isAuthenticated();
+  const { user } = isAuthenticated()
   const getCurrentUserData = () => {
     firedb.ref(`userGeneralInfo/${user.uid}`).on("value", (data) => {
       if (data !== null) {
-        let val = data.val();
-        setName(val.name);
-        setNumber(val.phoneNumber);
+        let val = data.val()
+        setName(val.name)
+        setNumber(val.phoneNumber)
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
-    getCurrentUserData();
-  }, []);
+    getCurrentUserData()
+  }, [])
 
   return (
     <div className="destination-container">
@@ -42,7 +42,7 @@ const Checkout = ({
           <input
             type="text"
             onChange={(e) => {
-              setName(e.target.value);
+              setName(e.target.value)
             }}
             value={name}
           />
@@ -56,7 +56,7 @@ const Checkout = ({
                   type="number"
                   placeholder="Minimum Rs.50000"
                   onChange={(e) => {
-                    setBudget(e.target.value);
+                    setBudget(e.target.value)
                   }}
                   value={budget}
                 />
@@ -65,7 +65,7 @@ const Checkout = ({
                   type="number"
                   placeholder="Minimum Rs.75000"
                   onChange={(e) => {
-                    setBudget(e.target.value);
+                    setBudget(e.target.value)
                   }}
                   value={budget}
                 />
@@ -78,7 +78,7 @@ const Checkout = ({
                   type="number"
                   placeholder="Minimum Rs.10000"
                   onChange={(e) => {
-                    setBudget(e.target.value);
+                    setBudget(e.target.value)
                   }}
                   value={budget}
                 />
@@ -90,7 +90,7 @@ const Checkout = ({
                       type="number"
                       placeholder="Minimum Rs.20000"
                       onChange={(e) => {
-                        setBudget(e.target.value);
+                        setBudget(e.target.value)
                       }}
                       value={budget}
                     />
@@ -99,7 +99,7 @@ const Checkout = ({
                       type="number"
                       placeholder="Minimum Rs.40000"
                       onChange={(e) => {
-                        setBudget(e.target.value);
+                        setBudget(e.target.value)
                       }}
                       value={budget}
                     />
@@ -112,11 +112,12 @@ const Checkout = ({
         <div className="que3">
           <h6>Whatsapp Number</h6>
           <input
-            type="number"
+            type="text"
             onChange={(e) => {
-              setNumber(e.target.value);
+              setNumber(e.target.value)
             }}
             value={number}
+            maxLength="10"
           />
         </div>
       </div>
@@ -136,7 +137,7 @@ const Checkout = ({
                       <button
                         className="submit-button"
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -147,7 +148,7 @@ const Checkout = ({
                         className="submit-button"
                         style={{ color: "#c1c1c1" }}
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -160,7 +161,7 @@ const Checkout = ({
                       <button
                         className="submit-button"
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -171,7 +172,7 @@ const Checkout = ({
                         className="submit-button"
                         style={{ color: "#c1c1c1" }}
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -188,7 +189,7 @@ const Checkout = ({
                       <button
                         className="submit-button"
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -199,7 +200,7 @@ const Checkout = ({
                         className="submit-button"
                         style={{ color: "#c1c1c1" }}
                         onClick={() => {
-                          submitData();
+                          submitData()
                         }}
                       >
                         Submit
@@ -215,7 +216,7 @@ const Checkout = ({
                           <button
                             className="submit-button"
                             onClick={() => {
-                              submitData();
+                              submitData()
                             }}
                           >
                             Submit
@@ -226,7 +227,7 @@ const Checkout = ({
                             className="submit-button"
                             style={{ color: "#c1c1c1" }}
                             onClick={() => {
-                              submitData();
+                              submitData()
                             }}
                           >
                             Submit
@@ -239,7 +240,7 @@ const Checkout = ({
                           <button
                             className="submit-button"
                             onClick={() => {
-                              submitData();
+                              submitData()
                             }}
                           >
                             Submit
@@ -250,7 +251,7 @@ const Checkout = ({
                             className="submit-button"
                             style={{ color: "#c1c1c1" }}
                             onClick={() => {
-                              submitData();
+                              submitData()
                             }}
                           >
                             Submit
@@ -266,7 +267,7 @@ const Checkout = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Checkout;
+export default Checkout

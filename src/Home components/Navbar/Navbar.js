@@ -1,38 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, withRouter } from "react-router-dom";
-import "./Navbar.css";
-import Logo from "../../assests/logof.png";
+import React, { useState, useEffect, useContext } from "react"
+import { ApiContext } from "../../Context/ApiContext"
+import { NavLink, withRouter } from "react-router-dom"
+import "./Navbar.css"
+import Logo from "../../assests/logof.png"
+import moment from "moment"
+import { firedb } from "../../firebase"
 // import { BiUserCircle } from "react-icons/bi";
-import { GrTextAlignCenter } from "react-icons/gr";
-import { RiAccountCircleFill } from "react-icons/ri";
-import Dropdown from "./Dropdown";
-import { isAuthenticated } from "../../Login components/auth";
+import { GrTextAlignCenter } from "react-icons/gr"
+import { RiAccountCircleFill } from "react-icons/ri"
+import Dropdown from "./Dropdown"
+import { isAuthenticated } from "../../Login components/auth"
 const Navbar = ({ isOpen }) => {
-  const [dropdown, setDropdown] = useState(false);
-  const [navHide, setNavHide] = useState(true);
-  const [clicked, setClicked] = useState(false);
-  const handleClick = () => setClicked(!clicked);
-  const handleNavHide = () => setNavHide(!navHide);
+  const { userInfo } = useContext(ApiContext)
+  const [custDocuments, setCustDocuments] = useState([])
+  const [dropdown, setDropdown] = useState(false)
+  const [navHide, setNavHide] = useState(true)
+  const [clicked, setClicked] = useState(false)
+  const handleClick = () => setClicked(!clicked)
+  const handleNavHide = () => setNavHide(!navHide)
   const onDropdownClick = () => {
-    setNavHide(false);
-    setDropdown(!dropdown);
-  };
+    setNavHide(false)
+    setDropdown(!dropdown)
+  }
+  const [date, setDate] = useState(moment(new Date()).format().slice(0, 10))
 
-  
+  const upcoming = custDocuments.filter((cust) => date < cust.returnDate)
+
   const onNavHide = () => {
     if (window.innerWidth > 970) {
-      setNavHide(true);
-      setDropdown(false);
+      setNavHide(true)
+      setDropdown(false)
     }
-    setClicked(false);
-  };
+    setClicked(false)
+  }
 
   useEffect(() => {
-    if (isOpen) setNavHide(false);
+    if (isOpen) setNavHide(false)
     if (window.innerWidth < 970) {
-      setNavHide(false);
+      setNavHide(false)
     }
-  }, []);
+  }, [])
+
+  const getDocuments = () => {
+    let doc = []
+    firedb.ref("bookingdetails1").on("value", (data) => {
+      data.forEach((d) => {
+        if (d.val()?.general?.email === userInfo?.email) {
+          doc.push(d.val().general)
+        }
+      })
+      setCustDocuments(doc)
+    })
+  }
+
+  useEffect(() => {
+    getDocuments()
+  }, [userInfo])
+
   return (
     <div className="n">
       <div className="menu-icon">
@@ -126,8 +150,8 @@ const Navbar = ({ isOpen }) => {
               className="nav-links"
               activeClassName="selected"
               onClick={() => {
-                onNavHide();
-                setNavHide(false);
+                onNavHide()
+                setNavHide(false)
               }}
             >
               Blogs
@@ -140,8 +164,8 @@ const Navbar = ({ isOpen }) => {
               className="nav-links"
               activeClassName="selected"
               onClick={() => {
-                onNavHide();
-                setNavHide(false);
+                onNavHide()
+                setNavHide(false)
               }}
             >
               Stories
@@ -154,13 +178,28 @@ const Navbar = ({ isOpen }) => {
               className="nav-links"
               activeClassName="selected"
               onClick={() => {
-                onNavHide();
-                setNavHide(false);
+                onNavHide()
+                setNavHide(false)
               }}
             >
               Gaia
             </NavLink>
           </li>
+          {upcoming.length !== 0 && (
+            <li>
+              <NavLink
+                to="/onboard"
+                className="nav-links"
+                activeClassName="selected"
+                onClick={() => {
+                  onNavHide()
+                  setNavHide(false)
+                }}
+              >
+                OnBoard
+              </NavLink>
+            </li>
+          )}
 
           {!isAuthenticated() && (
             <li>
@@ -177,7 +216,7 @@ const Navbar = ({ isOpen }) => {
         </ul>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default withRouter(Navbar);
+export default withRouter(Navbar)

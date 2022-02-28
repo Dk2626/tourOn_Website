@@ -17,15 +17,7 @@ const OnBoardList = () => {
   //   console.log(`custDocuments`, custDocuments)
   const container = useRef(null)
 
-  useEffect(() => {
-    if (container.current) {
-      container.current.scrollTo(0, Math.random() * 5000)
-    }
-  }, [])
-
   const upcoming = custDocuments.filter((cust) => date < cust.returnDate)
-
-  console.log("upcoming", upcoming)
 
   const completed = custDocuments
     .filter((cust) => date >= cust.returnDate)
