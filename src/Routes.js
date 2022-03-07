@@ -56,6 +56,7 @@ import ViewResort from "./Resort/ViewResort"
 import TotalSaleReport from "./SalesReport/TotalSaleReport"
 import OnBoardList from "./OnBoard/OnBoardList"
 import OnBoardForm from "./OnBoard/OnBoardForm"
+import OnBoardReport from "./OnBoard/OnBoardReport"
 
 export default function Routes() {
   const [countries, setCountries] = useState([])
@@ -141,6 +142,7 @@ export default function Routes() {
                 path="/onboardform/:names/:emails/:dest/:type/:onward/:returns/:bv/:adult/:child"
                 component={OnBoardForm}
               />
+              <Route path="/onBoardReport" component={OnBoardReport} />
               <AdminRoute exact path="/resort" component={Resort} />
               <AdminRoute path="/resort/:resortid" component={Resort} />
               <AdminRoute path="/resortview" component={ViewResort} />

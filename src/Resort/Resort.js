@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import "./Resort.css";
-import { firedb, fireStorage } from "../firebase";
-import { useToasts } from "react-toast-notifications";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { API } from "../backend";
-import { Progress } from "reactstrap";
+import React, { useState, useEffect } from "react"
+import { CKEditor } from "@ckeditor/ckeditor5-react"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import "./Resort.css"
+import { firedb, fireStorage } from "../firebase"
+import { useToasts } from "react-toast-notifications"
+import { useParams } from "react-router-dom"
+import axios from "axios"
+import { API } from "../backend"
+import { Progress } from "reactstrap"
 
 const Resort = () => {
-  const { resortid } = useParams();
-  const { addToast } = useToasts();
+  const { resortid } = useParams()
+  const { addToast } = useToasts()
   const [resortDetails, setResortDetails] = useState({
     countryName: "",
     cityName: "",
@@ -33,38 +33,39 @@ const Resort = () => {
     offerPercent: "",
     paymentLink: "",
     priority: "",
-  });
-  const [honeymoonBenefits, setHoneymoonBenefits] = useState("");
-  const [cancellationPolicy, setCancellationPolicy] = useState("");
-  const [overview, setOverview] = useState("");
-  const [inclusion, setInclusion] = useState("");
-  const [finePrint, setFinePrint] = useState("");
-  const [file, setFile] = useState("");
-  const [country, setCountries] = useState([]);
-  const [city, setCity] = useState([]);
-  const [showCountry, setShowCountry] = useState(false);
-  const [showCity, setShowCity] = useState(false);
-  const [showMealPlan, setShowMealPlan] = useState(false);
-  const [showTransferType, setShowTransferType] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [imageUploaded, setImageUploaded] = useState(false);
-  const [showRating, setShowRating] = useState(false);
+  })
+  const [honeymoonBenefits, setHoneymoonBenefits] = useState("")
+  const [cancellationPolicy, setCancellationPolicy] = useState("")
+  const [overview, setOverview] = useState("")
+  const [inclusion, setInclusion] = useState("")
+  const [finePrint, setFinePrint] = useState("")
+  const [file, setFile] = useState("")
+  const [country, setCountries] = useState([])
+  const [city, setCity] = useState([])
+  const [showCountry, setShowCountry] = useState(false)
+  const [showCity, setShowCity] = useState(false)
+  const [showOfferCost, setShowOfferCost] = useState(false)
+  const [showMealPlan, setShowMealPlan] = useState(false)
+  const [showTransferType, setShowTransferType] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [imageUploaded, setImageUploaded] = useState(false)
+  const [showRating, setShowRating] = useState(false)
 
   const mealPlans = [
     "Breakfast Only",
     "Breakfast & Dinner ",
     "Breakfast, Lunch & Dinner",
     "All Inclusive ",
-  ];
+  ]
   const transferTypes = [
     "Speedboat",
     "Sea Plane ",
     "Domestic Flight + Speedboat",
-  ];
+  ]
 
-  const rating = ["3", "4", "5", "Premium"];
+  const rating = ["3", "4", "5", "Premium"]
 
-  const { checkIn, checkOut } = resortDetails.resortRules;
+  const { checkIn, checkOut } = resortDetails.resortRules
 
   const {
     countryName,
@@ -84,7 +85,7 @@ const Resort = () => {
     offerPercent,
     paymentLink,
     priority,
-  } = resortDetails;
+  } = resortDetails
 
   const [singleRestaurantCategory, setSingleRestaurantCategory] = useState({
     categoryName: "",
@@ -92,90 +93,90 @@ const Resort = () => {
     image: "",
     mealPlan: "",
     transferType: "",
-  });
+  })
 
   const { categoryName, days, image, mealPlan, transferType } =
-    singleRestaurantCategory;
+    singleRestaurantCategory
 
-  const [singleResortImage, setSingleResortImage] = useState("");
+  const [singleResortImage, setSingleResortImage] = useState("")
 
-  const [singleResortAward, setSingleResortAward] = useState("");
+  const [singleResortAward, setSingleResortAward] = useState("")
 
   const [singleRestaurant, setSingleRestaurant] = useState({
     name: "",
     cuisine: "",
     openFor: "",
     menu: "",
-  });
+  })
 
-  const { name, cuisine, openFor, menu } = singleRestaurant;
+  const { name, cuisine, openFor, menu } = singleRestaurant
 
   const addResortCategory = () => {
-    let cat = [];
+    let cat = []
     if (resortCategory) {
-      cat = [...resortCategory, singleRestaurantCategory];
+      cat = [...resortCategory, singleRestaurantCategory]
     } else {
-      cat = [singleRestaurantCategory];
+      cat = [singleRestaurantCategory]
     }
     setResortDetails({
       ...resortDetails,
       resortCategory: cat,
-    });
+    })
     setSingleRestaurantCategory({
       categoryName: "",
       days: "",
       image: "",
       mealPlan: "",
       transferType: "",
-    });
-  };
+    })
+  }
 
   const addResortImage = () => {
-    let image = [];
+    let image = []
     if (resortImages) {
-      image = [...resortImages, singleResortImage];
+      image = [...resortImages, singleResortImage]
     } else {
-      image = [singleResortImage];
+      image = [singleResortImage]
     }
     setResortDetails({
       ...resortDetails,
       resortImages: image,
-    });
-    setSingleResortImage("");
-  };
+    })
+    setSingleResortImage("")
+  }
 
   const addResortAward = () => {
-    let image = [];
+    let image = []
     if (resortAwards) {
-      image = [...resortAwards, singleResortAward];
+      image = [...resortAwards, singleResortAward]
     } else {
-      image = [singleResortAward];
+      image = [singleResortAward]
     }
     setResortDetails({
       ...resortDetails,
       resortAwards: image,
-    });
-    setSingleResortAward("");
-  };
+    })
+    setSingleResortAward("")
+  }
 
   const addRestaurant = () => {
-    let rest = [];
+    let rest = []
     if (restaurants) {
-      rest = [...restaurants, singleRestaurant];
+      rest = [...restaurants, singleRestaurant]
     } else {
-      rest = [singleRestaurant];
+      rest = [singleRestaurant]
     }
     setResortDetails({
       ...resortDetails,
       restaurants: rest,
-    });
+    })
     setSingleRestaurant({
       name: "",
       cuisine: "",
       openFor: "",
       menu: "",
-    });
-  };
+    })
+  }
 
   const features = [
     "Beachfront",
@@ -212,87 +213,87 @@ const Resort = () => {
     "Outdoor Furniture",
     "Terrace",
     "Cycling",
-  ];
+  ]
 
   const manageFeature = (feas) => {
     if (resortFeatures.includes(feas)) {
-      const filterFea = resortFeatures.filter((f) => f !== feas);
+      const filterFea = resortFeatures.filter((f) => f !== feas)
       setResortDetails({
         ...resortDetails,
         resortFeatures: filterFea,
-      });
+      })
     } else {
       setResortDetails({
         ...resortDetails,
         resortFeatures: [...resortFeatures, feas],
-      });
+      })
     }
-  };
+  }
 
   const delResortCat = (i) => {
-    const filterResortCat = resortCategory.filter((r, index) => index !== i);
+    const filterResortCat = resortCategory.filter((r, index) => index !== i)
     setResortDetails({
       ...resortDetails,
       resortCategory: filterResortCat,
-    });
-  };
+    })
+  }
 
   const delResortImg = (i) => {
-    const filterResortImg = resortImages.filter((r, index) => index !== i);
+    const filterResortImg = resortImages.filter((r, index) => index !== i)
     setResortDetails({
       ...resortDetails,
       resortImages: filterResortImg,
-    });
-  };
+    })
+  }
 
   const delResortAwdImg = (i) => {
-    const filterResortAwdImg = resortAwards.filter((r, index) => index !== i);
+    const filterResortAwdImg = resortAwards.filter((r, index) => index !== i)
     setResortDetails({
       ...resortDetails,
       resortAwards: filterResortAwdImg,
-    });
-  };
+    })
+  }
 
   const delRestaurant = (i) => {
-    const filterRestaurant = restaurants.filter((r, index) => index !== i);
+    const filterRestaurant = restaurants.filter((r, index) => index !== i)
     setResortDetails({
       ...resortDetails,
       restaurants: filterRestaurant,
-    });
-  };
+    })
+  }
 
   const uploadFile = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]
     // console.log(`file`, file);
 
-    const ref = fireStorage.ref(`resorts/${file.name}`);
+    const ref = fireStorage.ref(`resorts/${file.name}`)
     // console.log(`ref`, ref);
-    const task = ref.put(file);
+    const task = ref.put(file)
 
     task.on("state_changed", (taskSnapshot) => {
       const per =
-        (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100;
+        (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100
 
       // console.log("per", per);
-      setProgress(Math.round(per));
-    });
+      setProgress(Math.round(per))
+    })
 
     task.then(() => {
       ref.getDownloadURL().then((url) => {
         // console.log(`url`, url);
-        setFile(url);
-      });
-    });
+        setFile(url)
+      })
+    })
     try {
-      setImageUploaded(true);
+      setImageUploaded(true)
       await task.then(() => {
-        setImageUploaded(false);
-        setProgress(0);
-      });
+        setImageUploaded(false)
+        setProgress(0)
+      })
     } catch (E) {
-      console.log(E);
+      console.log(E)
     }
-  };
+  }
 
   const submitResort = () => {
     firedb
@@ -330,7 +331,7 @@ const Resort = () => {
       .then(() => {
         addToast("Added Successfully", {
           appearance: "success",
-        });
+        })
         setResortDetails({
           countryName: "",
           cityName: "",
@@ -352,16 +353,16 @@ const Resort = () => {
           },
           offerPercent: "",
           paymentLink: "",
-        });
-        setHoneymoonBenefits("");
-        setCancellationPolicy("");
-        setOverview("");
-        setInclusion("");
-        setFinePrint("");
-        setFile("");
+        })
+        setHoneymoonBenefits("")
+        setCancellationPolicy("")
+        setOverview("")
+        setInclusion("")
+        setFinePrint("")
+        setFile("")
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
   const getResort = () => {
     if (resortid) {
@@ -388,7 +389,7 @@ const Resort = () => {
           offerPercent,
           paymentLink,
           file,
-        } = data.val();
+        } = data.val()
         setResortDetails({
           countryName: countryName,
           resortCategory: resortCategory === "" ? [] : resortCategory,
@@ -410,16 +411,16 @@ const Resort = () => {
           },
           offerPercent: offerPercent,
           paymentLink: paymentLink,
-        });
-        setHoneymoonBenefits(resortRules.honeymoonBenefits);
-        setCancellationPolicy(resortRules.cancellationPolicy);
-        setOverview(overview);
-        setInclusion(inclusion);
-        setFinePrint(finePrint);
-        setFile(file);
-      });
+        })
+        setHoneymoonBenefits(resortRules.honeymoonBenefits)
+        setCancellationPolicy(resortRules.cancellationPolicy)
+        setOverview(overview)
+        setInclusion(inclusion)
+        setFinePrint(finePrint)
+        setFile(file)
+      })
     }
-  };
+  }
 
   const updateResort = () => {
     firedb
@@ -456,7 +457,7 @@ const Resort = () => {
       .then(() => {
         addToast("Update Successfully", {
           appearance: "success",
-        });
+        })
         setResortDetails({
           countryName: "",
           cityName: "",
@@ -478,48 +479,101 @@ const Resort = () => {
           },
           offerPercent: "",
           paymentLink: "",
-        });
-        setHoneymoonBenefits("");
-        setCancellationPolicy("");
-        setOverview("");
-        setInclusion("");
-        setFinePrint("");
-        setFile("");
+        })
+        setHoneymoonBenefits("")
+        setCancellationPolicy("")
+        setOverview("")
+        setInclusion("")
+        setFinePrint("")
+        setFile("")
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
   useEffect(() => {
-    getResort();
-  }, []);
+    getResort()
+  }, [])
 
   const getCountries = async () => {
     try {
-      const countryResponse = await axios.get(`${API}/country`);
-      setCountries(countryResponse.data);
+      const countryResponse = await axios.get(`${API}/country`)
+      setCountries(countryResponse.data)
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, "err")
     }
-  };
+  }
 
   const getCities = async (countryName) => {
     try {
       const cityResponse = await axios.get(
         `${API}/city/countryname/${countryName}`
-      );
-      setCity(cityResponse.data);
+      )
+      setCity(cityResponse.data)
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, "err")
     }
-  };
+  }
 
   useEffect(() => {
-    getCountries();
-  }, []);
+    getCountries()
+  }, [])
 
   useEffect(() => {
-    getCities(countryName);
-  }, [countryName]);
+    getCities(countryName)
+  }, [countryName])
+
+  const offerCost = [
+    {
+      month: "January",
+      amt: "1",
+    },
+    {
+      month: "February",
+      amt: "2",
+    },
+    {
+      month: "March",
+      amt: "3",
+    },
+    {
+      month: "April",
+      amt: "4",
+    },
+    {
+      month: "May",
+      amt: "5",
+    },
+    {
+      month: "June",
+      amt: "6",
+    },
+    {
+      month: "July",
+      amt: "7",
+    },
+    {
+      month: "August",
+      amt: "8",
+    },
+    {
+      month: "September",
+      amt: "9",
+    },
+    {
+      month: "October",
+      amt: "10",
+    },
+    {
+      month: "November",
+      amt: "11",
+    },
+    {
+      month: "December",
+      amt: "12",
+    },
+  ]
+
+  console.log("offerCost", offerCost)
 
   return (
     <div className="resortMain">
@@ -543,14 +597,14 @@ const Resort = () => {
                           ...resortDetails,
                           countryName: c.countryName,
                           cityName: "",
-                        });
-                        setShowCountry(false);
+                        })
+                        setShowCountry(false)
                       }}
                     >
                       {c.countryName}
                     </li>
                   </div>
-                );
+                )
               })}
             </div>
           )}
@@ -570,14 +624,14 @@ const Resort = () => {
                         setResortDetails({
                           ...resortDetails,
                           cityName: c.cityName,
-                        });
-                        setShowCity(false);
+                        })
+                        setShowCity(false)
                       }}
                     >
                       {c.cityName}
                     </li>
                   </div>
-                );
+                )
               })}
             </div>
           )}
@@ -623,14 +677,14 @@ const Resort = () => {
                         setResortDetails({
                           ...resortDetails,
                           ratings: r,
-                        });
-                        setShowRating(false);
+                        })
+                        setShowRating(false)
                       }}
                     >
                       {r}
                     </li>
                   </div>
-                );
+                )
               })}
             </div>
           )}
@@ -648,6 +702,34 @@ const Resort = () => {
             }
             value={cost}
           />
+          {/* <div
+            className="inputtt"
+            onClick={() => setShowOfferCost(!showOfferCost)}
+          >
+            {cost ? <>{cost}</> : <>Select Month </>}
+          </div>
+          {showOfferCost && (
+            <div className="inputcccc">
+              {offerCost.map((c, i) => {
+                console.log("c", c)
+                return (
+                  <div key={i}>
+                    <li
+                      onClick={() => {
+                        setResortDetails({
+                          ...resortDetails,
+                          cost: c.amt,
+                        })
+                        setShowOfferCost(false)
+                      }}
+                    >
+                      {c.month}
+                    </li>
+                  </div>
+                )
+              })}
+            </div>
+          )} */}
         </div>
 
         <div className="resortField">
@@ -709,8 +791,8 @@ const Resort = () => {
             editor={ClassicEditor}
             data={overview}
             onChange={(event, editor) => {
-              const data = editor.getData();
-              setOverview(data);
+              const data = editor.getData()
+              setOverview(data)
             }}
           />
         </div>
@@ -720,8 +802,8 @@ const Resort = () => {
             editor={ClassicEditor}
             data={inclusion}
             onChange={(event, editor) => {
-              const data = editor.getData();
-              setInclusion(data);
+              const data = editor.getData()
+              setInclusion(data)
             }}
           />
         </div>
@@ -731,8 +813,8 @@ const Resort = () => {
             editor={ClassicEditor}
             data={finePrint}
             onChange={(event, editor) => {
-              const data = editor.getData();
-              setFinePrint(data);
+              const data = editor.getData()
+              setFinePrint(data)
             }}
           />
         </div>
@@ -749,7 +831,7 @@ const Resort = () => {
                     onChange={() => manageFeature(f)}
                   />
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -821,14 +903,14 @@ const Resort = () => {
                           setSingleRestaurantCategory({
                             ...singleRestaurantCategory,
                             mealPlan: m,
-                          });
-                          setShowMealPlan(false);
+                          })
+                          setShowMealPlan(false)
                         }}
                       >
                         {m}
                       </li>
                     </div>
-                  );
+                  )
                 })}
               </div>
             )}
@@ -851,14 +933,14 @@ const Resort = () => {
                           setSingleRestaurantCategory({
                             ...singleRestaurantCategory,
                             transferType: t,
-                          });
-                          setShowTransferType(false);
+                          })
+                          setShowTransferType(false)
                         }}
                       >
                         {t}
                       </li>
                     </div>
-                  );
+                  )
                 })}
               </div>
             )}
@@ -888,7 +970,7 @@ const Resort = () => {
                     remove
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         )}
@@ -921,7 +1003,7 @@ const Resort = () => {
                     remove
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         )}
@@ -954,7 +1036,7 @@ const Resort = () => {
                     remove
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         )}
@@ -1045,7 +1127,7 @@ const Resort = () => {
                     remove
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         )}
@@ -1106,8 +1188,8 @@ const Resort = () => {
               editor={ClassicEditor}
               data={honeymoonBenefits}
               onChange={(event, editor) => {
-                const data = editor.getData();
-                setHoneymoonBenefits(data);
+                const data = editor.getData()
+                setHoneymoonBenefits(data)
               }}
             />
           </div>
@@ -1117,8 +1199,8 @@ const Resort = () => {
               editor={ClassicEditor}
               data={cancellationPolicy}
               onChange={(event, editor) => {
-                const data = editor.getData();
-                setCancellationPolicy(data);
+                const data = editor.getData()
+                setCancellationPolicy(data)
               }}
             />
           </div>
@@ -1157,7 +1239,7 @@ const Resort = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Resort;
+export default Resort

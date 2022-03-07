@@ -111,15 +111,30 @@
   border: 0.5px solid #12b0e8;
   border-radius: 10px;
 }
+.inputcccc {
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  top: 80px;
+  width: 250px;
+  text-align: center;
+  height: 250px;
+  overflow-y: scroll;
+  border: 0.5px solid #12b0e8;
+  border-radius: 10px;
+}
+
 .inputc li,
 .inputcc li,
-.inputccc li {
+.inputccc li,
+.inputcccc li {
   list-style: none;
   padding: 10px;
 }
 .inputc li:hover,
 .inputcc li:hover,
-.inputccc li:hover {
+.inputccc li:hover,
+.inputcccc li:hover {
   background-color: #12b0e8;
   cursor: pointer;
 }

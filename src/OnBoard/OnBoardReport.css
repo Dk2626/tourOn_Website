@@ -1,0 +1,80 @@
+.onBreportTitle {
+  text-align: center;
+}
+.onBreportTitle h1 {
+  padding: 20px 0;
+  font-family: "Avenir";
+  font-weight: 700;
+  color: #472ecd;
+}
+.onBreportForm {
+  margin: 20px;
+  box-shadow: 0px 2px 8px rgb(133, 131, 131);
+  padding: 20px;
+  border-radius: 10px;
+}
+.onBreportFormInnerTc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.onBreportFormInnerTh4_1,
+.onBreportFormInnerTh4_2,
+.onBreportFormInnerTh4_3,
+.onBreportFormInnerTh4_4,
+.onBreportFormInnerTh4_5,
+.onBreportFormInnerTh4_6,
+.onBreportFormInnerTh4_7,
+.onBreportFormInnerTh4_8 {
+  font-family: "Avenir";
+  font-weight: 600;
+  color: #472ecd;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #472ecd;
+  margin-bottom: 15px;
+}
+.onBreportFormInnerTh6_1,
+.onBreportFormInnerTh6_2,
+.onBreportFormInnerTh6_3,
+.onBreportFormInnerTh6_4,
+.onBreportFormInnerTh6_5,
+.onBreportFormInnerTh6_6,
+.onBreportFormInnerTh6_7,
+.onBreportFormInnerTh6_8 {
+  font-family: "Andika";
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.onBreportFormInnerTh4_1,
+.onBreportFormInnerTh6_1 {
+  width: 80px;
+}
+.onBreportFormInnerTh4_2,
+.onBreportFormInnerTh6_2 {
+  width: 300px;
+}
+.onBreportFormInnerTh4_3,
+.onBreportFormInnerTh6_3 {
+  width: 140px;
+}
+.onBreportFormInnerTh4_4,
+.onBreportFormInnerTh6_4 {
+  width: 210px;
+}
+.onBreportFormInnerTh4_5,
+.onBreportFormInnerTh6_5 {
+  width: 180px;
+}
+.onBreportFormInnerTh4_6,
+.onBreportFormInnerTh6_6 {
+  width: 160px;
+}
+.onBreportFormInnerTh4_7,
+.onBreportFormInnerTh6_7 {
+  width: 90px;
+}
+.onBreportFormInnerTh4_8,
+.onBreportFormInnerTh6_8 {
+  width: 90px;
+}

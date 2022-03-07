@@ -67,6 +67,8 @@ const OnBoardForm = () => {
   const [uploading, setUploading] = useState(false)
   const [edit, setEdit] = useState(false)
   const [reportModal, setReportModal] = useState(false)
+  const [termModal, setTermModal] = useState(true)
+  const [terms, setTerms] = useState(false)
   const [travelKey, setTravelKey] = useState("")
   const [step, setStep] = useState(1)
   const [innerStep, setInnerStep] = useState(1)
@@ -394,14 +396,6 @@ const OnBoardForm = () => {
       case 1:
         return (
           <div className="caseMainss">
-            <div className="caseMainss1">
-              <button className="prevBtns" onClick={() => setStep(1)}>
-                Previous
-              </button>
-              <button className="canBtns" onClick={() => history.push("/")}>
-                Cancel
-              </button>
-            </div>
             <div>
               <div className="docOnBoardA">
                 <div>
@@ -558,14 +552,6 @@ const OnBoardForm = () => {
       case 2:
         return (
           <div className="caseMainss">
-            <div className="caseMainss2">
-              <button className="prevBtns" onClick={() => setInnerStep(1)}>
-                Previous
-              </button>
-              <button className="canBtns" onClick={() => history.push("/")}>
-                Cancel
-              </button>
-            </div>
             <div className="onBDoc">
               <div className="onBDocInput">
                 <label>Name</label>
@@ -584,7 +570,7 @@ const OnBoardForm = () => {
               <div className="onBDocInput">
                 <label>Date of Birth</label>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Ex: 24-10-1992"
                   value={dob}
                   onChange={(e) =>
@@ -889,14 +875,6 @@ const OnBoardForm = () => {
       case 3:
         return (
           <div className="caseMainss">
-            <div className="caseMainss2">
-              <button className="prevBtns" onClick={() => setInnerStep(1)}>
-                Previous
-              </button>
-              <button className="canBtns" onClick={() => history.push("/")}>
-                Cancel
-              </button>
-            </div>
             <div className="onBDoc">
               <div className="onBDocInput">
                 <label>Name</label>
@@ -915,7 +893,7 @@ const OnBoardForm = () => {
               <div className="onBDocInput">
                 <label>Date of Birth</label>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Ex: 20-11-2010"
                   value={dobc}
                   onChange={(e) =>
@@ -1210,14 +1188,6 @@ const OnBoardForm = () => {
       case 4:
         return (
           <div className="caseMainss">
-            <div className="caseMainss3">
-              <button className="prevBtns" onClick={() => setInnerStep(1)}>
-                Previous
-              </button>
-              <button className="canBtns" onClick={() => history.push("/")}>
-                Cancel
-              </button>
-            </div>
             <div className="onBAdress">
               <div className="onBAdressInput">
                 <label>Address</label>
@@ -1247,12 +1217,19 @@ const OnBoardForm = () => {
                   }
                 />
               </div>
+              <div className="onBAdressTerms">
+                <h5 onClick={() => setTermModal(true)}>
+                  Read the Terms & Conditions
+                </h5>
+              </div>
               <div className="onBoardFormButton">
                 {travelKey ? (
                   <button
-                    disabled={!address || !pincode}
+                    disabled={!address || !pincode || terms == false}
                     className={
-                      !address || !pincode ? "disableOnBoard" : "saveOnBoard"
+                      !address || !pincode || terms == false
+                        ? "disableOnBoard"
+                        : "saveOnBoard"
                     }
                     onClick={() => updateOnBoardForm()}
                   >
@@ -1260,9 +1237,11 @@ const OnBoardForm = () => {
                   </button>
                 ) : (
                   <button
-                    disabled={!address || !pincode}
+                    disabled={!address || !pincode || terms == false}
                     className={
-                      !address || !pincode ? "disableOnBoard" : "saveOnBoard"
+                      !address || !pincode || terms == false
+                        ? "disableOnBoard"
+                        : "saveOnBoard"
                     }
                     onClick={() => addOnBoardForm()}
                   >
@@ -1273,7 +1252,6 @@ const OnBoardForm = () => {
             </div>
           </div>
         )
-
       default:
     }
   }
@@ -1376,29 +1354,80 @@ const OnBoardForm = () => {
 
   return (
     <div className="onBoardFormHeadMain">
-      <div className="onBoardFormHead">
-        <h1 className="onBoardFormH1">On Board Form</h1>
-      </div>
-      <div>{renderForm()}</div>
-      {reportModal && (
-        <div className="onboardReportModal">
-          <div className="onboardReportModalContent">
-            {/* <div
+      <div className="onBoardFormR">
+        <div className={step !== 1 ? "onBoardFormHead" : "onBoardFormHead1"}>
+          <h1 className="onBoardFormH1">On Board Form</h1>
+        </div>
+        {step == 2 && (
+          <div className="caseMainss1">
+            <button
+              className="prevBtns"
+              onClick={() => {
+                if (innerStep == 1) {
+                  setStep(1)
+                } else if (innerStep == 2) {
+                  setInnerStep(1)
+                } else if (innerStep == 3) {
+                  setInnerStep(1)
+                } else if (innerStep == 4) {
+                  setInnerStep(1)
+                }
+              }}
+            >
+              Previous
+            </button>
+            <button className="canBtns" onClick={() => history.push("/")}>
+              Cancel
+            </button>
+          </div>
+        )}
+        <div>{renderForm()}</div>
+        {reportModal && (
+          <div className="onboardReportModal">
+            <div className="onboardReportModalContent">
+              {/* <div
               className="onboardReportModalClose"
               onClick={() => setReportModal(false)}
             >
               &times;
             </div> */}
-            <div className="onboardReportModalContentInner">
-              <h5>
-                Your report have sent successfully, we'll get back to you!
-              </h5>
-              <h5>Thank you</h5>
-              <button onClick={() => history.push("/")}>Go to Home</button>
+              <div className="onboardReportModalContentInner">
+                <h5>
+                  Your report have sent successfully, we'll get back to you!
+                </h5>
+                <h5>Thank you</h5>
+                <button onClick={() => history.push("/")}>Go to Home</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        {termModal && (
+          <div className="termModal">
+            <div className="termModalContent">
+              <div
+                className="termModalClose"
+                onClick={() => setTermModal(false)}
+              >
+                &times;
+              </div>
+              <div className="termModalContentInner">
+                <h5>
+                  <li>hffffff</li>
+                  <li>fffhhj</li>
+                </h5>
+                <button
+                  onClick={() => {
+                    setTerms(true)
+                    setTermModal(false)
+                  }}
+                >
+                  I Agree
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

@@ -1,18 +1,40 @@
-/* .onBoardFormHeadMain {
-  background-color: black;
-  background-image: url(../assests/onBImg/onboardHome-min.jpg);
+.onBoardFormHeadMain {
+  background-image: url(../assests/onBImg/onBoardMainImg.jpg);
+  width: 100%;
   height: 100vh;
   background-size: cover;
-} */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.onBoardFormHeadMain::after {
+  opacity: 0.4;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  width: 100%;
+  height: 100vh;
+}
+.onBoardFormR {
+  position: relative;
+  z-index: 1;
+}
 .onBoardFormHead {
+  padding: 10px;
+  text-align: center;
+}
+.onBoardFormHead1 {
   padding: 20px;
   text-align: center;
 }
 .onBoardFormH1 {
   font-family: "Avenir";
   font-weight: 700;
-  /* color: #12b0e8; */
-  color: #472ecd;
+  /* color: #472ecd; */
+  color: #fff;
 }
 .onBoardMainForm {
   text-align: center;
@@ -26,17 +48,22 @@
 }
 .vrfyOnBoard {
   border: none;
-  background-color: #472ecd;
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
+  /* background-image: linear-gradient(to right, #5949b6, #b8b1e2); */
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 10px 30px;
   border-radius: 10px;
   color: white;
+  font-weight: 500;
   margin-bottom: 10px;
   margin-right: 10px;
+  font-family: "Andika";
+  box-shadow: 0px 2px 8px rgb(160, 157, 157);
 }
 .rptOnBoard {
   border: none;
-  background-color: #d82e2f;
+  /* background-color: #d82e2f; */
+  background-image: linear-gradient(to right, #d82e2f, #ff6263);
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 10px;
@@ -55,18 +82,22 @@
 }
 .disableOnBoard {
   border: none;
-  background-color: #45388a;
+  /* background-color: #45388a; */
+  /* background-image: linear-gradient(to right, #8cd3d8, #9694c9); */
+  background-image: linear-gradient(to right, #639194, #6c6b8d);
   padding: 10px 20px;
   border-radius: 10px;
   /* color: #cad5e2; */
-  color: rgb(161, 161, 161);
+  /* color: rgb(102, 98, 98); */
+  color: rgb(207, 198, 198);
   margin-bottom: 10px;
   font-family: "Andika";
 }
 .saveOnBoard {
   border: none;
   /* background-color: blue; */
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 10px;
@@ -101,7 +132,8 @@
 .OnBoardSubmit {
   border: none;
   /* background-color: #23c4ed; */
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
@@ -113,7 +145,8 @@
 .OnBoardSubmitDisable {
   border: none;
   /* background-color: #207398; */
-  background-color: #45388a;
+  /* background-color: #45388a; */
+  background-image: linear-gradient(to right, #639194, #6c6b8d);
   padding: 10px 20px;
   border-radius: 10px;
   /* color: #cad5e2; */
@@ -134,13 +167,14 @@
   padding-left: 5px;
 }
 .travelListFormInner {
-  box-shadow: 0px 2px 8px #ccc;
+  box-shadow: 0px 2px 8px rgb(160, 157, 157);
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fff;
 }
 .travelListForm {
   display: flex;
@@ -183,7 +217,8 @@
 }
 .travelIndexButtonm {
   border: none;
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
@@ -193,10 +228,12 @@
 }
 .travelIndexButtonmdis {
   border: none;
-  background-color: #45388a;
+  /* background-color: #45388a; */
+  background-image: linear-gradient(to right, #639194, #6c6b8d);
   padding: 10px 20px;
   border-radius: 10px;
-  color: rgb(161, 161, 161);
+  /* color: rgb(102, 98, 98); */
+  color: rgb(207, 198, 198);
   margin-top: 10px;
   margin-bottom: 10px;
   font-family: "Andika";
@@ -226,7 +263,8 @@
 .ChangeFileBtn {
   border: none;
   /* background-color: #23c4ed; */
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   padding: 10px 20px;
   border-radius: 10px;
   /* color: black; */
@@ -243,9 +281,11 @@
   width: 170px;
   font-family: "Avenir";
   font-size: 18px;
+  color: #fff;
 }
 .fileflexLabm {
   font-family: "Andika";
+  color: #fff;
 }
 
 .onBFM {
@@ -266,7 +306,8 @@
   width: 70%;
   height: 500px;
   padding: 10px;
-  box-shadow: 0px 2px 8px #ccc;
+  /* box-shadow: 0px 2px 8px rgb(160, 157, 157); */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -285,24 +326,28 @@
   justify-content: center;
   height: 500px;
   padding: 10px;
-  box-shadow: 0px 2px 8px #ccc;
+  /* box-shadow: 0px 2px 8px rgb(160, 157, 157); */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
 }
 .onBFullval label {
   margin-bottom: 0;
 }
 .onBFullval label {
-  color: #472ecd;
+  /* color: #472ecd; */
+  color: #fff;
   font-family: "Avenir";
   font-weight: 600;
   font-size: 18px;
 }
 .OnBFval {
-  border-bottom: 2px solid #472ecd;
+  /* border-bottom: 2px solid #472ecd; */
+  border-bottom: 1.5px solid #fff;
   width: 280px;
   font-size: 16px;
   font-family: "Andika";
   padding: 4px;
+  color: whitesmoke;
 }
 .onBFM1 {
   width: 35%;
@@ -320,13 +365,15 @@
 }
 .onBFM2 {
   width: 65%;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .choLabel {
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   color: white;
   padding: 5px;
   width: 120px;
@@ -345,6 +392,19 @@
   width: 400px;
   margin: 50px 20px;
 }
+.onBAdressTerms h5 {
+  align-self: flex-start;
+  font-family: "Avenir";
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+.onBAdressTerms h5:hover {
+  font-size: 20px;
+  transition: 0.2s;
+}
 .onBDocInput {
   display: flex;
   flex-direction: column;
@@ -355,13 +415,23 @@
   align-self: flex-start;
   font-family: "Avenir";
   font-size: 18px;
+  color: #fff;
+  font-weight: 600;
 }
 .onBAdressInput input,
 .onBDocInput input {
   border: none;
   outline: none;
-  border-bottom: 2px solid #472ecd;
+  /* border-bottom: 2px solid #472ecd; */
+  border-bottom: 2px solid #fff;
   font-family: "Andika";
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.onBAdressInput input::placeholder,
+.onBDocInput input::placeholder {
+  color: #fff;
 }
 .onBGI {
   display: none;
@@ -384,7 +454,8 @@
 .onBGL-radio {
   height: 20px;
   width: 20px;
-  border: 2px solid #472ecd;
+  /* border: 2px solid #472ecd; */
+  border: 2px solid #fff;
   border-radius: 50%;
   display: inline-block;
   position: relative;
@@ -395,7 +466,8 @@
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -415,12 +487,14 @@
 .docOnBoardA h5 {
   font-family: "Avenir";
   font-weight: 700;
+  color: #fff;
 }
 .docOnBoardABtn {
   border: none;
   outline: none;
   margin-left: 10px;
-  background-color: #472ecd;
+  /* background-color: #8cd3d8; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   color: white;
   padding: 5px 15px;
   border-radius: 10px;
@@ -429,12 +503,15 @@
   border: none;
   outline: none;
   margin-left: 10px;
-  background-color: #45388a;
-  color: gray;
+  /* background-color: #639194; */
+  background-image: linear-gradient(to right, #639194, #6c6b8d);
+  /* color: white; */
+  color: rgb(207, 198, 198);
   padding: 5px 15px;
   border-radius: 10px;
 }
-.onboardReportModal {
+.onboardReportModal,
+.termModal {
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -444,7 +521,8 @@
   z-index: 9999;
   animation: popupSlow 0.3s ease-out;
 }
-.onboardReportModalContent {
+.onboardReportModalContent,
+.termModalContent {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -464,6 +542,12 @@
   align-items: center;
   justify-content: center;
 }
+.termModalContentInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .onboardReportModalContentInner h5 {
   font-family: "Andika";
   margin: 10px 0px;
@@ -471,41 +555,37 @@
 .onboardReportModalContentInner button {
   border: none;
   outline: none;
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   color: white;
   padding: 5px 15px;
   border-radius: 10px;
   font-family: "Andika";
   margin-top: 10px;
 }
-.onboardReportModalClose {
+.onboardReportModalClose,
+.termModalClose {
   cursor: pointer;
   text-align: end;
   font-size: 25px;
   margin-right: 10px;
 }
-.caseMainss {
+/* .caseMainss {
   position: relative;
-}
+} */
 .caseMainss1 {
-  position: absolute;
-  top: -157px;
-  right: -144px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 220px;
+  margin-bottom: 10px;
 }
-.caseMainss2 {
-  position: absolute;
-  top: -28px;
-  right: -133px;
-}
-.caseMainss3 {
-  position: absolute;
-  top: -117px;
-  right: -77px;
-}
+
 .prevBtns {
   border: none;
   outline: none;
-  background-color: #472ecd;
+  /* background-color: #472ecd; */
+  background-image: linear-gradient(to right, #8cd3d8, #9694c9);
   color: white;
   padding: 5px 15px;
   border-radius: 10px;
@@ -514,7 +594,8 @@
   border: none;
   outline: none;
   margin-left: 10px;
-  background-color: #d82e2f;
+  /* background-color: #d82e2f; */
+  background-image: linear-gradient(to right, #d82e2f, #ff6263);
   color: white;
   padding: 5px 15px;
   border-radius: 10px;
@@ -537,13 +618,9 @@
   .onBFM2 {
     width: 100%;
   }
-  .caseMainss1,
-  .caseMainss2,
-  .caseMainss3 {
-    position: static;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  .caseMainss1 {
+    margin-right: 0px;
+    justify-content: center;
   }
 }
 @media screen and (max-width: 768px) {
