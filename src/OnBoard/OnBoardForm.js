@@ -67,7 +67,7 @@ const OnBoardForm = () => {
   const [uploading, setUploading] = useState(false)
   const [edit, setEdit] = useState(false)
   const [reportModal, setReportModal] = useState(false)
-  const [termModal, setTermModal] = useState(true)
+  const [termModal, setTermModal] = useState(false)
   const [terms, setTerms] = useState(false)
   const [travelKey, setTravelKey] = useState("")
   const [step, setStep] = useState(1)
