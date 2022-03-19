@@ -18,20 +18,25 @@ const Checkout = ({
   tourCategory,
   tourType,
 }) => {
-  const { user } = isAuthenticated()
-  const getCurrentUserData = () => {
-    firedb.ref(`userGeneralInfo/${user.uid}`).on("value", (data) => {
-      if (data !== null) {
-        let val = data.val()
-        setName(val.name)
-        setNumber(val.phoneNumber)
-      }
-    })
-  }
+  // const { user } = isAuthenticated()
+  // const getCurrentUserData = () => {
+  //   firedb.ref(`userGeneralInfo/${user.uid}`).on("value", (data) => {
+  //     if (data !== null) {
+  //       let val = data.val()
+  //       setName(val.name)
+  //       setNumber(val.phoneNumber)
+  //     }
+  //   })
+  // }
 
-  useEffect(() => {
-    getCurrentUserData()
-  }, [])
+  // useEffect(() => {
+  //   getCurrentUserData()
+  // }, [])
+
+  // console.log("dfsd", number)
+  // console.log("dfsd", typeof(number))
+  // console.log("dfsd", name !== "" && budget >= 50000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10))
+  
 
   return (
     <div className="destination-container">
@@ -133,7 +138,7 @@ const Checkout = ({
               <>
                 {tourType === "Domestic" ? (
                   <>
-                    {name !== "" && budget >= 50000 && number !== "" ? (
+                    {name !== "" && budget >= 50000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10) ? (
                       <button
                         className="submit-button"
                         onClick={() => {
@@ -157,7 +162,7 @@ const Checkout = ({
                   </>
                 ) : (
                   <>
-                    {name !== "" && budget >= 75000 && number !== "" ? (
+                    {name !== "" && budget >= 75000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10) ? (
                       <button
                         className="submit-button"
                         onClick={() => {
@@ -185,7 +190,7 @@ const Checkout = ({
               <>
                 {tourType === "Domestic" ? (
                   <>
-                    {name !== "" && budget >= 10000 && number !== "" ? (
+                    {name !== "" && budget >= 10000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10) ? (
                       <button
                         className="submit-button"
                         onClick={() => {
@@ -212,7 +217,7 @@ const Checkout = ({
                     {tourCategory === "RoadTrip" ||
                     tourCategory === "WildlifeTour" ? (
                       <>
-                        {name !== "" && budget >= 20000 && number !== "" ? (
+                        {name !== "" && budget >= 20000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10) ? (
                           <button
                             className="submit-button"
                             onClick={() => {
@@ -236,7 +241,7 @@ const Checkout = ({
                       </>
                     ) : (
                       <>
-                        {name !== "" && budget >= 40000 && number !== "" ? (
+                        {name !== "" && budget >= 40000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10) ? (
                           <button
                             className="submit-button"
                             onClick={() => {
