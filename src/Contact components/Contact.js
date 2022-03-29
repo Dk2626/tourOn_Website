@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Contact.css";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
@@ -48,6 +48,22 @@ export default function Contact() {
   };
 
   const { name, email, comments, mobileNumber } = values;
+
+  // const getAllBookingDetail = () => {
+  //   firedb.ref("bookingdetails1").on("value", (data) => {
+  //     data.forEach((d) => {
+  //       if(d.val().general.bookedDate == ""){
+  //         console.log('d', d.val())
+  //       }
+  //     })
+  //   })
+  // }
+
+  // useEffect(() => {
+  //   getAllBookingDetail()
+  // }, [])
+
+
   return (
     <>
       <Navbar />

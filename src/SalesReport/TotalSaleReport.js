@@ -193,7 +193,7 @@ const TotalSaleReport = () => {
   const [category, setCategory] = useState("Monthly")
 
   // console.log(`bookedValueData`, bookedValueData)
-  console.log(`bookedMarginValueData`, bookedMarginValueData)
+  // console.log(`bookedMarginValueData`, bookedMarginValueData)
 
   const empl = employees
     .filter(
@@ -441,16 +441,18 @@ const TotalSaleReport = () => {
         return
       }
       data.forEach((i) => {
-        let booked = moment(i.val().general.bookedDate).month()
-        let onward = moment(i.val().general.onwardDate).month()
-        if (!i.val().general.isBookingCancelled) {
-          month[booked].val.push(i.val())
-          month1[onward].val.push(i.val())
+        if(i.val().general.bookedDate !== "" && i.val().general.onwardDate !== ""){
+          let booked = moment(i.val().general.bookedDate).month()
+          let onward = moment(i.val().general.onwardDate).month()
+          if (!i.val().general.isBookingCancelled) {
+            month[booked].val.push(i.val())
+            month1[onward].val.push(i.val())
+          }
+          if (i.val().general.isBookingCancelled) {
+            month3[booked].val.push(i.val())
+          }
+          booking.push(i.val())
         }
-        if (i.val().general.isBookingCancelled) {
-          month3[booked].val.push(i.val())
-        }
-        booking.push(i.val())
       })
 
       setBookedValueData(month)
