@@ -757,7 +757,7 @@ const CountryInner = () => {
                         </option>
                         <option value="Planned Tour">Planned Tour</option>
                         <option value="Honeymoon Tour">Honeymoon Tour</option>
-                        <option value="Surprise Tour">Surprise Tour</option>
+                        {/* <option value="Surprise Tour">Surprise Tour</option> */}
                         <option value="Luxury Tour">Luxury Tour</option>
                         <option value="Wildlife Tour">Wildlife Tour</option>
                       </select>

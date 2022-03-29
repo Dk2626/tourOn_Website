@@ -362,10 +362,10 @@ const Footer = () => {
                     <p>Tek Meadows - A Block, 4th Floor,</p>
                     <p>Opposite to Accenture, Sholinganallur,</p>
                     <p>OMR, Chennai-119</p>
-                    <p>
+                    {/* <p>
                       <span>Phone:</span>
                       <span> </span> +91 97510 09400
-                    </p>
+                    </p> */}
                   </>
                 ) : (
                   <>
@@ -378,11 +378,11 @@ const Footer = () => {
                     <p>Level 3 VR Mall,</p>
                     <p> Next to Madras House(Landmark),</p>
                     <p>Thirumangalam,Chennai-40</p>
-                    <p>
+                    {/* <p>
                       <span>Phone:</span>
                       <span> </span>
                       +91 97510 09500
-                    </p>
+                    </p> */}
                   </>
                 )}
               </div>
