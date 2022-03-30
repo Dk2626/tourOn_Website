@@ -38,6 +38,12 @@ const Checkout = ({
   // console.log("dfsd", name !== "" && budget >= 50000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10))
   
 
+  const handleKeyDown = e => {
+    if (e.key === " ") {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="destination-container">
       {/* <img className="checkout-image" src={imgSrc} alt="" /> */}
@@ -123,6 +129,7 @@ const Checkout = ({
             }}
             value={number}
             maxLength="10"
+            onKeyDown={handleKeyDown}
           />
         </div>
       </div>
