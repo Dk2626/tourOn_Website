@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import "./MyRequest.css";
-import { GiRocketFlight } from "react-icons/gi";
-import * as RiIcons from "react-icons/ri";
-import { Ellipsis } from "react-spinners-css";
-import * as BiIcons from "react-icons/bi";
+import React, { useState, useEffect, useContext } from 'react';
+import './MyRequest.css';
+import { GiRocketFlight } from 'react-icons/gi';
+import * as RiIcons from 'react-icons/ri';
+import { Ellipsis } from 'react-spinners-css';
+import * as BiIcons from 'react-icons/bi';
 
 import {
   Table,
@@ -12,23 +12,22 @@ import {
   Pagination,
   PaginationLink,
   PaginationItem,
-} from "reactstrap";
-import Profilenav from "./Profilenav";
-import Profilepage from "./Profilepage";
-import { firedb, fireStorage } from "../firebase";
-import { isAuthenticated } from "../Login components/auth";
-import { useToasts } from "react-toast-notifications";
-import { ApiContext } from "../Context/ApiContext";
+} from 'reactstrap';
+import Profilenav from './Profilenav';
+import Profilepage from './Profilepage';
+import { firedb, fireStorage } from '../firebase';
+import { isAuthenticated } from '../Login components/auth';
+import { useToasts } from 'react-toast-notifications';
+import { ApiContext } from '../Context/ApiContext';
 
 const MyVisaRequests = () => {
   const { addToast } = useToasts();
-
   const [visaRequest, setVisaRequest] = useState([]);
   const [selectedVisaRequest, setSelectedVisaRequest] = useState({});
   const [visaModal, setVisaModal] = useState(false);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
-  const [key, setKey] = useState("");
+  const [key, setKey] = useState('');
   const { user } = isAuthenticated();
   const { employees } = useContext(ApiContext);
 
@@ -61,18 +60,18 @@ const MyVisaRequests = () => {
 
   const completed = () => {
     let count = 0;
-    firedb.ref("visaSubmission").on("value", (data) => {
+    firedb.ref('visaSubmission').on('value', (data) => {
       if (data.val() !== null) {
         if (isAdmin(user.email)) {
           data.forEach((c) => {
-            if (c.val().status === "Completed") {
+            if (c.val().status === 'Completed') {
               count += 1;
             }
           });
         } else {
           data.forEach((c) => {
             if (c.val().userID === user.uid) {
-              if (c.val().status === "Completed") {
+              if (c.val().status === 'Completed') {
                 count += 1;
               }
             }
@@ -90,18 +89,18 @@ const MyVisaRequests = () => {
         status: status,
       })
       .then(() => {
-        setKey("");
-        setStatus("");
+        setKey('');
+        setStatus('');
         closeVisaModal();
-        addToast("Visa Status Updated Successfully", {
-          appearance: "success",
+        addToast('Visa Status Updated Successfully', {
+          appearance: 'success',
         });
       })
-      .catch((err) => console.log("err :>> ", err));
+      .catch((err) => console.log('err :>> ', err));
   };
   const getAllVisaRequest = () => {
     setLoading(true);
-    firedb.ref("visaSubmission").on("value", (data) => {
+    firedb.ref('visaSubmission').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         setLoading(false);
         return;
@@ -122,7 +121,7 @@ const MyVisaRequests = () => {
   const getVisaRequest = () => {
     setLoading(true);
 
-    firedb.ref("visaSubmission").on("value", (data) => {
+    firedb.ref('visaSubmission').on('value', (data) => {
       let vr = [];
       if (data.val() !== null) {
         data.forEach((c) => {
@@ -153,17 +152,17 @@ const MyVisaRequests = () => {
               })
               .then((data) => {
                 closeVisaModal();
-                addToast("Uploaded Successfully", {
-                  appearance: "success",
+                addToast('Uploaded Successfully', {
+                  appearance: 'success',
                 });
               })
               .catch((err) =>
                 addToast(err, {
-                  appearance: "success",
+                  appearance: 'success',
                 })
               );
           })
-          .catch((err) => console.log("err :>> ", err));
+          .catch((err) => console.log('err :>> ', err));
       })
       .catch((err) => {
         console.log(err);
@@ -201,65 +200,65 @@ const MyVisaRequests = () => {
   const [currentPage, setCurrentpage] = useState(0);
 
   return (
-    <div style={{ display: "flex" }}>
-      <div className={clicked ? "toggleSidebar" : "toggleSideba"}>
+    <div style={{ display: 'flex' }}>
+      <div className={clicked ? 'toggleSidebar' : 'toggleSideba'}>
         <Profilepage />
       </div>
-      <div className="request-container">
+      <div className='request-container'>
         <BiIcons.BiMenuAltRight
           onClick={toggleSidebar}
           size={50}
-          color="white"
+          color='white'
           style={{
             zIndex: 20,
-            position: "absolute",
+            position: 'absolute',
             paddingLeft: 20,
             marginRight: 20,
             top: 18,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
         />
-        <div className="requests-info-visa">
-          <Profilenav title={"My Visa Request"} />
-          <div className="requests-body-container ">
-            <div className="card-body">
-              <div className="card-title">
+        <div className='requests-info-visa'>
+          <Profilenav title={'My Visa Request'} />
+          <div className='requests-body-container '>
+            <div className='card-body'>
+              <div className='card-title'>
                 <h5>Submitted Request</h5>
                 <h1>{Object.keys(visaRequest).length}</h1>
               </div>
-              <div className="card-logo logo1">
-                <RiIcons.RiVisaFill size={28} color="white" />
+              <div className='card-logo logo1'>
+                <RiIcons.RiVisaFill size={28} color='white' />
               </div>
             </div>
-            <div className="card-body">
-              <div className="card-title">
+            <div className='card-body'>
+              <div className='card-title'>
                 <h5>Completed Request</h5>
                 <h1>{completed()}</h1>
               </div>
-              <div className="card-logo logo2">
-                <GiRocketFlight size={28} color="white" />
+              <div className='card-logo logo2'>
+                <GiRocketFlight size={28} color='white' />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="requests-table">
+        <div className='requests-table'>
           <Table hover bordered>
             <thead>
               <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Employee Type</th>
-                <th scope="col">Travel Month</th>
-                <th scope="col">No Of Persons</th>
-                <th scope="col">Request Status</th>
+                <th scope='col'>Name</th>
+                <th scope='col'>Phone Number</th>
+                <th scope='col'>Destination</th>
+                <th scope='col'>Employee Type</th>
+                <th scope='col'>Travel Month</th>
+                <th scope='col'>No Of Persons</th>
+                <th scope='col'>Request Status</th>
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody className='bg-white'>
               {loading ? (
-                <div className="loading">
-                  Fetching Data <Ellipsis color="#fff" />
+                <div className='loading'>
+                  Fetching Data <Ellipsis color='#fff' />
                 </div>
               ) : (
                 <>
@@ -277,8 +276,7 @@ const MyVisaRequests = () => {
                               setKey(c);
                               setSelectedVisaRequest(visaRequest[c]);
                               openVisaModal();
-                            }}
-                          >
+                            }}>
                             <td>{visaRequest[c].name}</td>
                             <td>{visaRequest[c].phoneNumber}</td>
                             <td>{visaRequest[c].countryName}</td>
@@ -290,7 +288,7 @@ const MyVisaRequests = () => {
                         ))}
                     </>
                   ) : (
-                    <div className="noFind">No Visa Request found</div>
+                    <div className='noFind'>No Visa Request found</div>
                   )}
                 </>
               )}
@@ -300,24 +298,21 @@ const MyVisaRequests = () => {
         {Object.keys(visaRequest).length <= 7 ? null : (
           <div>
             <Pagination
-              className="pagination justify-content-end"
-              listClassName="justify-content-end"
-            >
+              className='pagination justify-content-end'
+              listClassName='justify-content-end'>
               <PaginationItem disabled={currentPage <= 0}>
                 <PaginationLink
                   onClick={(e) => handleClick(e, currentPage - 1)}
                   previous
-                  href="#"
-                >
-                  <i className="fa fa-angle-left" />
+                  href='#'>
+                  <i className='fa fa-angle-left' />
                 </PaginationLink>
               </PaginationItem>
               {[...Array(pagesCount)].map((page, i) => (
                 <PaginationItem active={i === currentPage} key={i}>
                   <PaginationLink
                     onClick={(e) => handleClick(e, i)}
-                    href="#pablo"
-                  >
+                    href='#pablo'>
                     {i + 1}
                   </PaginationLink>
                 </PaginationItem>
@@ -326,9 +321,8 @@ const MyVisaRequests = () => {
                 <PaginationLink
                   onClick={(e) => handleClick(e, currentPage + 1)}
                   next
-                  href="#"
-                >
-                  <i className="fa fa-angle-right" />
+                  href='#'>
+                  <i className='fa fa-angle-right' />
                 </PaginationLink>
               </PaginationItem>
             </Pagination>
@@ -336,25 +330,23 @@ const MyVisaRequests = () => {
         )}
       </div>
       <Modal
-        className="modal-dialog-centered modal-danger"
-        contentClassName="bg-gradient-danger"
-        isOpen={visaModal}
-      >
-        <div className="modal-header">
-          <h6 className="modal-title" id="modal-title-notification">
+        className='modal-dialog-centered modal-danger'
+        contentClassName='bg-gradient-danger'
+        isOpen={visaModal}>
+        <div className='modal-header'>
+          <h6 className='modal-title' id='modal-title-notification'>
             Visa Request
           </h6>
           <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-            onClick={closeVisaModal}
-          >
+            aria-label='Close'
+            className='close'
+            data-dismiss='modal'
+            type='button'
+            onClick={closeVisaModal}>
             <span aria-hidden={true}>×</span>
           </button>
         </div>
-        <div className="modal-visadetails">
+        <div className='modal-visadetails'>
           <h1>Name : {selectedVisaRequest.name}</h1>
           <h1>Phone Number : {selectedVisaRequest.phoneNumber}</h1>
           <h1>Country Name : {selectedVisaRequest.countryName}</h1>
@@ -363,49 +355,45 @@ const MyVisaRequests = () => {
 
           {isAdmin(user.email) ? (
             <>
-              <div className="status" style={{ display: "flex" }}>
+              <div className='status' style={{ display: 'flex' }}>
                 <h1>Status : </h1>
                 <Input
-                  type="select"
+                  type='select'
                   onChange={(e) => setStatus(e.target.value)}
-                  value={status}
-                >
-                  <option value="Received">Received</option>
-                  <option value="On Progress">On Progress</option>
-                  <option value="Completed">Completed</option>
+                  value={status}>
+                  <option value='Received'>Received</option>
+                  <option value='On Progress'>On Progress</option>
+                  <option value='Completed'>Completed</option>
                 </Input>
               </div>
-              <div className="update-button">
+              <div className='update-button'>
                 <button
-                  className="btn btn-success btn-sm"
-                  onClick={updateVisaRequest}
-                >
+                  className='btn btn-success btn-sm'
+                  onClick={updateVisaRequest}>
                   Update
                 </button>
                 <Input
-                  type="file"
+                  type='file'
                   hidden
-                  id="fileUpload"
+                  id='fileUpload'
                   onChange={uploadFile}
                 />
                 <button
-                  className="btn btn-success btn-sm"
+                  className='btn btn-success btn-sm'
                   onClick={() => {
-                    const file = document.getElementById("fileUpload");
+                    const file = document.getElementById('fileUpload');
                     file.click();
-                  }}
-                >
+                  }}>
                   Upload File
                 </button>
 
-                {selectedVisaRequest.downloadUrl === "" ? null : (
-                  <button className="btn btn-success btn-sm">
+                {selectedVisaRequest.downloadUrl === '' ? null : (
+                  <button className='btn btn-success btn-sm'>
                     <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="plink"
-                      href={selectedVisaRequest.downloadUrl}
-                    >
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='plink'
+                      href={selectedVisaRequest.downloadUrl}>
                       Download File
                     </a>
                   </button>
@@ -415,15 +403,14 @@ const MyVisaRequests = () => {
           ) : (
             <>
               <h1>Status : {selectedVisaRequest.status}</h1>
-              <div className="update-button">
-                {selectedVisaRequest.downloadUrl === "" ? null : (
-                  <button className="btn btn-success btn-sm">
+              <div className='update-button'>
+                {selectedVisaRequest.downloadUrl === '' ? null : (
+                  <button className='btn btn-success btn-sm'>
                     <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="plink"
-                      href={selectedVisaRequest.downloadUrl}
-                    >
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='plink'
+                      href={selectedVisaRequest.downloadUrl}>
                       Download File
                     </a>
                   </button>

@@ -11,7 +11,7 @@
   justify-content: flex-end;
 }
 .admin--field label {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-top: 0.5em;
 }
 .admin--field input {
@@ -41,12 +41,12 @@
 }
 .adminField h6 {
   padding: 10px 0;
-  font-family: "andika";
+  font-family: 'andika';
   font-weight: 700;
 }
 .adminField:nth-child(4) h6 {
   padding-left: 10px;
-  font-family: "andika";
+  font-family: 'andika';
   font-weight: 700;
 }
 .errMsg h6 {
@@ -64,4 +64,24 @@
 }
 .table-heading-container.admin-table h5:nth-child(3) {
   flex-basis: 40%;
+}
+.hCont-button {
+  background-color: #e21717;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0 10px;
+  color: white;
+  cursor: pointer;
+}
+.sCont-button {
+  background-color: #4dd637;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0 10px;
+  color: white;
+  cursor: pointer;
 }
