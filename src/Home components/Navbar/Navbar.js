@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ApiContext } from '../../Context/ApiContext';
+import React, { useState, useEffect } from 'react';
+// import { ApiContext } from '../../Context/ApiContext';
 import { NavLink, withRouter } from 'react-router-dom';
 import './Navbar.css';
 import Logo from '../../assests/logof.png';
-import moment from 'moment';
-import { firedb } from '../../firebase';
-import { BiUserCircle } from 'react-icons/bi';
+// import moment from 'moment';
+// import { firedb } from '../../firebase';
+// import { BiUserCircle } from 'react-icons/bi';
 import { GrTextAlignCenter } from 'react-icons/gr';
 import { RiAccountCircleFill } from 'react-icons/ri';
 import Dropdown from './Dropdown';
 import { isAuthenticated } from '../../Login components/auth';
 const Navbar = ({ isOpen }) => {
-  const { userInfo } = useContext(ApiContext);
-  const [custDocuments, setCustDocuments] = useState([]);
+  // const { userInfo } = useContext(ApiContext);
+  // const [custDocuments, setCustDocuments] = useState([]);
   const [dropdown, setDropdown] = useState(false);
   const [navHide, setNavHide] = useState(true);
   const [clicked, setClicked] = useState(false);
@@ -22,9 +22,9 @@ const Navbar = ({ isOpen }) => {
     setNavHide(false);
     setDropdown(!dropdown);
   };
-  const [date, setDate] = useState(moment(new Date()).format().slice(0, 10));
+  // const [date, setDate] = useState(moment(new Date()).format().slice(0, 10));
 
-  const upcoming = custDocuments.filter((cust) => date < cust.returnDate);
+  // const upcoming = custDocuments.filter((cust) => date < cust.returnDate);
 
   const onNavHide = () => {
     if (window.innerWidth > 970) {
@@ -41,21 +41,21 @@ const Navbar = ({ isOpen }) => {
     }
   }, []);
 
-  const getDocuments = () => {
-    let doc = [];
-    firedb.ref('bookingdetails1').on('value', (data) => {
-      data.forEach((d) => {
-        if (d.val()?.general?.email === userInfo?.email) {
-          doc.push(d.val().general);
-        }
-      });
-      setCustDocuments(doc);
-    });
-  };
+  // const getDocuments = () => {
+  //   let doc = [];
+  //   firedb.ref('bookingdetails1').on('value', (data) => {
+  //     data.forEach((d) => {
+  //       if (d.val()?.general?.email === userInfo?.email) {
+  //         doc.push(d.val().general);
+  //       }
+  //     });
+  //     setCustDocuments(doc);
+  //   });
+  // };
 
-  useEffect(() => {
-    getDocuments();
-  }, [userInfo]);
+  // useEffect(() => {
+  //   getDocuments();
+  // }, [userInfo]);
 
   return (
     <div className='n'>
