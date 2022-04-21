@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Contact.css';
 import { Link } from 'react-router-dom';
 import { MdLocationOn } from 'react-icons/md';
@@ -52,18 +52,21 @@ export default function Contact() {
   const { name, email, comments, mobileNumber } = values;
 
   // const getAllBookingDetail = () => {
-  //   firedb.ref("bookingdetails1").on("value", (data) => {
+  //   firedb.ref('bookingdetails1').on('value', (data) => {
   //     data.forEach((d) => {
-  //       if(d.val().general.bookedDate == ""){
-  //         console.log('d', d.val())
+  //       if (
+  //         d.val().general.isBookingCancelled == true &&
+  //         d.val().general.onwardDate.slice(0, 4) == '2022'
+  //       ) {
+  //         console.log('d', d.val());
   //       }
-  //     })
-  //   })
-  // }
+  //     });
+  //   });
+  // };
 
   // useEffect(() => {
-  //   getAllBookingDetail()
-  // }, [])
+  //   getAllBookingDetail();
+  // }, []);
 
   return (
     <>

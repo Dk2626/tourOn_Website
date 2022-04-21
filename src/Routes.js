@@ -153,12 +153,12 @@ export default function Routes() {
                 path='/onboardform/:names/:emails/:dest/:type/:onward/:returns/:bv/:adult/:child'
                 component={OnBoardForm}
               />
-              <Route path='/onBoardReport' component={OnBoardReport} />
               <AdminRoute exact path='/resort' component={Resort} />
               <AdminRoute path='/resort/:resortid' component={Resort} />
               <AdminRoute path='/resortview' component={ViewResort} />
               {/* <Route path="/how-it-works" component={HowItWorks} /> */}
               <AdminRoute path='/backupdata' component={Backup} />
+              <AdminRoute path='/onBoardReport' component={OnBoardReport} />
               <AdminRoute path='/totalsales' component={TotalSaleReport} />
               <AdminRoute
                 exact
