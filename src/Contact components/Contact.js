@@ -11,7 +11,7 @@ import { ApiContext } from '../Context/ApiContext';
 export default function Contact() {
   const { cont } = useContext(ApiContext);
   const { addToast } = useToasts();
-  const [address, setAddress] = useState('address1');
+  const [address, setAddress] = useState('address2');
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -56,9 +56,11 @@ export default function Contact() {
   //     data.forEach((d) => {
   //       if (
   //         d.val().general.isBookingCancelled == true &&
-  //         d.val().general.onwardDate.slice(0, 4) == '2022'
+  //         d.val().general.onwardDate.slice(0, 4) == '2022' &&
+  //         d.val().surveyId == 'TO-050522-000400'
   //       ) {
   //         console.log('d', d.val());
+  //         console.log('d', d.key);
   //       }
   //     });
   //   });
@@ -96,7 +98,7 @@ export default function Contact() {
             </div>
             <h3 className='connect'>Address</h3>
             <div className='contact-address'>
-              <div
+              {/* <div
                 className={
                   address === 'address1' ? 'conselectAddress' : 'conaddress-1'
                 }
@@ -105,14 +107,16 @@ export default function Contact() {
                 }}>
                 <MdLocationOn />
                 Sholinganallur
-              </div>
+              </div> */}
               <div
-                className={
-                  address === 'address2' ? 'conselectAddress' : 'conaddress-2'
-                }
-                onClick={() => {
-                  setAddress('address2');
-                }}>
+                className='conaddress-2'
+                // className={
+                //   address === 'address2' ? 'conselectAddress' : 'conaddress-2'
+                // }
+                // onClick={() => {
+                //   setAddress('address2');
+                // }}
+              >
                 <MdLocationOn />
                 Anna Nagar
               </div>
@@ -139,11 +143,13 @@ export default function Contact() {
                 <i className='fa fa-phone'></i>
               </div>
               <h3 className='connect'>Contact Number</h3>
-              {address === 'address1' ? (
+              <p className='locate'>+91 97510 09500</p>
+              <p className='locate'>+91 97510 09400</p>
+              {/* {address === 'address1' ? (
                 <p className='locate'>+91 97510 09400</p>
               ) : (
                 <p className='locate'>+91 97510 09500</p>
-              )}
+              )} */}
             </div>
           )}
           <div className='add'>

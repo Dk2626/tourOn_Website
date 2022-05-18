@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
-import { firedb } from "../firebase";
-import "./BookingRecord.css";
-import { BiEdit } from "react-icons/bi";
-import { FiAlertTriangle } from "react-icons/fi";
-import { IoIosArrowDown } from "react-icons/io";
-import { AiFillEdit } from "react-icons/ai";
-import { MdDeleteForever } from "react-icons/md";
-import { useParams } from "react-router-dom";
-import { Input, Modal, Spinner } from "reactstrap";
-import moment from "moment";
-import { v4 as uuidv4 } from "uuid";
-import { useToasts } from "react-toast-notifications";
-import numeral from "numeral";
-import { ApiContext } from "./../Context/ApiContext";
+import React, { useState, useEffect, useContext } from 'react';
+import { firedb } from '../firebase';
+import './BookingRecord.css';
+import { BiEdit } from 'react-icons/bi';
+import { FiAlertTriangle } from 'react-icons/fi';
+import { IoIosArrowDown } from 'react-icons/io';
+import { AiFillEdit } from 'react-icons/ai';
+import { MdDeleteForever } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
+import { Input, Modal, Spinner } from 'reactstrap';
+import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
+import { useToasts } from 'react-toast-notifications';
+import numeral from 'numeral';
+import { ApiContext } from './../Context/ApiContext';
 
 const BookingRecord = () => {
   const { surveyid } = useParams();
-  const [surveyId, setSurveyId] = useState("");
+  const [surveyId, setSurveyId] = useState('');
   const [custDocuments, setCustDocuments] = useState([]);
   const { addToast } = useToasts();
   const { employees } = useContext(ApiContext);
-  const [deleteId, setDeleteId] = useState("");
-  const [editpaymentId, setEditpaymentId] = useState("");
+  const [deleteId, setDeleteId] = useState('');
+  const [editpaymentId, setEditpaymentId] = useState('');
   const [step, setStep] = useState(1);
   const [edit, setEdit] = useState(true);
   const [visaEdit, setVisaEdit] = useState(true);
@@ -46,25 +46,28 @@ const BookingRecord = () => {
   const [showRemindTime, setShowRemindTime] = useState(false);
   console.log(`custDocuments`, custDocuments);
 
-  const getDocuments = (email, destination,onwardDate) => {
+  const getDocuments = (email, destination, onwardDate) => {
     console.log(`object`, email, destination);
     // firedb.ref(`onBoard`).on("value", (data) => {
     //   console.log(`data.val()`, data.val());
     // });
     firedb
       .ref(`onBoard`)
-      .orderByChild("email")
+      .orderByChild('email')
       .equalTo(email)
 
-      .on("value", (data) => {
+      .on('value', (data) => {
         if (!data) {
-          console.log("no data");
+          console.log('no data');
           setCustDocuments([]);
         } else {
           console.log(`data.val()`, data.val());
 
           data.forEach((d) => {
-            if (d.val().destination === destination && d.val().onwardDate === onwardDate) {
+            if (
+              d.val().destination === destination &&
+              d.val().onwardDate === onwardDate
+            ) {
               setCustDocuments(d.val().travellers);
             }
           });
@@ -87,87 +90,87 @@ const BookingRecord = () => {
 
   const [newPayment, setNewPayment] = useState({
     id: uuidv4(),
-    date: "",
-    particulars: "",
-    recievedType: "",
+    date: '',
+    particulars: '',
+    recievedType: '',
     recievedAmount: 0,
     spentAmount: 0,
-    remark: "",
+    remark: '',
   });
 
   const time = [
     {
-      name: "08.00 AM",
+      name: '08.00 AM',
       value: 8,
     },
     {
-      name: "09.00 AM",
+      name: '09.00 AM',
       value: 9,
     },
     {
-      name: "10.00 AM",
+      name: '10.00 AM',
       value: 10,
     },
     {
-      name: "11.00 AM",
+      name: '11.00 AM',
       value: 11,
     },
     {
-      name: "12.00 PM",
+      name: '12.00 PM',
       value: 12,
     },
     {
-      name: "01.00 PM",
+      name: '01.00 PM',
       value: 13,
     },
     {
-      name: "02.00 PM",
+      name: '02.00 PM',
       value: 14,
     },
     {
-      name: "03.00 PM",
+      name: '03.00 PM',
       value: 15,
     },
     {
-      name: "04.00 PM",
+      name: '04.00 PM',
       value: 16,
     },
     {
-      name: "05.00 PM",
+      name: '05.00 PM',
       value: 17,
     },
     {
-      name: "06.00 PM",
+      name: '06.00 PM',
       value: 18,
     },
     {
-      name: "07.00 PM",
+      name: '07.00 PM',
       value: 19,
     },
     {
-      name: "08.00 PM",
+      name: '08.00 PM',
       value: 20,
     },
     {
-      name: "09.00 PM",
+      name: '09.00 PM',
       value: 21,
     },
     {
-      name: "10.00 PM",
+      name: '10.00 PM',
       value: 22,
     },
     {
-      name: "11.00 PM",
+      name: '11.00 PM',
       value: 23,
     },
     {
-      name: "12.00 AM",
+      name: '12.00 AM',
       value: 24,
     },
   ];
 
   const getTime = (s) => {
-    let ti = "";
+    let ti = '';
     time.filter((t) => {
       if (t.value === parseInt(s)) {
         ti = t.name;
@@ -177,9 +180,9 @@ const BookingRecord = () => {
   };
   const [newReminder, setNewReminder] = useState({
     id: uuidv4(),
-    reminderDate: "",
-    title: "",
-    body: "",
+    reminderDate: '',
+    title: '',
+    body: '',
     reminderTime: 0,
     isStarted: false,
     isCompleted: false,
@@ -195,28 +198,28 @@ const BookingRecord = () => {
     remark,
   } = newPayment;
   const [general, setGeneral] = useState({
-    customerName: "",
-    email: "",
-    phoneNumber: "",
-    bookedDate: "",
-    salesHandleName: "",
-    bookingHandleName: "",
-    bookingValue: "",
-    destination: "",
-    totalTravelDays: "",
-    paymentDueDate: "",
+    customerName: '',
+    email: '',
+    phoneNumber: '',
+    bookedDate: '',
+    salesHandleName: '',
+    bookingHandleName: '',
+    bookingValue: '',
+    destination: '',
+    totalTravelDays: '',
+    paymentDueDate: '',
     adults: 0,
     children: 0,
-    vendorName: "",
-    onwardDate: "",
-    returnDate: "",
-    bookingRemarks: "",
+    vendorName: '',
+    onwardDate: '',
+    returnDate: '',
+    bookingRemarks: '',
     isBookingCancelled: false,
-    cancelBookingRemarks: "",
-    tcs: "",
-    tourType: "",
-    panNumber: "",
-    finalMargin: "",
+    cancelBookingRemarks: '',
+    tcs: '',
+    tourType: '',
+    panNumber: '',
+    finalMargin: '',
   });
 
   const {
@@ -245,22 +248,22 @@ const BookingRecord = () => {
   } = general;
 
   const [paymentDetails, setPaymentDetails] = useState({
-    invoiceNumber: "",
+    invoiceNumber: '',
     totalAmount: 0,
-    amountDetails: "",
+    amountDetails: '',
   });
 
   const { invoiceNumber, totalAmount, amountDetails } = paymentDetails;
 
   const [visaDetails, setVisaDetails] = useState({
-    visaOnArrival: "",
-    processingDate: "",
-    completedDate: "",
-    visaStatus: "",
-    visaVendor: "",
-    visaValidityDate: "",
-    visaAppointmentDate: "",
-    visaAppointment: "",
+    visaOnArrival: '',
+    processingDate: '',
+    completedDate: '',
+    visaStatus: '',
+    visaVendor: '',
+    visaValidityDate: '',
+    visaAppointmentDate: '',
+    visaAppointment: '',
   });
 
   const {
@@ -286,7 +289,7 @@ const BookingRecord = () => {
       (a) => (totalAmountReceived += parseInt(a.recievedAmount))
     );
     amountDetails.forEach((a) => (totalSpentAmount += parseInt(a.spentAmount)));
-    if (general.tcs === "Yes") {
+    if (general.tcs === 'Yes') {
       tcsValue = (parseInt(bookingValue) * 5) / 100;
       console.log(`tcsValue`, tcsValue);
     }
@@ -330,14 +333,14 @@ const BookingRecord = () => {
         .ref(`bookingdetails1/${surveyid}/reminders`)
         .set(newRemind)
         .then(() => {
-          addToast(" Successfully", {
-            appearance: "success",
+          addToast(' Successfully', {
+            appearance: 'success',
           });
           setNewReminder({
-            id: "",
-            reminderDate: "",
-            title: "",
-            body: "",
+            id: '',
+            reminderDate: '',
+            title: '',
+            body: '',
             reminderTime: 0,
             isCompleted: false,
             isStarted: false,
@@ -359,8 +362,8 @@ const BookingRecord = () => {
       .ref(`bookingdetails1/${surveyid}/reminders`)
       .set(newRemind)
       .then(() => {
-        addToast("Status updated", {
-          appearance: "success",
+        addToast('Status updated', {
+          appearance: 'success',
         });
       })
       .catch((err) => console.log(`err`, err));
@@ -368,13 +371,13 @@ const BookingRecord = () => {
 
   const updatePaymentDetails = () => {
     if (
-      date === "" ||
-      recievedType === "" ||
-      recievedAmount === "" ||
-      spentAmount === "" ||
-      particulars === ""
+      date === '' ||
+      recievedType === '' ||
+      recievedAmount === '' ||
+      spentAmount === '' ||
+      particulars === ''
     ) {
-      return alert("All fields are required");
+      return alert('All fields are required');
     }
     let newPayment = amountDetails.map((a) => {
       if (a.id === editpaymentId) {
@@ -396,19 +399,19 @@ const BookingRecord = () => {
         amountDetails: newPayment,
       })
       .then(() => {
-        addToast("Payment updated Successfully", {
-          appearance: "success",
+        addToast('Payment updated Successfully', {
+          appearance: 'success',
         });
         setNewPayment({
-          date: "",
-          particulars: "",
-          recievedType: "",
+          date: '',
+          particulars: '',
+          recievedType: '',
           recievedAmount: 0,
           spentAmount: 0,
-          remark: "",
+          remark: '',
         });
         setUpdatePaymentOpen(false);
-        setEditpaymentId("");
+        setEditpaymentId('');
       })
       .catch((err) => console.log(`err`, err));
   };
@@ -423,8 +426,8 @@ const BookingRecord = () => {
         amountDetails: deletePayment,
       })
       .then(() => {
-        addToast("Payment Deleted Successfully", {
-          appearance: "error",
+        addToast('Payment Deleted Successfully', {
+          appearance: 'error',
         });
       })
       .catch((err) => console.log(`err`, err));
@@ -433,8 +436,8 @@ const BookingRecord = () => {
   const submitBookingDetails = (e) => {
     console.log(`phoneNumber`, phoneNumber);
     e.preventDefault();
-    if (surveyId === "") {
-      return alert("SurveyId required");
+    if (surveyId === '') {
+      return alert('SurveyId required');
     }
     const bookingDetails = {
       surveyId: surveyId,
@@ -483,8 +486,8 @@ const BookingRecord = () => {
       .ref(`bookingdetails1`)
       .push(bookingDetails)
       .then(() => {
-        addToast("Added Successfully", {
-          appearance: "success",
+        addToast('Added Successfully', {
+          appearance: 'success',
         });
         setEdit(false);
         setIsNewRecord(true);
@@ -494,13 +497,13 @@ const BookingRecord = () => {
 
   const addPaymentDetails = () => {
     if (
-      date === "" ||
-      recievedType === "" ||
-      recievedAmount === "" ||
-      spentAmount === "" ||
-      particulars === ""
+      date === '' ||
+      recievedType === '' ||
+      recievedAmount === '' ||
+      spentAmount === '' ||
+      particulars === ''
     ) {
-      return alert("All fields are required");
+      return alert('All fields are required');
     }
     let payment = [];
     if (amountDetails) {
@@ -509,7 +512,7 @@ const BookingRecord = () => {
       payment = [newPayment];
     }
 
-    console.log("surveyid", surveyid);
+    console.log('surveyid', surveyid);
     console.log(`payment`, payment);
     firedb
       .ref(`bookingdetails1/${surveyid}/paymentDetails`)
@@ -519,17 +522,17 @@ const BookingRecord = () => {
         amountDetails: payment,
       })
       .then(() => {
-        addToast("Payment added Successfully", {
-          appearance: "success",
+        addToast('Payment added Successfully', {
+          appearance: 'success',
         });
         setPaymentOpen(false);
         setNewPayment({
-          date: "",
-          particulars: "",
-          recievedType: "",
+          date: '',
+          particulars: '',
+          recievedType: '',
           recievedAmount: 0,
           spentAmount: 0,
-          remark: "",
+          remark: '',
           id: uuidv4(),
         });
       })
@@ -539,12 +542,12 @@ const BookingRecord = () => {
 
   const addReminders = () => {
     if (
-      reminderDate === "" ||
-      title === "" ||
-      body === "" ||
+      reminderDate === '' ||
+      title === '' ||
+      body === '' ||
       reminderTime <= 0
     ) {
-      return alert("All fields are required");
+      return alert('All fields are required');
     }
     let reminder = [];
     if (reminders) {
@@ -557,15 +560,15 @@ const BookingRecord = () => {
       .set(reminder)
       .then(() => {
         setReminderOpen(false);
-        addToast("Reminder added Successfully", {
-          appearance: "success",
+        addToast('Reminder added Successfully', {
+          appearance: 'success',
         });
         setReminder(newReminder, reminder);
         setNewReminder({
-          id: "",
-          reminderDate: "",
-          title: "",
-          body: "",
+          id: '',
+          reminderDate: '',
+          title: '',
+          body: '',
           reminderTime: 0,
           isStarted: false,
           isCompleted: false,
@@ -624,8 +627,8 @@ const BookingRecord = () => {
       .ref(`bookingdetails1/${surveyid}`)
       .update(bookingDetails)
       .then(() => {
-        addToast("Updated Successfully", {
-          appearance: "success",
+        addToast('Updated Successfully', {
+          appearance: 'success',
         });
         setEdit(false);
       })
@@ -635,19 +638,19 @@ const BookingRecord = () => {
   const cancelBookingdetails = () => {
     firedb
       .ref(`bookingdetails1/${surveyid}`)
-      .child("general")
+      .child('general')
       .update({
         isBookingCancelled: isBookingCancelled,
         cancelBookingRemarks: cancelBookingRemarks,
       })
       .then(() => {
-        addToast("Booking cancelled Successfully", {
-          appearance: "success",
+        addToast('Booking cancelled Successfully', {
+          appearance: 'success',
         });
         setGeneral({
           ...general,
           isBookingCancelled: false,
-          cancelBookingRemarks: "",
+          cancelBookingRemarks: '',
         });
       })
       .catch((err) => console.log(`err`, err));
@@ -678,8 +681,8 @@ const BookingRecord = () => {
       .ref(`bookingdetails1/${surveyid}`)
       .update(bookingDetails)
       .then(() => {
-        addToast("Visa added Successfully", {
-          appearance: "success",
+        addToast('Visa added Successfully', {
+          appearance: 'success',
         });
         setVisaEdit(false);
       })
@@ -693,11 +696,11 @@ const BookingRecord = () => {
         setVisaEdit(false);
         setDetailsLoaded(true);
         setIsNewRecord(true);
-        firedb.ref(`bookingdetails1/${surveyid}`).on("value", (data) => {
+        firedb.ref(`bookingdetails1/${surveyid}`).on('value', (data) => {
           const { general, paymentDetails, visaDetails, surveyId, reminders } =
             data.val();
 
-          getDocuments(general.email, general.destination,general.onwardDate);
+          getDocuments(general.email, general.destination, general.onwardDate);
           setSurveyId(surveyId);
           setGeneral({
             tourType: general.tourType,
@@ -723,7 +726,7 @@ const BookingRecord = () => {
             cancelBookingRemarks: general.cancelBookingRemarks,
             finalMargin: general.finalMargin,
           });
-          if (Object.keys(paymentDetails).includes("amountDetails")) {
+          if (Object.keys(paymentDetails).includes('amountDetails')) {
             setPaymentDetails({
               invoiceNumber: paymentDetails.invoiceNumber,
               totalAmount: paymentDetails.totalAmount,
@@ -769,72 +772,71 @@ const BookingRecord = () => {
   // };
 
   const payParticulars = [
-    "Payment Recieved",
-    "Hotel Payment",
-    "Flight Payment",
-    "Taxi Payment",
-    "Special Benefits",
-    "Visa",
-    "Refund",
-    "Tours Booking",
-    "Bike Payment",
-    "TCS-Taxes",
+    'Payment Recieved',
+    'Hotel Payment',
+    'Flight Payment',
+    'Taxi Payment',
+    'Special Benefits',
+    'Visa',
+    'Refund',
+    'Tours Booking',
+    'Bike Payment',
+    'TCS-Taxes',
   ];
 
   const RecvType = [
-    "SBI CU",
-    "IDFC Cu",
-    "SBI Card",
-    "AMEX Card",
-    "HDFC Card",
-    "Wallets",
+    'SBI CU',
+    'IDFC Cu',
+    'SBI Card',
+    'AMEX Card',
+    'HDFC Card',
+    'Wallets',
   ];
 
   const GenVendorName = [
-    "One Above",
-    "TBO Group",
-    "Aueraga Global",
-    "KLOOK",
-    "Viator",
-    "Delhi Tamil Cars",
-    "Tripmore Travels",
-    "GoCabs",
-    "M.K Travels Goa",
+    'One Above',
+    'TBO Group',
+    'Aueraga Global',
+    'KLOOK',
+    'Viator',
+    'Delhi Tamil Cars',
+    'Tripmore Travels',
+    'GoCabs',
+    'M.K Travels Goa',
   ];
 
   const renderItems = (step) => {
     switch (step) {
       case 1:
         return (
-          <div className="bookingGeneral">
+          <div className='bookingGeneral'>
             {edit ? (
               <>
-                <div className="paymentMainn">
+                <div className='paymentMainn'>
                   <h3>General Information</h3>
-                  <div className="paymentMainnBtn">
+                  <div className='paymentMainnBtn'>
                     {surveyid && (
                       <button
-                        style={{ backgroundColor: "red", marginRight: 100 }}
-                        onClick={openInternationalModal}
-                      >
+                        style={{ backgroundColor: 'red', marginRight: 100 }}
+                        onClick={openInternationalModal}>
                         Cancel Booking
                       </button>
                     )}
                   </div>
                 </div>
-                <div className="bookingGeneralDetails">
-                  <div className="generalInput">
+                <div className='bookingGeneralDetails'>
+                  <div className='generalInput'>
                     <label>Survey ID</label>
                     <input
-                      type="text"
+                      type='text'
                       value={surveyId}
                       onChange={(e) => setSurveyId(e.target.value)}
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Customer Name</label>
                     <input
-                      type="text"
+                      type='text'
                       value={customerName}
                       onChange={(e) =>
                         setGeneral({
@@ -844,10 +846,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Destination</label>
                     <input
-                      type="text"
+                      type='text'
                       value={destination}
                       onChange={(e) =>
                         setGeneral({
@@ -857,10 +859,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Email</label>
                     <input
-                      type="text"
+                      type='text'
                       value={email}
                       onChange={(e) =>
                         setGeneral({
@@ -870,10 +872,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Phone Number</label>
                     <input
-                      type="number"
+                      type='number'
                       value={phoneNumber}
                       onChange={(e) =>
                         setGeneral({
@@ -884,10 +886,10 @@ const BookingRecord = () => {
                     />
                   </div>
 
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Booked Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={bookedDate}
                       onChange={(e) =>
                         setGeneral({
@@ -897,10 +899,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Booking Value</label>
                     <input
-                      type="number"
+                      type='number'
                       value={bookingValue}
                       onChange={(e) =>
                         setGeneral({
@@ -910,20 +912,19 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
-                    <div className="generalInputtParti">
+                  <div className='generalInput'>
+                    <div className='generalInputtParti'>
                       <label>Tour Type</label>
                       <div
-                        className="generalSelectt"
+                        className='generalSelectt'
                         onClick={() => {
                           setShowType(!showType);
                           setShowGenBook(false);
                           setShowGenVendor(false);
                           setShowGenSales(false);
                           setShowTcs(false);
-                        }}
-                      >
-                        {tourType !== "" ? (
+                        }}>
+                        {tourType !== '' ? (
                           <>
                             <div>{tourType}</div>
                             <IoIosArrowDown />
@@ -936,37 +937,35 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showType ? (
-                        <div className="generalLi3">
+                        <div className='generalLi3'>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                tourType: "International",
+                                tourType: 'International',
                               });
                               setShowType(!showType);
-                            }}
-                          >
+                            }}>
                             International
                           </li>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                tourType: "Domestic",
+                                tourType: 'Domestic',
                               });
                               setShowType(!showType);
-                            }}
-                          >
+                            }}>
                             Domestic
                           </li>
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Customer Pan Number</label>
                     <input
-                      type="text"
+                      type='text'
                       value={panNumber}
                       onChange={(e) =>
                         setGeneral({
@@ -976,20 +975,19 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
-                    <div className="generalInputtParti">
+                  <div className='generalInput'>
+                    <div className='generalInputtParti'>
                       <label>Tcs</label>
                       <div
-                        className="generalSelectt"
+                        className='generalSelectt'
                         onClick={() => {
                           setShowTcs(!showTcs);
                           setShowGenBook(false);
                           setShowGenVendor(false);
                           setShowGenSales(false);
                           setShowType(false);
-                        }}
-                      >
-                        {tcs !== "" ? (
+                        }}>
+                        {tcs !== '' ? (
                           <>
                             <div>{tcs}</div>
                             <IoIosArrowDown />
@@ -1002,46 +1000,43 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showTcs ? (
-                        <div className="generalLi3">
+                        <div className='generalLi3'>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                tcs: "Yes",
+                                tcs: 'Yes',
                               });
                               setShowTcs(!showTcs);
-                            }}
-                          >
+                            }}>
                             Yes
                           </li>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                tcs: "No",
+                                tcs: 'No',
                               });
                               setShowTcs(!showTcs);
-                            }}
-                          >
+                            }}>
                             No
                           </li>
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInput">
-                    <div className="generalInputtParti">
+                  <div className='generalInput'>
+                    <div className='generalInputtParti'>
                       <label>Sales Handle Name</label>
                       <div
-                        className="generalSelectt"
+                        className='generalSelectt'
                         onClick={() => {
                           setShowGenSales(!showGenSales);
                           setShowGenBook(false);
                           setShowGenVendor(false);
                           setShowTcs(false);
                           setShowType(false);
-                        }}
-                      >
+                        }}>
                         {salesHandleName ? (
                           <>
                             <div>{salesHandleName}</div>
@@ -1055,11 +1050,11 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showGenSales ? (
-                        <div className="generalLi1">
+                        <div className='generalLi1'>
                           {employees?.map((e, i) => {
                             if (
-                              e.designation !== "Junior Software Engg" &&
-                              e.designation !== "CFO"
+                              e.designation !== 'Junior Software Engg' &&
+                              e.designation !== 'CFO'
                             )
                               return (
                                 <li
@@ -1070,8 +1065,7 @@ const BookingRecord = () => {
                                       salesHandleName: e.name,
                                     });
                                     setShowGenSales(!showGenSales);
-                                  }}
-                                >
+                                  }}>
                                   {e.name}
                                 </li>
                               );
@@ -1080,19 +1074,18 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInput">
-                    <div className="generalInputtParti">
+                  <div className='generalInput'>
+                    <div className='generalInputtParti'>
                       <label>Booking Handle Name</label>
                       <div
-                        className="generalSelectt"
+                        className='generalSelectt'
                         onClick={() => {
                           setShowGenBook(!showGenBook);
                           setShowGenSales(false);
                           setShowGenVendor(false);
                           setShowTcs(false);
                           setShowType(false);
-                        }}
-                      >
+                        }}>
                         {bookingHandleName ? (
                           <>
                             <div>{bookingHandleName}</div>
@@ -1106,37 +1099,35 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showGenBook ? (
-                        <div className="generalLi2">
+                        <div className='generalLi2'>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                bookingHandleName: "Vikash",
+                                bookingHandleName: 'Vikash',
                               });
                               setShowGenBook(!showGenBook);
-                            }}
-                          >
+                            }}>
                             Vikash
                           </li>
                           <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
-                                bookingHandleName: "Sam",
+                                bookingHandleName: 'Sam',
                               });
                               setShowGenBook(!showGenBook);
-                            }}
-                          >
+                            }}>
                             Sam
                           </li>
                         </div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Total Travel Days</label>
                     <input
-                      type="text"
+                      type='text'
                       value={totalTravelDays}
                       onChange={(e) =>
                         setGeneral({
@@ -1146,10 +1137,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Payment Due Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={paymentDueDate}
                       onChange={(e) =>
                         setGeneral({
@@ -1159,10 +1150,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Onward Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={onwardDate}
                       onChange={(e) =>
                         setGeneral({
@@ -1172,10 +1163,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Return Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={returnDate}
                       onChange={(e) =>
                         setGeneral({
@@ -1185,10 +1176,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Adult(s)</label>
                     <input
-                      type="number"
+                      type='number'
                       value={adults}
                       onChange={(e) =>
                         setGeneral({
@@ -1198,10 +1189,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Child(s)</label>
                     <input
-                      type="number"
+                      type='number'
                       value={children}
                       onChange={(e) =>
                         setGeneral({
@@ -1212,19 +1203,18 @@ const BookingRecord = () => {
                     />
                   </div>
 
-                  <div className="generalInput">
-                    <div className="generalInputtParti">
+                  <div className='generalInput'>
+                    <div className='generalInputtParti'>
                       <label>Vendor Name</label>
                       <div
-                        className="generalSelectt"
+                        className='generalSelectt'
                         onClick={() => {
                           setShowGenVendor(!showGenVendor);
                           setShowGenBook(false);
                           setShowGenSales(false);
                           setShowTcs(false);
                           setShowType(false);
-                        }}
-                      >
+                        }}>
                         {vendorName ? (
                           <>
                             <div>{vendorName}</div>
@@ -1238,7 +1228,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showGenVendor ? (
-                        <div className="generalLi4">
+                        <div className='generalLi4'>
                           {GenVendorName.map((p) => {
                             return (
                               <li
@@ -1248,8 +1238,7 @@ const BookingRecord = () => {
                                     vendorName: p,
                                   });
                                   setShowGenVendor(!showGenVendor);
-                                }}
-                              >
+                                }}>
                                 {p}
                               </li>
                             );
@@ -1258,7 +1247,7 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Remarks</label>
                     <textarea
                       rows={1}
@@ -1271,10 +1260,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Final Margin</label>
                     <input
-                      type="number"
+                      type='number'
                       value={finalMargin}
                       onChange={(e) =>
                         setGeneral({
@@ -1285,13 +1274,13 @@ const BookingRecord = () => {
                     />
                   </div>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   {surveyid === undefined ? (
-                    <div className="generalButton">
+                    <div className='generalButton'>
                       <button onClick={submitBookingDetails}>Submit</button>
                     </div>
                   ) : (
-                    <div className="generalButton">
+                    <div className='generalButton'>
                       <button onClick={updateBookingDetails}>Update</button>
                     </div>
                   )}
@@ -1299,90 +1288,89 @@ const BookingRecord = () => {
               </>
             ) : (
               <div
-                className="bookingGeneralDetails"
-                style={{ padding: "1.5em" }}
-              >
-                <div className="generalInput">
+                className='bookingGeneralDetails'
+                style={{ padding: '1.5em' }}>
+                <div className='generalInput'>
                   <label>Survey Id</label>
                   <h6>{surveyId}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Customer Name</label>
                   <h6>{customerName}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Destination</label>
                   <h6>{destination}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Email</label>
                   <h6>{email}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Phone Number</label>
                   <h6>{phoneNumber}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Booked Date</label>
                   <h6>{bookedDate}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Booking Value</label>
-                  <h6>RS.{numeral(bookingValue).format("0,")}</h6>
+                  <h6>RS.{numeral(bookingValue).format('0,')}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Tcs</label>
                   <h6>{tcs}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Tour Type</label>
                   <h6>{tourType}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Pan Number</label>
                   <h6>{panNumber}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Sales Handle Name</label>
                   <h6>{salesHandleName}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Booking Handle Name</label>
                   <h6>{bookingHandleName}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Total Travel Days</label>
                   <h6>{totalTravelDays}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Payment Due Date</label>
                   <h6>{paymentDueDate}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Onward Date</label>
                   <h6>{onwardDate}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Return Date</label>
                   <h6>{returnDate}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Adult(s)</label>
                   <h6>{adults}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Child(s)</label>
                   <h6>{children}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Vendor Name</label>
                   <h6>{vendorName}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Booking Remarks</label>
                   <h6>{bookingRemarks}</h6>
                 </div>
-                <div className="generalInput">
+                <div className='generalInput'>
                   <label>Final Margin</label>
                   <h6>{finalMargin}</h6>
                 </div>
@@ -1392,20 +1380,20 @@ const BookingRecord = () => {
         );
       case 2:
         return (
-          <div className="bookingGeneral">
-            <div className="paymentMainn">
+          <div className='bookingGeneral'>
+            <div className='paymentMainn'>
               <h3>Payment Information</h3>
-              <div className="paymentMainnBtn">
+              <div className='paymentMainnBtn'>
                 <button onClick={() => setPaymentOpen(!paymentOpen)}>
                   + Add Payment
                 </button>
               </div>
               {paymentOpen ? (
-                <div className="paymentMainnForm">
-                  <div className="generalInputt">
+                <div className='paymentMainnForm'>
+                  <div className='generalInputt'>
                     <label>Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={date}
                       onChange={(e) =>
                         setNewPayment({
@@ -1415,16 +1403,15 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
-                    <div className="generalInputtParti">
+                  <div className='generalInputt'>
+                    <div className='generalInputtParti'>
                       <label>Particulars</label>
                       <div
-                        className="generalSelect"
+                        className='generalSelect'
                         onClick={() => {
                           setShowParti(!showParti);
                           setShowRecvType(false);
-                        }}
-                      >
+                        }}>
                         {particulars ? (
                           <>
                             <div>{particulars}</div>
@@ -1438,7 +1425,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showParti ? (
-                        <div className="generalLi">
+                        <div className='generalLi'>
                           {payParticulars.map((p) => {
                             return (
                               <li
@@ -1448,8 +1435,7 @@ const BookingRecord = () => {
                                     particulars: p,
                                   });
                                   setShowParti(!showParti);
-                                }}
-                              >
+                                }}>
                                 {p}
                               </li>
                             );
@@ -1458,13 +1444,12 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInputt">
-                    <div className="generalInputtParti">
+                  <div className='generalInputt'>
+                    <div className='generalInputtParti'>
                       <label>Payment Type</label>
                       <div
-                        className="generalSelect"
-                        onClick={() => setShowRecvType(!showRecvType)}
-                      >
+                        className='generalSelect'
+                        onClick={() => setShowRecvType(!showRecvType)}>
                         {recievedType ? (
                           <>
                             <div>{recievedType}</div>
@@ -1478,7 +1463,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showRecvType ? (
-                        <div className="generalLi">
+                        <div className='generalLi'>
                           {RecvType.map((p) => {
                             return (
                               <li
@@ -1488,8 +1473,7 @@ const BookingRecord = () => {
                                     recievedType: p,
                                   });
                                   setShowRecvType(!showRecvType);
-                                }}
-                              >
+                                }}>
                                 {p}
                               </li>
                             );
@@ -1498,10 +1482,10 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Recieved Amount</label>
                     <input
-                      type="number"
+                      type='number'
                       value={recievedAmount}
                       onChange={(e) =>
                         setNewPayment({
@@ -1511,10 +1495,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Spent Amount</label>
                     <input
-                      type="number"
+                      type='number'
                       value={spentAmount}
                       onChange={(e) =>
                         setNewPayment({
@@ -1524,10 +1508,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Remark</label>
                     <input
-                      type="text"
+                      type='text'
                       value={remark}
                       onChange={(e) =>
                         setNewPayment({
@@ -1537,24 +1521,23 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalbtns">
-                    <div className="generalInputtBtn">
+                  <div className='generalbtns'>
+                    <div className='generalInputtBtn'>
                       <button onClick={addPaymentDetails}>Add Payment</button>
                     </div>
-                    <div className="generalInputtBtnCan">
+                    <div className='generalInputtBtnCan'>
                       <button
                         onClick={() => {
                           setPaymentOpen(!paymentOpen);
                           setNewPayment({
-                            date: "",
-                            particulars: "",
-                            recievedType: "",
+                            date: '',
+                            particulars: '',
+                            recievedType: '',
                             recievedAmount: 0,
                             spentAmount: 0,
-                            remark: "",
+                            remark: '',
                           });
-                        }}
-                      >
+                        }}>
                         Cancel
                       </button>
                     </div>
@@ -1562,11 +1545,11 @@ const BookingRecord = () => {
                 </div>
               ) : null}
               {updatePaymentOpen ? (
-                <div className="paymentMainnForm">
-                  <div className="generalInputt">
+                <div className='paymentMainnForm'>
+                  <div className='generalInputt'>
                     <label>Date</label>
                     <input
-                      type="date"
+                      type='date'
                       value={date}
                       onChange={(e) =>
                         setNewPayment({
@@ -1576,16 +1559,15 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
-                    <div className="generalInputtParti">
+                  <div className='generalInputt'>
+                    <div className='generalInputtParti'>
                       <label>Particulars</label>
                       <div
-                        className="generalSelect"
+                        className='generalSelect'
                         onClick={() => {
                           setShowParti(!showParti);
                           setShowRecvType(false);
-                        }}
-                      >
+                        }}>
                         {particulars ? (
                           <>
                             <div>{particulars}</div>
@@ -1599,7 +1581,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showParti ? (
-                        <div className="generalLi">
+                        <div className='generalLi'>
                           {payParticulars.map((p) => {
                             return (
                               <li
@@ -1609,8 +1591,7 @@ const BookingRecord = () => {
                                     particulars: p,
                                   });
                                   setShowParti(!showParti);
-                                }}
-                              >
+                                }}>
                                 {p}
                               </li>
                             );
@@ -1619,13 +1600,12 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInputt">
-                    <div className="generalInputtParti">
+                  <div className='generalInputt'>
+                    <div className='generalInputtParti'>
                       <label>Recieved Type</label>
                       <div
-                        className="generalSelect"
-                        onClick={() => setShowRecvType(!showRecvType)}
-                      >
+                        className='generalSelect'
+                        onClick={() => setShowRecvType(!showRecvType)}>
                         {recievedType ? (
                           <>
                             <div>{recievedType}</div>
@@ -1639,7 +1619,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showRecvType ? (
-                        <div className="generalLi">
+                        <div className='generalLi'>
                           {RecvType.map((p) => {
                             return (
                               <li
@@ -1649,8 +1629,7 @@ const BookingRecord = () => {
                                     recievedType: p,
                                   });
                                   setShowRecvType(!showRecvType);
-                                }}
-                              >
+                                }}>
                                 {p}
                               </li>
                             );
@@ -1659,10 +1638,10 @@ const BookingRecord = () => {
                       ) : null}
                     </div>
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Recieved Amount</label>
                     <input
-                      type="number"
+                      type='number'
                       value={recievedAmount}
                       onChange={(e) =>
                         setNewPayment({
@@ -1672,10 +1651,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Spent Amount</label>
                     <input
-                      type="number"
+                      type='number'
                       value={spentAmount}
                       onChange={(e) =>
                         setNewPayment({
@@ -1685,10 +1664,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Remark</label>
                     <input
-                      type="text"
+                      type='text'
                       value={remark}
                       onChange={(e) =>
                         setNewPayment({
@@ -1698,16 +1677,17 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalbtns">
-                    <div className="generalInputtBtn">
+                  <div className='generalbtns'>
+                    <div className='generalInputtBtn'>
                       <button onClick={updatePaymentDetails}>
                         Update Payment
                       </button>
                     </div>
-                    <div className="generalInputtBtnCan">
+                    <div className='generalInputtBtnCan'>
                       <button
-                        onClick={() => setUpdatePaymentOpen(!updatePaymentOpen)}
-                      >
+                        onClick={() =>
+                          setUpdatePaymentOpen(!updatePaymentOpen)
+                        }>
                         Cancel
                       </button>
                     </div>
@@ -1719,23 +1699,22 @@ const BookingRecord = () => {
             {!amountDetails || amountDetails.length === 0 ? (
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "1em 0",
-                }}
-              >
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: '1em 0',
+                }}>
                 <img
                   style={{ height: 280, width: 280 }}
-                  src="https://image.freepik.com/free-vector/reminders-concept-illustration_114360-4278.jpg"
-                  alt="re"
+                  src='https://image.freepik.com/free-vector/reminders-concept-illustration_114360-4278.jpg'
+                  alt='re'
                 />
-                <h5 style={{ fontFamily: "andika" }}>No payments to show</h5>
+                <h5 style={{ fontFamily: 'andika' }}>No payments to show</h5>
               </div>
             ) : (
-              <div className="b-table scroll-table">
-                <div className="paymentTableHead">
+              <div className='b-table scroll-table'>
+                <div className='paymentTableHead'>
                   <h5>Date</h5>
                   <h5>Particulars</h5>
                   <h5>Recieved Type</h5>
@@ -1748,24 +1727,24 @@ const BookingRecord = () => {
                 <>
                   {amountDetails.map((c, i) => {
                     return (
-                      <div className="paymentTableBody">
+                      <div className='paymentTableBody'>
                         <h5>{c.date}</h5>
                         <h5>{c.particulars}</h5>
                         <h5>{c.recievedType}</h5>
                         <h5>
                           {parseInt(c.recievedAmount) === 0
-                            ? "-"
-                            : numeral(c.recievedAmount).format("0,")}
+                            ? '-'
+                            : numeral(c.recievedAmount).format('0,')}
                         </h5>
                         <h5>
                           {parseInt(c.spentAmount) === 0
-                            ? "-"
-                            : numeral(c.spentAmount).format("0,")}
+                            ? '-'
+                            : numeral(c.spentAmount).format('0,')}
                         </h5>
                         <h5>{c.remark}</h5>
                         <h5>
                           <AiFillEdit
-                            className="paymentEdit"
+                            className='paymentEdit'
                             onClick={() => {
                               setEditpaymentId(c.id);
                               setUpdatePaymentOpen(!updatePaymentOpen);
@@ -1780,7 +1759,7 @@ const BookingRecord = () => {
                             }}
                           />
                           <MdDeleteForever
-                            className="paymentDelete"
+                            className='paymentDelete'
                             onClick={() => {
                               setDeleteId(c.id);
                               openDeletePaymentModal();
@@ -1792,49 +1771,49 @@ const BookingRecord = () => {
                   })}
                 </>
                 {calculatePayment()[1] !== 0 && (
-                  <div className="payment-details">
-                    <div className="single-pay">
+                  <div className='payment-details'>
+                    <div className='single-pay'>
                       <h2>Total Booking Value</h2>
-                      <h6>RS.{numeral(bookingValue).format("0,")}</h6>
+                      <h6>RS.{numeral(bookingValue).format('0,')}</h6>
                     </div>
-                    {general.tcs === "Yes" && (
-                      <div className="single-pay">
+                    {general.tcs === 'Yes' && (
+                      <div className='single-pay'>
                         <h2>TCS 5%</h2>
                         <h6>
-                          RS.{numeral(calculatePayment()[2]).format("0,")}
+                          RS.{numeral(calculatePayment()[2]).format('0,')}
                         </h6>
                       </div>
                     )}
-                    <div className="single-pay">
+                    <div className='single-pay'>
                       <h2>Total Amount Received</h2>
-                      <h6>RS.{numeral(calculatePayment()[0]).format("0,")}</h6>
+                      <h6>RS.{numeral(calculatePayment()[0]).format('0,')}</h6>
                     </div>
-                    {general.tcs === "Yes" ? (
-                      <div className="single-pay">
+                    {general.tcs === 'Yes' ? (
+                      <div className='single-pay'>
                         <h2>Booking & Vendor Payment + TCS 5%</h2>
                         <h6>
-                          RS.{numeral(calculatePayment()[1]).format("0,")}
+                          RS.{numeral(calculatePayment()[1]).format('0,')}
                         </h6>
                       </div>
                     ) : (
-                      <div className="single-pay">
+                      <div className='single-pay'>
                         <h2>Booking & Vendor Payment</h2>
                         <h6>
-                          RS.{numeral(calculatePayment()[1]).format("0,")}
+                          RS.{numeral(calculatePayment()[1]).format('0,')}
                         </h6>
                       </div>
                     )}
-                    <div className="single-pay">
+                    <div className='single-pay'>
                       <h2>Margin Before GST</h2>
-                      <h6>RS.{numeral(calculatePayment()[4]).format("0,")}</h6>
+                      <h6>RS.{numeral(calculatePayment()[4]).format('0,')}</h6>
                     </div>
-                    <div className="single-pay">
+                    <div className='single-pay'>
                       <h2> GST 5%</h2>
-                      <h6>RS.{numeral(calculatePayment()[3]).format("0,")}</h6>
+                      <h6>RS.{numeral(calculatePayment()[3]).format('0,')}</h6>
                     </div>
-                    <div className="single-pay final">
+                    <div className='single-pay final'>
                       <h2>Final Margin </h2>
-                      <h6>RS.{numeral(calculatePayment()[5]).format("0,")}</h6>
+                      <h6>RS.{numeral(calculatePayment()[5]).format('0,')}</h6>
                     </div>
                   </div>
                 )}
@@ -1844,26 +1823,25 @@ const BookingRecord = () => {
         );
       case 3:
         return (
-          <div className="bookingGeneral">
+          <div className='bookingGeneral'>
             <div>
               <h3>Visa Information</h3>
             </div>
             {visaEdit ? (
               <>
-                <div className="bookingPaymentDetails">
+                <div className='bookingPaymentDetails'>
                   <div>
-                    <div className="generalInput">
-                      <div className="generalInputtParti">
+                    <div className='generalInput'>
+                      <div className='generalInputtParti'>
                         <label>Visa On Arrival</label>
                         <div
-                          className="generalSelectt"
+                          className='generalSelectt'
                           onClick={() => {
                             setShowGenVisaOnArrival(!showGenVisaOnArrival);
                             setShowVisaStat(false);
                             setShowVisaVendor(false);
                             setShowVisaApmt(false);
-                          }}
-                        >
+                          }}>
                           {visaOnArrival ? (
                             <>
                               <div>{visaOnArrival}</div>
@@ -1877,37 +1855,35 @@ const BookingRecord = () => {
                           )}
                         </div>
                         {showGenVisaOnArrival ? (
-                          <div className="generalLi6">
+                          <div className='generalLi6'>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaOnArrival: "Yes",
+                                  visaOnArrival: 'Yes',
                                 });
                                 setShowGenVisaOnArrival(!showGenVisaOnArrival);
-                              }}
-                            >
+                              }}>
                               Yes
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaOnArrival: "No",
+                                  visaOnArrival: 'No',
                                 });
                                 setShowGenVisaOnArrival(!showGenVisaOnArrival);
-                              }}
-                            >
+                              }}>
                               No
                             </li>
                           </div>
                         ) : null}
                       </div>
                     </div>
-                    <div className="generalInput">
+                    <div className='generalInput'>
                       <label>Processing Date</label>
                       <input
-                        type="date"
+                        type='date'
                         value={processingDate}
                         onChange={(e) =>
                           setVisaDetails({
@@ -1917,10 +1893,10 @@ const BookingRecord = () => {
                         }
                       />
                     </div>
-                    <div className="generalInput">
+                    <div className='generalInput'>
                       <label>Completed Date</label>
                       <input
-                        type="date"
+                        type='date'
                         value={completedDate}
                         onChange={(e) =>
                           setVisaDetails({
@@ -1930,18 +1906,17 @@ const BookingRecord = () => {
                         }
                       />
                     </div>
-                    <div className="generalInput">
-                      <div className="generalInputtParti">
+                    <div className='generalInput'>
+                      <div className='generalInputtParti'>
                         <label>Visa Status</label>
                         <div
-                          className="generalSelectt"
+                          className='generalSelectt'
                           onClick={() => {
                             setShowVisaStat(!showVisaStat);
                             setShowVisaVendor(false);
                             setShowGenVisaOnArrival(false);
                             setShowVisaApmt(false);
-                          }}
-                        >
+                          }}>
                           {visaStatus ? (
                             <>
                               <div>{visaStatus}</div>
@@ -1955,38 +1930,35 @@ const BookingRecord = () => {
                           )}
                         </div>
                         {showVisaStat ? (
-                          <div className="generalLi5">
+                          <div className='generalLi5'>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaStatus: "Applied",
+                                  visaStatus: 'Applied',
                                 });
                                 setShowVisaStat(!showVisaStat);
-                              }}
-                            >
+                              }}>
                               Applied
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaStatus: "Pending",
+                                  visaStatus: 'Pending',
                                 });
                                 setShowVisaStat(!showVisaStat);
-                              }}
-                            >
+                              }}>
                               Pending
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaStatus: "Approved",
+                                  visaStatus: 'Approved',
                                 });
                                 setShowVisaStat(!showVisaStat);
-                              }}
-                            >
+                              }}>
                               Approved
                             </li>
                           </div>
@@ -1995,18 +1967,17 @@ const BookingRecord = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="generalInput">
-                      <div className="generalInputtParti">
+                    <div className='generalInput'>
+                      <div className='generalInputtParti'>
                         <label>Visa Vendor</label>
                         <div
-                          className="generalSelectt"
+                          className='generalSelectt'
                           onClick={() => {
                             setShowVisaVendor(!showVisaVendor);
                             setShowVisaStat(false);
                             setShowGenVisaOnArrival(false);
                             setShowVisaApmt(false);
-                          }}
-                        >
+                          }}>
                           {visaVendor ? (
                             <>
                               <div>{visaVendor}</div>
@@ -2020,48 +1991,45 @@ const BookingRecord = () => {
                           )}
                         </div>
                         {showVisaVendor ? (
-                          <div className="generalLi5">
+                          <div className='generalLi5'>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaVendor: "VFS Global",
+                                  visaVendor: 'VFS Global',
                                 });
                                 setShowVisaVendor(!showVisaVendor);
-                              }}
-                            >
+                              }}>
                               VFS Global
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaVendor: "TBO Group",
+                                  visaVendor: 'TBO Group',
                                 });
                                 setShowVisaVendor(!showVisaVendor);
-                              }}
-                            >
+                              }}>
                               TBO Group
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaVendor: "Sky & Sky VISA",
+                                  visaVendor: 'Sky & Sky VISA',
                                 });
                                 setShowVisaVendor(!showVisaVendor);
-                              }}
-                            >
+                              }}>
                               Sky & Sky VISA
                             </li>
                           </div>
                         ) : null}
                       </div>
                     </div>
-                    <div className="generalInput">
+                    <div className='generalInput'>
                       <label>Visa Validity Date</label>
                       <input
-                        type="date"
+                        type='date'
                         value={visaValidityDate}
                         onChange={(e) =>
                           setVisaDetails({
@@ -2071,18 +2039,17 @@ const BookingRecord = () => {
                         }
                       />
                     </div>
-                    <div className="generalInput">
-                      <div className="generalInputtParti">
+                    <div className='generalInput'>
+                      <div className='generalInputtParti'>
                         <label>Visa Appointment</label>
                         <div
-                          className="generalSelectt"
+                          className='generalSelectt'
                           onClick={() => {
                             setShowVisaApmt(!showVisaApmt);
                             setShowGenVisaOnArrival(false);
                             setShowVisaStat(false);
                             setShowVisaVendor(false);
-                          }}
-                        >
+                          }}>
                           {visaAppointment ? (
                             <>
                               <div>{visaAppointment}</div>
@@ -2096,38 +2063,36 @@ const BookingRecord = () => {
                           )}
                         </div>
                         {showVisaApmt ? (
-                          <div className="generalLi6">
+                          <div className='generalLi6'>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaAppointment: "Yes",
+                                  visaAppointment: 'Yes',
                                 });
                                 setShowVisaApmt(!showVisaApmt);
-                              }}
-                            >
+                              }}>
                               Yes
                             </li>
                             <li
                               onClick={() => {
                                 setVisaDetails({
                                   ...visaDetails,
-                                  visaAppointment: "No",
+                                  visaAppointment: 'No',
                                 });
                                 setShowVisaApmt(!showVisaApmt);
-                              }}
-                            >
+                              }}>
                               No
                             </li>
                           </div>
                         ) : null}
                       </div>
                     </div>
-                    {visaAppointment === "Yes" ? (
-                      <div className="generalInput">
+                    {visaAppointment === 'Yes' ? (
+                      <div className='generalInput'>
                         <label>Visa Appointment Date</label>
                         <input
-                          type="date"
+                          type='date'
                           value={visaAppointmentDate}
                           onChange={(e) =>
                             setVisaDetails({
@@ -2140,45 +2105,45 @@ const BookingRecord = () => {
                     ) : null}
                   </div>
                 </div>
-                <div className="generalButton">
+                <div className='generalButton'>
                   <button onClick={submitVisaDetails}>Submit</button>
                 </div>
               </>
             ) : (
-              <div className="bookingPaymentDetails">
+              <div className='bookingPaymentDetails'>
                 <div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Visa On Arrival</label>
                     <h6>{visaOnArrival}</h6>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Processing Date</label>
                     <h6>{processingDate}</h6>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Completed Date</label>
                     <h6>{completedDate}</h6>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Visa Status</label>
                     <h6>{visaStatus}</h6>
                   </div>
                 </div>
                 <div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Visa Vendor</label>
                     <h6>{visaVendor}</h6>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Visa Validity Date</label>
                     <h6>{visaValidityDate}</h6>
                   </div>
-                  <div className="generalInput">
+                  <div className='generalInput'>
                     <label>Visa Appointment</label>
                     <h6>{visaAppointment}</h6>
                   </div>
-                  {visaAppointment === "Yes" ? (
-                    <div className="generalInput">
+                  {visaAppointment === 'Yes' ? (
+                    <div className='generalInput'>
                       <label>Visa Appointment Date</label>
                       <h6>{visaAppointmentDate}</h6>
                     </div>
@@ -2190,20 +2155,20 @@ const BookingRecord = () => {
         );
       case 4:
         return (
-          <div className="bookingGeneral">
-            <div className="paymentMainn">
+          <div className='bookingGeneral'>
+            <div className='paymentMainn'>
               <h3>Reminders</h3>
-              <div className="paymentMainnBtn">
+              <div className='paymentMainnBtn'>
                 <button onClick={() => setReminderOpen(true)}>
                   + Add Reminder
                 </button>
               </div>
               {reminderOpen ? (
-                <div className="paymentMainnForm">
-                  <div className="generalInputt">
+                <div className='paymentMainnForm'>
+                  <div className='generalInputt'>
                     <label>Title </label>
                     <input
-                      type="text"
+                      type='text'
                       value={title}
                       onChange={(e) =>
                         setNewReminder({
@@ -2213,10 +2178,10 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Message</label>
                     <input
-                      type="text"
+                      type='text'
                       value={body}
                       onChange={(e) =>
                         setNewReminder({
@@ -2226,13 +2191,13 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
+                  <div className='generalInputt'>
                     <label>Reminder Date</label>
                     <input
                       style={{
                         marginTop: 12,
                       }}
-                      type="date"
+                      type='date'
                       value={reminderDate}
                       onChange={(e) =>
                         setNewReminder({
@@ -2242,15 +2207,14 @@ const BookingRecord = () => {
                       }
                     />
                   </div>
-                  <div className="generalInputt">
-                    <div className="generalInputtParti">
+                  <div className='generalInputt'>
+                    <div className='generalInputtParti'>
                       <label>Reminder Time</label>
                       <div
-                        className="generalSelect"
+                        className='generalSelect'
                         onClick={() => {
                           setShowRemindTime(!showRemindTime);
-                        }}
-                      >
+                        }}>
                         {reminderTime ? (
                           <>
                             <div>{getTime(reminderTime)}</div>
@@ -2264,7 +2228,7 @@ const BookingRecord = () => {
                         )}
                       </div>
                       {showRemindTime ? (
-                        <div className="generalLi7">
+                        <div className='generalLi7'>
                           {time.map((p) => {
                             return (
                               <li
@@ -2274,8 +2238,7 @@ const BookingRecord = () => {
                                     reminderTime: p.value,
                                   });
                                   setShowRemindTime(!showRemindTime);
-                                }}
-                              >
+                                }}>
                                 {p.name}
                               </li>
                             );
@@ -2285,23 +2248,22 @@ const BookingRecord = () => {
                     </div>
                   </div>
 
-                  <div className="generalbtns">
-                    <div className="generalInputtBtn">
+                  <div className='generalbtns'>
+                    <div className='generalInputtBtn'>
                       <button onClick={addReminders}>Add Reminder</button>
                     </div>
-                    <div className="generalInputtBtnCan">
+                    <div className='generalInputtBtnCan'>
                       <button
                         onClick={() => {
                           setReminderOpen(false);
                           setNewReminder({
-                            reminderDate: "",
-                            title: "",
-                            body: "",
+                            reminderDate: '',
+                            title: '',
+                            body: '',
                             reminderTime: 0,
                             isCompleted: false,
                           });
-                        }}
-                      >
+                        }}>
                         Cancel
                       </button>
                     </div>
@@ -2313,23 +2275,22 @@ const BookingRecord = () => {
             {!reminders || reminders.length === 0 ? (
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "1em 0",
-                }}
-              >
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: '1em 0',
+                }}>
                 <img
                   style={{ height: 280, width: 280 }}
-                  src="https://image.freepik.com/free-vector/reminders-concept-illustration_114360-4278.jpg"
-                  alt="reminder"
+                  src='https://image.freepik.com/free-vector/reminders-concept-illustration_114360-4278.jpg'
+                  alt='reminder'
                 />
-                <h5 style={{ fontFamily: "andika" }}>No reminders to show</h5>
+                <h5 style={{ fontFamily: 'andika' }}>No reminders to show</h5>
               </div>
             ) : (
-              <div className="b-table scroll-table">
-                <div className="paymentTableHead">
+              <div className='b-table scroll-table'>
+                <div className='paymentTableHead'>
                   <h5>Date</h5>
                   <h5>Time</h5>
                   <h5>Title</h5>
@@ -2339,15 +2300,15 @@ const BookingRecord = () => {
                 </div>
                 {reminders.map((c, i) => {
                   return (
-                    <div className="paymentTableBody">
+                    <div className='paymentTableBody'>
                       <h5>{c.reminderDate}</h5>
                       <h5>{getTime(c.reminderTime)}</h5>
                       <h5>{c.title}</h5>
                       <h5>{c.body}</h5>
-                      <h5>{c.isCompleted ? "Completed" : "Pending"}</h5>
-                      <h5 style={{ alignSelf: "center" }}>
+                      <h5>{c.isCompleted ? 'Completed' : 'Pending'}</h5>
+                      <h5 style={{ alignSelf: 'center' }}>
                         <Input
-                          type="checkbox"
+                          type='checkbox'
                           checked={c.isCompleted}
                           onChange={() => setReminderComplete(c)}
                           value={c.isCompleted}
@@ -2363,20 +2324,19 @@ const BookingRecord = () => {
         );
       case 5:
         return (
-          <div className="bookingGeneral">
-            <h2 style={{ fontFamily: "Andika" }}>Documents</h2>
+          <div className='bookingGeneral'>
+            <h2 style={{ fontFamily: 'Andika' }}>Documents</h2>
             {custDocuments.map((d, i) => {
               const { documents, name } = d;
               return (
                 <div>
                   {documents?.map((file, index) => {
                     return (
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <h5 className="docHeading">Documents for {name}</h5>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <h5 className='docHeading'>Documents for {name}</h5>
                         <a
                           href={file.fileUrl}
-                          style={{ fontFamily: "Andika", paddingTop: 5 }}
-                        >
+                          style={{ fontFamily: 'Andika', paddingTop: 5 }}>
                           {index + 1}.{file.fileName}
                         </a>
                       </div>
@@ -2393,28 +2353,26 @@ const BookingRecord = () => {
   };
 
   return (
-    <div className="bookingRecord">
+    <div className='bookingRecord'>
       <Modal
-        className="modal-dialog-centered modal-danger"
-        contentClassName="bg-gradient-danger"
-        isOpen={internationalModal}
-      >
-        <div className="modal-header">
-          <h6 className="modal-title" id="modal-title-notification">
+        className='modal-dialog-centered modal-danger'
+        contentClassName='bg-gradient-danger'
+        isOpen={internationalModal}>
+        <div className='modal-header'>
+          <h6 className='modal-title' id='modal-title-notification'>
             Cancel Booking - {surveyId}
           </h6>
           <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-            onClick={closeInternationalModal}
-          >
+            aria-label='Close'
+            className='close'
+            data-dismiss='modal'
+            type='button'
+            onClick={closeInternationalModal}>
             <span aria-hidden={true}>×</span>
           </button>
         </div>
-        <div className="cancel-booking">
-          <div className="generalInput">
+        <div className='cancel-booking'>
+          <div className='generalInput'>
             <label>Reason for cancellation</label>
             <textarea
               value={cancelBookingRemarks}
@@ -2426,9 +2384,9 @@ const BookingRecord = () => {
               }
             />
           </div>
-          <div className="cancel-check">
+          <div className='cancel-check'>
             <Input
-              type="checkbox"
+              type='checkbox'
               checked={isBookingCancelled}
               onChange={() =>
                 setGeneral({
@@ -2443,59 +2401,55 @@ const BookingRecord = () => {
               you sure you want to proceed?
             </h6>
           </div>
-          <div className="paymentMainnBtn cancel-button">
+          <div className='paymentMainnBtn cancel-button'>
             <button
               disabled={!isBookingCancelled}
               onClick={() => {
                 cancelBookingdetails();
                 setInternationalModal(false);
               }}
-              style={{ backgroundColor: isBookingCancelled ? "red" : "gray" }}
-            >
+              style={{ backgroundColor: isBookingCancelled ? 'red' : 'gray' }}>
               Cancel Booking
             </button>
           </div>
         </div>
       </Modal>
       <Modal
-        className="modal-dialog-centered modal-danger"
-        contentClassName="bg-gradient-danger"
-        isOpen={showDeletePaymentModal}
-      >
-        <div className="modal-header">
-          <h6 className="modal-title" id="modal-title-notification">
+        className='modal-dialog-centered modal-danger'
+        contentClassName='bg-gradient-danger'
+        isOpen={showDeletePaymentModal}>
+        <div className='modal-header'>
+          <h6 className='modal-title' id='modal-title-notification'>
             Delete Payment
           </h6>
           <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-            onClick={closeDeletePaymentModal}
-          >
+            aria-label='Close'
+            className='close'
+            data-dismiss='modal'
+            type='button'
+            onClick={closeDeletePaymentModal}>
             <span aria-hidden={true}>×</span>
           </button>
         </div>
-        <div className="deletePaymentModal">
-          <div className="deletePaymentModalflex">
-            <FiAlertTriangle className="deletePaymentIcon" />
+        <div className='deletePaymentModal'>
+          <div className='deletePaymentModalflex'>
+            <FiAlertTriangle className='deletePaymentIcon' />
             <h6>Are you sure you want to delete this Payment?</h6>
           </div>
-          <div className="deletePaymentModalButton">
+          <div className='deletePaymentModalButton'>
             <button onClick={closeDeletePaymentModal}>Cancel</button>
             <button
               onClick={() => {
                 deletePaymentDetails(deleteId);
                 closeDeletePaymentModal();
-              }}
-            >
+              }}>
               Delete
             </button>
           </div>
         </div>
       </Modal>
       {isNewRecord && (
-        <div className="bookingMain">
+        <div className='bookingMain'>
           <h5>Survey ID : {surveyId} </h5>
           <h5>Name : {customerName}</h5>
           <h5>Destination : {destination}</h5>
@@ -2503,104 +2457,94 @@ const BookingRecord = () => {
           <h5>Return Date: {returnDate}</h5>
         </div>
       )}
-      <div className="bookingTermMain">
-        <div className="bookingTerm">
+      <div className='bookingTermMain'>
+        <div className='bookingTerm'>
           <div
-            className={step === 1 ? "bookingColor" : "bookingColorNon"}
-          ></div>
+            className={step === 1 ? 'bookingColor' : 'bookingColorNon'}></div>
           <h6
             onClick={() => {
               if (isNewRecord) setStep(1);
             }}
-            className={step === 1 ? "bb" : "bc"}
-          >
+            className={step === 1 ? 'bb' : 'bc'}>
             General
           </h6>
-          <div className="bookingBorder"></div>
+          <div className='bookingBorder'></div>
           <div
-            className={step === 2 ? "bookingColor" : "bookingColorNon"}
-          ></div>
+            className={step === 2 ? 'bookingColor' : 'bookingColorNon'}></div>
           <h6
             onClick={() => {
               if (isNewRecord) setStep(2);
             }}
-            className={step === 2 ? "bb" : "bc"}
-          >
+            className={step === 2 ? 'bb' : 'bc'}>
             Payment
           </h6>
-          <div className="bookingBorder"></div>
+          <div className='bookingBorder'></div>
           <div
-            className={step === 3 ? "bookingColor" : "bookingColorNon"}
-          ></div>
+            className={step === 3 ? 'bookingColor' : 'bookingColorNon'}></div>
           <h6
             onClick={() => {
               if (isNewRecord) setStep(3);
             }}
-            className={step === 3 ? "bb" : "bc"}
-          >
+            className={step === 3 ? 'bb' : 'bc'}>
             Visa
           </h6>
-          <div className="bookingBorder"></div>
+          <div className='bookingBorder'></div>
           <div
-            className={step === 4 ? "bookingColor" : "bookingColorNon"}
-          ></div>
+            className={step === 4 ? 'bookingColor' : 'bookingColorNon'}></div>
           <h6
             onClick={() => {
               if (isNewRecord) setStep(4);
             }}
-            className={step === 4 ? "bb" : "bc"}
-          >
+            className={step === 4 ? 'bb' : 'bc'}>
             Reminders
           </h6>
 
           {custDocuments?.length > 0 && (
             <>
-              <div className="bookingBorder"></div>
+              <div className='bookingBorder'></div>
 
               <div
-                className={step === 5 ? "bookingColor" : "bookingColorNon"}
-              ></div>
+                className={
+                  step === 5 ? 'bookingColor' : 'bookingColorNon'
+                }></div>
               <h6
                 onClick={() => {
                   if (isNewRecord) setStep(5);
                 }}
-                className={step === 5 ? "bb" : "bc"}
-              >
+                className={step === 5 ? 'bb' : 'bc'}>
                 Documents
               </h6>
             </>
           )}
         </div>
-        <div className="renderTerm">
+        <div className='renderTerm'>
           {detailsLoaded ? (
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "100%",
-              }}
-            >
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+              }}>
               <Spinner
-                style={{ width: "4rem", height: "4rem" }}
-                color="primary"
+                style={{ width: '4rem', height: '4rem' }}
+                color='primary'
               />
             </div>
           ) : (
             <>
               <div>{renderItems(step)}</div>
               {step === 1 ? (
-                <div className="bookingEdit" onClick={() => setEdit(!edit)}>
-                  <BiEdit className="bookingArrowIcon" />
+                <div className='bookingEdit' onClick={() => setEdit(!edit)}>
+                  <BiEdit className='bookingArrowIcon' />
                 </div>
               ) : null}
               {step === 3 ? (
                 <div
-                  className="bookingEdit"
-                  onClick={() => setVisaEdit(!visaEdit)}
-                >
-                  <BiEdit className="bookingArrowIcon" />
+                  className='bookingEdit'
+                  onClick={() => setVisaEdit(!visaEdit)}>
+                  <BiEdit className='bookingArrowIcon' />
                 </div>
               ) : null}
             </>

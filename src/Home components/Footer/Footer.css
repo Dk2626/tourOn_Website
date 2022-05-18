@@ -20,7 +20,7 @@
   margin-right: 20px;
   margin-left: 20px;
   font-size: 15px;
-  font-family: "andika";
+  font-family: 'andika';
   font-weight: 500;
   color: #fff;
 }
@@ -28,7 +28,7 @@
 .selected {
   color: #ff7f00;
   text-decoration: none;
-  font-family: "andika";
+  font-family: 'andika';
 }
 
 .icons {
@@ -59,7 +59,7 @@
 }
 .link p {
   margin-top: 10px;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .link:hover {
   color: #ff7f00;
@@ -72,7 +72,7 @@
 }
 .copyrights p {
   margin: 15px 10px 0 10px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
   color: #696e7d;
   font-size: 14px;
@@ -92,7 +92,7 @@
   padding: 5px;
   margin: 0px;
   color: #fff;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .footer_address span {
   color: #696e7d;
@@ -133,28 +133,29 @@
   width: 50%;
   background-color: #ff7f00;
   margin: 10px 10px 10px 0;
-  cursor: pointer;
+  /* cursor: pointer; */
   padding: 5px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
+  color: #fff;
 }
 .footer-address {
   display: flex;
   margin-top: 10px;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .storeContent p {
   margin-top: 10px;
   color: #fff;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .magContent p {
   margin-top: 10px;
   color: #fff;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .playStore,
 .appStore {

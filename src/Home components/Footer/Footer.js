@@ -12,7 +12,7 @@ import appStore from '../../assests/appStore.png';
 import { ApiContext } from '../../Context/ApiContext';
 
 const Footer = () => {
-  const [address, setAddress] = useState('address1');
+  const [address, setAddress] = useState('address2');
   const { cont } = useContext(ApiContext);
 
   return (
@@ -315,7 +315,7 @@ const Footer = () => {
             <div className='contact-section'>
               <div className='_title'>Contact us</div>
               <div className='footer-address'>
-                <div
+                {/* <div
                   className={
                     address === 'address1' ? 'selectAddress' : 'address-1'
                   }
@@ -324,14 +324,15 @@ const Footer = () => {
                   }}>
                   <MdLocationOn />
                   Sholinganallur
-                </div>
+                </div> */}
                 <div
                   className={
                     address === 'address2' ? 'selectAddress' : 'address-2'
                   }
-                  onClick={() => {
-                    setAddress('address2');
-                  }}>
+                  // onClick={() => {
+                  //   setAddress('address2');
+                  // }}
+                >
                   <MdLocationOn />
                   Anna Nagar
                 </div>
@@ -370,7 +371,7 @@ const Footer = () => {
                       <p>
                         <span>Phone:</span>
                         <span> </span>
-                        +91 97510 09500
+                        +91 97510 09500, 97510 09400
                       </p>
                     )}
                   </>
