@@ -782,6 +782,10 @@ const BookingRecord = () => {
     'Tours Booking',
     'Bike Payment',
     'TCS-Taxes',
+    'Vendor Payments',
+    'Insurance',
+    'Train Tickets',
+    'Resort Payment',
   ];
 
   const RecvType = [
