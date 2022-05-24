@@ -233,6 +233,9 @@ export default function Routes() {
                 path='/admin/gaia-suggestions'
                 component={Adminpage}
               />
+              <AdminRoute path='/admin/particulars' component={Adminpage} />
+              <AdminRoute path='/admin/paymentstype' component={Adminpage} />
+              <AdminRoute path='/admin/vendors' component={Adminpage} />
               <Route path='/storysection' component={StorySection} />
               <Route path='/story/:categoryTitle' component={StoryPage} />
               <Route component={NotFound} />

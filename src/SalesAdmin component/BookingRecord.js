@@ -44,6 +44,10 @@ const BookingRecord = () => {
   const [showTcs, setShowTcs] = useState(false);
   const [showType, setShowType] = useState(false);
   const [showRemindTime, setShowRemindTime] = useState(false);
+  const [payParticulars, setPayParticulars] = useState('');
+  const [recvType, setRecvType] = useState('');
+  const [genVendorName, setGenVendorName] = useState('');
+
   console.log(`custDocuments`, custDocuments);
 
   const getDocuments = (email, destination, onwardDate) => {
@@ -771,43 +775,77 @@ const BookingRecord = () => {
   //   });
   // };
 
-  const payParticulars = [
-    'Payment Recieved',
-    'Hotel Payment',
-    'Flight Payment',
-    'Taxi Payment',
-    'Special Benefits',
-    'Visa',
-    'Refund',
-    'Tours Booking',
-    'Bike Payment',
-    'TCS-Taxes',
-    'Vendor Payments',
-    'Insurance',
-    'Train Tickets',
-    'Resort Payment',
-  ];
+  // const payParticulars = [
+  //   'Payment Recieved',
+  //   'Hotel Payment',
+  //   'Flight Payment',
+  //   'Taxi Payment',
+  //   'Special Benefits',
+  //   'Visa',
+  //   'Refund',
+  //   'Tours Booking',
+  //   'Bike Payment',
+  //   'TCS-Taxes',
+  //   'Vendor Payments',
+  //   'Insurance',
+  //   'Train Tickets',
+  //   'Resort Payment',
+  // ];
 
-  const RecvType = [
-    'SBI CU',
-    'IDFC Cu',
-    'SBI Card',
-    'AMEX Card',
-    'HDFC Card',
-    'Wallets',
-  ];
+  // const RecvType = [
+  //   'SBI CU',
+  //   'IDFC Cu',
+  //   'SBI Card',
+  //   'AMEX Card',
+  //   'HDFC Card',
+  //   'Wallets',
+  // ];
 
-  const GenVendorName = [
-    'One Above',
-    'TBO Group',
-    'Aueraga Global',
-    'KLOOK',
-    'Viator',
-    'Delhi Tamil Cars',
-    'Tripmore Travels',
-    'GoCabs',
-    'M.K Travels Goa',
-  ];
+  // const GenVendorName = [
+  //   'One Above',
+  //   'TBO Group',
+  //   'Aueraga Global',
+  //   'KLOOK',
+  //   'Viator',
+  //   'Delhi Tamil Cars',
+  //   'Tripmore Travels',
+  //   'GoCabs',
+  //   'M.K Travels Goa',
+  // ];
+
+  const payParticularss = () => {
+    let p = [];
+    firedb.ref('particularDetail').on('value', (data) => {
+      data.forEach((d) => {
+        p.push(d.val().name);
+      });
+      setPayParticulars(p);
+    });
+  };
+  const paymentTypes = () => {
+    let p = [];
+    firedb.ref('paymentTypeDetail').on('value', (data) => {
+      data.forEach((d) => {
+        p.push(d.val().name);
+      });
+      setRecvType(p);
+    });
+  };
+  const vendors = () => {
+    let p = [];
+    firedb.ref('vendorDetail').on('value', (data) => {
+      data.forEach((d) => {
+        p.push(d.val().name);
+      });
+      setGenVendorName(p);
+    });
+  };
+
+  useEffect(() => {
+    payParticularss();
+    paymentTypes();
+    vendors();
+  }, []);
 
   const renderItems = (step) => {
     switch (step) {
@@ -1231,24 +1269,28 @@ const BookingRecord = () => {
                           </>
                         )}
                       </div>
-                      {showGenVendor ? (
-                        <div className='generalLi4'>
-                          {GenVendorName.map((p) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  setGeneral({
-                                    ...general,
-                                    vendorName: p,
-                                  });
-                                  setShowGenVendor(!showGenVendor);
-                                }}>
-                                {p}
-                              </li>
-                            );
-                          })}
-                        </div>
-                      ) : null}
+                      {genVendorName && (
+                        <>
+                          {showGenVendor ? (
+                            <div className='generalLi4'>
+                              {genVendorName.map((p) => {
+                                return (
+                                  <li
+                                    onClick={() => {
+                                      setGeneral({
+                                        ...general,
+                                        vendorName: p,
+                                      });
+                                      setShowGenVendor(!showGenVendor);
+                                    }}>
+                                    {p}
+                                  </li>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className='generalInput'>
@@ -1428,24 +1470,28 @@ const BookingRecord = () => {
                           </>
                         )}
                       </div>
-                      {showParti ? (
-                        <div className='generalLi'>
-                          {payParticulars.map((p) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  setNewPayment({
-                                    ...newPayment,
-                                    particulars: p,
-                                  });
-                                  setShowParti(!showParti);
-                                }}>
-                                {p}
-                              </li>
-                            );
-                          })}
-                        </div>
-                      ) : null}
+                      {payParticulars != '' && (
+                        <>
+                          {showParti ? (
+                            <div className='generalLi'>
+                              {payParticulars.map((p) => {
+                                return (
+                                  <li
+                                    onClick={() => {
+                                      setNewPayment({
+                                        ...newPayment,
+                                        particulars: p,
+                                      });
+                                      setShowParti(!showParti);
+                                    }}>
+                                    {p}
+                                  </li>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className='generalInputt'>
@@ -1466,24 +1512,28 @@ const BookingRecord = () => {
                           </>
                         )}
                       </div>
-                      {showRecvType ? (
-                        <div className='generalLi'>
-                          {RecvType.map((p) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  setNewPayment({
-                                    ...newPayment,
-                                    recievedType: p,
-                                  });
-                                  setShowRecvType(!showRecvType);
-                                }}>
-                                {p}
-                              </li>
-                            );
-                          })}
-                        </div>
-                      ) : null}
+                      {recvType && (
+                        <>
+                          {showRecvType ? (
+                            <div className='generalLi'>
+                              {recvType.map((p) => {
+                                return (
+                                  <li
+                                    onClick={() => {
+                                      setNewPayment({
+                                        ...newPayment,
+                                        recievedType: p,
+                                      });
+                                      setShowRecvType(!showRecvType);
+                                    }}>
+                                    {p}
+                                  </li>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className='generalInputt'>
@@ -1584,24 +1634,28 @@ const BookingRecord = () => {
                           </>
                         )}
                       </div>
-                      {showParti ? (
-                        <div className='generalLi'>
-                          {payParticulars.map((p) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  setNewPayment({
-                                    ...newPayment,
-                                    particulars: p,
-                                  });
-                                  setShowParti(!showParti);
-                                }}>
-                                {p}
-                              </li>
-                            );
-                          })}
-                        </div>
-                      ) : null}
+                      {payParticulars != '' && (
+                        <>
+                          {showParti ? (
+                            <div className='generalLi'>
+                              {payParticulars.map((p) => {
+                                return (
+                                  <li
+                                    onClick={() => {
+                                      setNewPayment({
+                                        ...newPayment,
+                                        particulars: p,
+                                      });
+                                      setShowParti(!showParti);
+                                    }}>
+                                    {p}
+                                  </li>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className='generalInputt'>
@@ -1622,24 +1676,28 @@ const BookingRecord = () => {
                           </>
                         )}
                       </div>
-                      {showRecvType ? (
-                        <div className='generalLi'>
-                          {RecvType.map((p) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  setNewPayment({
-                                    ...newPayment,
-                                    recievedType: p,
-                                  });
-                                  setShowRecvType(!showRecvType);
-                                }}>
-                                {p}
-                              </li>
-                            );
-                          })}
-                        </div>
-                      ) : null}
+                      {recvType && (
+                        <>
+                          {showRecvType ? (
+                            <div className='generalLi'>
+                              {recvType.map((p) => {
+                                return (
+                                  <li
+                                    onClick={() => {
+                                      setNewPayment({
+                                        ...newPayment,
+                                        recievedType: p,
+                                      });
+                                      setShowRecvType(!showRecvType);
+                                    }}>
+                                    {p}
+                                  </li>
+                                );
+                              })}
+                            </div>
+                          ) : null}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className='generalInputt'>
