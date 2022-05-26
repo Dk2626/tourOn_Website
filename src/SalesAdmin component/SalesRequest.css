@@ -105,7 +105,7 @@
   justify-content: space-evenly;
   align-items: center;
   padding: 20px 40px 40px;
-  font-family: "andika";
+  font-family: 'andika';
 }
 .req-taxi-image {
   width: 500px;
@@ -138,7 +138,7 @@
 }
 
 .req-plan-main h3 {
-  font-family: "andika";
+  font-family: 'andika';
   font-size: 18px;
   padding: 20px;
   text-align: center;
@@ -174,13 +174,13 @@
 }
 .taxi-Informs-head h5,
 .taxi-condition-head h5 {
-  font-family: "newyorklargeblack";
+  font-family: 'newyorklargeblack';
 }
 .taxi-single-infrms h6,
 .taxi-single-infrm h6 {
   margin: 0;
   padding: 10px 0;
-  font-family: "andika";
+  font-family: 'andika';
 }
 
 .taxi-single-infrm {
@@ -246,10 +246,10 @@
   width: 450px;
 }
 .req-hotel-infrms-head h5 {
-  font-family: "andika";
+  font-family: 'andika';
 }
 .req-hotel-infrms-head h4 {
-  font-family: "newyorklargeblack";
+  font-family: 'newyorklargeblack';
   font-weight: bold;
   color: coral;
 }
@@ -281,7 +281,7 @@
   margin-top: 10px;
 }
 .req-hotel-infrms-check h6 {
-  font-family: "andika";
+  font-family: 'andika';
 }
 .req-hotel-infrms-room {
   border-right: 1px solid #ccc;
@@ -293,7 +293,7 @@
 .req-hotel-infrms-room h6,
 .req-hotel-infrms-meal h6 {
   text-align: center;
-  font-family: "andika";
+  font-family: 'andika';
 }
 
 .req-hotel-infrms-checki:nth-child(2) {
@@ -322,13 +322,21 @@
   justify-content: center;
 }
 .req-head h6 {
-  font-family: "andika";
+  font-family: 'andika';
 }
 
 .paginations {
   margin-top: -45%;
   bottom: 0 !important;
   /* margin-right: 20px; */
+}
+.priorClass {
+  width: 300px;
+}
+.priorClass p {
+  font-family: 'Andika';
+  font-size: 15px;
+  color: red;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,137 +1,137 @@
-import React, { useState, useEffect, useContext } from "react"
-import { GiMeal, GiJourney } from "react-icons/gi"
-import { ImEnter, ImExit } from "react-icons/im"
-import { FaBed } from "react-icons/fa"
-import { BiCalendar } from "react-icons/bi"
-import { AiFillStar } from "react-icons/ai"
-import { HiInformationCircle } from "react-icons/hi"
-import { FaRegCalendarAlt, FaTachometerAlt } from "react-icons/fa"
-import { TiGroup, TiTicket } from "react-icons/ti"
-import { BsClockHistory } from "react-icons/bs"
-import { Ellipsis } from "react-spinners-css"
-import moment from "moment"
-import Planning from "../assests/Planning.jpg"
-import Slider from "react-slick"
-import { Button, Table, Modal, Popover, Input } from "reactstrap"
-import { firedb } from "../firebase"
-import { useToasts } from "react-toast-notifications"
+import React, { useState, useEffect, useContext } from 'react';
+import { GiMeal, GiJourney } from 'react-icons/gi';
+import { ImEnter, ImExit } from 'react-icons/im';
+import { FaBed } from 'react-icons/fa';
+import { BiCalendar } from 'react-icons/bi';
+import { AiFillStar } from 'react-icons/ai';
+import { HiInformationCircle } from 'react-icons/hi';
+import { FaRegCalendarAlt, FaTachometerAlt } from 'react-icons/fa';
+import { TiGroup, TiTicket } from 'react-icons/ti';
+import { BsClockHistory } from 'react-icons/bs';
+import { Ellipsis } from 'react-spinners-css';
+import moment from 'moment';
+import Planning from '../assests/Planning.jpg';
+import Slider from 'react-slick';
+import { Button, Table, Modal, Popover, Input } from 'reactstrap';
+import { firedb } from '../firebase';
+import { useToasts } from 'react-toast-notifications';
 import {
   getExpoToken,
   sendPushNotification,
-} from "./../Login components/PushNotification"
-import SalesAdmin from "./SalesAdmin"
-import "./SalesRequest.css"
-import { MdFlight, MdDirectionsBus, MdTrain } from "react-icons/md"
-import ReactExport from "react-export-excel"
-import { ApiContext } from "./../Context/ApiContext"
+} from './../Login components/PushNotification';
+import SalesAdmin from './SalesAdmin';
+import './SalesRequest.css';
+import { MdFlight, MdDirectionsBus, MdTrain } from 'react-icons/md';
+import ReactExport from 'react-export-excel';
+import { ApiContext } from './../Context/ApiContext';
 
-const ExcelFile = ReactExport.ExcelFile
-const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const SalesRequest = () => {
-  const { employees } = useContext(ApiContext)
-  const { addToast } = useToasts()
-  const [taskAssigned, setTaskAssigned] = useState("")
-  const [step, setStep] = useState(1)
-  const [domesticModal, setDomesticModal] = useState(false)
-  const [internationalModal, setInternationalModal] = useState(false)
-  const [detailsModal, setDetailsModal] = useState(false)
-  const [userRequest, setUserRequest] = useState([])
-  const [userRequestLength, setUserRequestLength] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [userRequestDates, setUserRequestDates] = useState([])
-  const [userRequestCount, setUserRequestCount] = useState(0)
-  const [selectedRequest, setSelectedRequest] = useState({})
-  const [status, setStatus] = useState("")
-  const [key, setKey] = useState("")
-  const [clicked, setClicked] = useState(false)
-  const [querystatus, setQueryStatus] = useState("")
-  const [category, setCategory] = useState("")
-  const [requestId, setRequestId] = useState("")
-  const [number, setNumber] = useState("")
-  const [selfPlanModal, setSelfPlanModal] = useState(false)
-  const [planKey, setPlanKey] = useState({})
-  const [cost, setCost] = useState(0)
-  const [plannedDetails, setPlannedDetails] = useState({})
-  const [assignedTasks, setAssignedTasks] = useState([])
-  const [pageSize, setPageSize] = useState(20)
-  const [currentPage, setCurrentpage] = useState(1)
-  const [reqDate, setReqDate] = useState("")
-  const [reqToDate, setReqToDate] = useState("")
+  const { employees } = useContext(ApiContext);
+  const { addToast } = useToasts();
+  const [taskAssigned, setTaskAssigned] = useState('');
+  const [step, setStep] = useState(1);
+  const [domesticModal, setDomesticModal] = useState(false);
+  const [internationalModal, setInternationalModal] = useState(false);
+  const [detailsModal, setDetailsModal] = useState(false);
+  const [userRequest, setUserRequest] = useState([]);
+  const [userRequestLength, setUserRequestLength] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [userRequestDates, setUserRequestDates] = useState([]);
+  const [userRequestCount, setUserRequestCount] = useState(0);
+  const [selectedRequest, setSelectedRequest] = useState({});
+  const [status, setStatus] = useState('');
+  const [key, setKey] = useState('');
+  const [clicked, setClicked] = useState(false);
+  const [querystatus, setQueryStatus] = useState('');
+  const [category, setCategory] = useState('');
+  const [requestId, setRequestId] = useState('');
+  const [number, setNumber] = useState('');
+  const [selfPlanModal, setSelfPlanModal] = useState(false);
+  const [planKey, setPlanKey] = useState({});
+  const [cost, setCost] = useState(0);
+  const [plannedDetails, setPlannedDetails] = useState({});
+  const [assignedTasks, setAssignedTasks] = useState([]);
+  const [pageSize, setPageSize] = useState(20);
+  const [currentPage, setCurrentpage] = useState(1);
+  const [reqDate, setReqDate] = useState('');
+  const [reqToDate, setReqToDate] = useState('');
 
   const getTaskAssigne = (requestID) => {
-    let name = ""
+    let name = '';
     assignedTasks.forEach((a) => {
       if (a.requestID === requestID) {
-        name = a.name
+        name = a.name;
       }
-    })
-    return name
-  }
+    });
+    return name;
+  };
 
-  const innerWidth = window.innerWidth
+  const innerWidth = window.innerWidth;
   useEffect(() => {
     if (innerWidth < 900) {
-      setClicked(true)
+      setClicked(true);
     }
-  }, [])
-  const [weekPopover, setWeekPopover] = useState(false)
-  const [monthPopover, setMonthPopover] = useState(false)
-  const [totalPopover, setTotalPopover] = useState(false)
+  }, []);
+  const [weekPopover, setWeekPopover] = useState(false);
+  const [monthPopover, setMonthPopover] = useState(false);
+  const [totalPopover, setTotalPopover] = useState(false);
 
-  const toggleWeekPopover = () => setWeekPopover(!weekPopover)
-  const toggleMonthPopover = () => setMonthPopover(!monthPopover)
-  const toggleTotalPopover = () => setTotalPopover(!totalPopover)
+  const toggleWeekPopover = () => setWeekPopover(!weekPopover);
+  const toggleMonthPopover = () => setMonthPopover(!monthPopover);
+  const toggleTotalPopover = () => setTotalPopover(!totalPopover);
 
   const getDepatureDate = (date) => {
-    const countDate = Date.parse(date)
-    const now = new Date().getTime()
-    const gap = countDate - now
-    const second = 1000
-    const minute = second * 60
-    const hour = minute * 60
-    const day = hour * 24
+    const countDate = Date.parse(date);
+    const now = new Date().getTime();
+    const gap = countDate - now;
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
 
-    const d = Math.floor(gap / day)
-    return d
-  }
+    const d = Math.floor(gap / day);
+    return d;
+  };
 
-  let weekReq = []
+  let weekReq = [];
 
   const weekRequest = () => {
-    let count = 0
+    let count = 0;
     userRequestDates.forEach((d) => {
-      const ds = moment()
-      const date = moment().subtract(7, "days")
+      const ds = moment();
+      const date = moment().subtract(7, 'days');
 
       if (moment(d.requestDate).isBetween(date, ds)) {
-        count = count + 1
-        weekReq.push(d)
+        count = count + 1;
+        weekReq.push(d);
       }
-    })
-    return count
-  }
+    });
+    return count;
+  };
 
-  let monthReq = []
+  let monthReq = [];
   const monthRequest = () => {
-    let count = 0
+    let count = 0;
     userRequestDates.forEach((d) => {
-      const ds = moment()
-      const month = moment().subtract(31, "days")
+      const ds = moment();
+      const month = moment().subtract(31, 'days');
       if (moment(d.requestDate).isBetween(month, ds)) {
-        count = count + 1
-        monthReq.push(d)
+        count = count + 1;
+        monthReq.push(d);
       }
-    })
-    return count
-  }
+    });
+    return count;
+  };
 
   const planning = () => {
     return (
-      <div className="req-plan-main">
-        <div className="req-plan-image">
-          <img src={Planning} alt="taxiImage" />
+      <div className='req-plan-main'>
+        <div className='req-plan-image'>
+          <img src={Planning} alt='taxiImage' />
         </div>
         <div>
           <h3>
@@ -140,94 +140,94 @@ const SalesRequest = () => {
           </h3>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const closeDomesticModal = () => {
-    setDomesticModal(false)
-  }
+    setDomesticModal(false);
+  };
   const openDetailsModal = () => {
-    setDetailsModal(true)
-  }
+    setDetailsModal(true);
+  };
   const closeDetailsModal = () => {
-    setDetailsModal(false)
-    setWeekPopover(false)
-    setMonthPopover(false)
-    setTotalPopover(false)
-    setPlannedDetails({})
-  }
+    setDetailsModal(false);
+    setWeekPopover(false);
+    setMonthPopover(false);
+    setTotalPopover(false);
+    setPlannedDetails({});
+  };
   const openSelfPlanModal = () => {
-    setSelfPlanModal(true)
-  }
+    setSelfPlanModal(true);
+  };
   const closeSelfPlanModal = () => {
-    setPlanKey({})
-    setSelfPlanModal(false)
-  }
+    setPlanKey({});
+    setSelfPlanModal(false);
+  };
 
   function closeInternationalModal() {
-    setInternationalModal(false)
+    setInternationalModal(false);
   }
 
   useEffect(() => {
-    getAllRequest()
-  }, [currentPage, pageSize])
+    getAllRequest();
+  }, [currentPage, pageSize]);
   useEffect(() => {
-    getUserRequestLength()
-    getAssignTask()
-  }, [])
+    getUserRequestLength();
+    getAssignTask();
+  }, []);
 
   const getUserRequestCount = (uid) => {
-    firedb.ref("requests").on("value", (data) => {
+    firedb.ref('requests').on('value', (data) => {
       if (data !== null) {
-        let req = []
+        let req = [];
         data.forEach((d) => {
           if (d.val().userID === uid) {
-            req.push(d.val())
+            req.push(d.val());
           }
-        })
-        setUserRequestDates(req)
-        setUserRequestCount(req.length)
+        });
+        setUserRequestDates(req);
+        setUserRequestCount(req.length);
       }
-    })
-  }
+    });
+  };
   const getUserRequestLength = (uid) => {
-    firedb.ref("requests").on("value", (data) => {
+    firedb.ref('requests').on('value', (data) => {
       if (data !== null) {
-        let req = []
+        let req = [];
         data.forEach((d) => {
           req.push({
             key: d.key,
             value: d.val(),
-          })
-        })
-        setUserRequestLength(req)
+          });
+        });
+        setUserRequestLength(req);
       }
-    })
-  }
+    });
+  };
   const getAllRequest = () => {
-    setLoading(true)
+    setLoading(true);
     firedb
-      .ref("requests")
+      .ref('requests')
       .orderByKey()
       .limitToLast(currentPage * pageSize)
-      .on("value", (data) => {
+      .on('value', (data) => {
         if (data.val() === null || data.val() === undefined) {
-          setLoading(false)
-          return
+          setLoading(false);
+          return;
         }
         if (data.val() !== null || data.val() !== undefined) {
-          let newReq = {}
-          let revReq = Object.keys(data.val()).reverse()
+          let newReq = {};
+          let revReq = Object.keys(data.val()).reverse();
           revReq.forEach((i) => {
-            newReq[i] = data.val()[i]
-          })
+            newReq[i] = data.val()[i];
+          });
           setUserRequest({
             ...newReq,
-          })
+          });
         }
-      })
-    setLoading(false)
-  }
+      });
+    setLoading(false);
+  };
 
   const assignTask = () => {
     firedb
@@ -237,27 +237,27 @@ const SalesRequest = () => {
         requestID: selectedRequest.requestID,
       })
       .then(() => {
-        setTaskAssigned("")
-        addToast("Task assigned Successfully", {
-          appearance: "success",
-        })
+        setTaskAssigned('');
+        addToast('Task assigned Successfully', {
+          appearance: 'success',
+        });
       })
-      .catch((err) => console.log(`err`, err))
-  }
+      .catch((err) => console.log(`err`, err));
+  };
   const getAssignTask = () => {
-    let task = []
-    firedb.ref(`assignedTasks`).on("value", (data) => {
+    let task = [];
+    firedb.ref(`assignedTasks`).on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
-        return
+        return;
       }
       if (data.val() !== null || data.val() !== undefined) {
         data.forEach((d) => {
-          task.push(d.val())
-        })
+          task.push(d.val());
+        });
       }
-      setAssignedTasks(task)
-    })
-  }
+      setAssignedTasks(task);
+    });
+  };
 
   const updateRequest = () => {
     firedb
@@ -267,209 +267,209 @@ const SalesRequest = () => {
         tourCost: cost,
       })
       .then(() => {
-        closeDetailsModal()
-        setKey("")
-        setStatus("")
-        addToast("Request Status Updated Successfully", {
-          appearance: "success",
-        })
-        const token = getExpoToken(selectedRequest.userID)
+        closeDetailsModal();
+        setKey('');
+        setStatus('');
+        addToast('Request Status Updated Successfully', {
+          appearance: 'success',
+        });
+        const token = getExpoToken(selectedRequest.userID);
 
         const message = {
           to: token,
-          sound: "default",
+          sound: 'default',
           title: `Request Status Changed`,
           body: `Request Status Changed for your ${selectedRequest.tourCategory} of id ${selectedRequest.requestID} has been changed to  ${status}`,
           data: selectedRequest,
-        }
-        sendPushNotification(message)
+        };
+        sendPushNotification(message);
       })
-      .catch((err) => console.log("err :>> ", err))
-  }
+      .catch((err) => console.log('err :>> ', err));
+  };
 
   const getPlannedDetails = (key) => {
-    firedb.ref("plannedDetails").on("value", (data) => {
+    firedb.ref('plannedDetails').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         // setLoading(false);
-        return
+        return;
       }
       if (data.val() !== null || data.val() !== undefined) {
-        let revReq = Object.keys(data.val())
+        let revReq = Object.keys(data.val());
         revReq.forEach((i) => {
           if (data.val()[i].requestID === key) {
             setPlanKey({
               key: i,
               data: data.val()[i],
-            })
+            });
           }
-        })
+        });
       }
-    })
-  }
+    });
+  };
   const getPlannedDetailsD = (key) => {
-    firedb.ref("plannedDetails").on("value", (data) => {
+    firedb.ref('plannedDetails').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         // setLoading(false);
-        return
+        return;
       }
       if (data.val() !== null || data.val() !== undefined) {
         data.forEach((i) => {
           if (i.val().requestID === key) {
-            setPlannedDetails(i.val())
+            setPlannedDetails(i.val());
           }
-        })
+        });
       }
-    })
-  }
+    });
+  };
 
   const colors = [
     {
-      name: "All",
-      color: "#f39c12",
+      name: 'All',
+      color: '#f39c12',
     },
     {
-      name: "Query Received",
-      color: "#f39c12",
+      name: 'Query Received',
+      color: '#f39c12',
     },
     {
-      name: "On Progress",
-      color: "#8e44ad",
+      name: 'On Progress',
+      color: '#8e44ad',
     },
     {
-      name: "Plan Shared",
-      color: "#7f8c8d",
+      name: 'Plan Shared',
+      color: '#7f8c8d',
     },
     {
-      name: "Cancelled",
-      color: "red",
+      name: 'Cancelled',
+      color: 'red',
     },
     {
-      name: "On Hold",
-      color: "#3498db",
+      name: 'On Hold',
+      color: '#3498db',
     },
     {
-      name: "Duplicate Query",
-      color: "#FFF",
+      name: 'Duplicate Query',
+      color: '#FFF',
     },
     {
-      name: "Tour Booked",
-      color: "#2d3436",
+      name: 'Tour Booked',
+      color: '#2d3436',
     },
     {
-      name: "Awaiting Payment",
-      color: "#00cec9",
+      name: 'Awaiting Payment',
+      color: '#00cec9',
     },
     {
-      name: "Cancellation Requested",
-      color: "#d63031",
+      name: 'Cancellation Requested',
+      color: '#d63031',
     },
     {
-      name: "Estimated",
-      color: "red",
+      name: 'Estimated',
+      color: 'red',
     },
     {
-      name: "Completed",
-      color: "#55efc4",
+      name: 'Completed',
+      color: '#55efc4',
     },
-  ]
+  ];
 
   const getColor = (status) => {
-    let color = ""
+    let color = '';
     colors.filter((c) => {
-      if (c.name === status) color = c.color
-    })
-    return color
-  }
+      if (c.name === status) color = c.color;
+    });
+    return color;
+  };
 
   const getKey = (id) => {
-    let key = ""
+    let key = '';
     Object.keys(userRequest).map((r) => {
       if (userRequest[r].requestID === id) {
-        key = r
+        key = r;
       }
-    })
-    return key
-  }
+    });
+    return key;
+  };
 
   const filterRequests = () => {
-    if (querystatus !== "") {
-      let newReq = []
+    if (querystatus !== '') {
+      let newReq = [];
       firedb
-        .ref("requests")
-        .orderByChild("status")
+        .ref('requests')
+        .orderByChild('status')
         .equalTo(querystatus)
-        .on("value", (data) => {
+        .on('value', (data) => {
           if (data.val() !== null || data.val() !== undefined) {
             data.forEach((d) => {
               newReq.push({
                 key: d.key,
                 value: d.val(),
-              })
-            })
+              });
+            });
           }
-        })
-      return newReq.reverse()
-    } else if (reqDate !== "") {
-      let rs = []
+        });
+      return newReq.reverse();
+    } else if (reqDate !== '') {
+      let rs = [];
       userRequestLength.map((r) => {
-        const { value } = r
-        if (reqToDate === "") {
+        const { value } = r;
+        if (reqToDate === '') {
           if (
-            moment(value?.requestDate).format("L") ===
-            moment(reqDate).format("L")
+            moment(value?.requestDate).format('L') ===
+            moment(reqDate).format('L')
           ) {
-            rs.push(r)
+            rs.push(r);
           }
         } else {
-          console.log("running")
-          let formatedDate = moment(value?.requestDate).format("YYYY-MM-DD")
-          let fromDate = moment(reqDate).subtract(1, "days")
-          let toDate = moment(reqToDate).add(1, "days")
+          console.log('running');
+          let formatedDate = moment(value?.requestDate).format('YYYY-MM-DD');
+          let fromDate = moment(reqDate).subtract(1, 'days');
+          let toDate = moment(reqToDate).add(1, 'days');
 
           if (
             moment(formatedDate).isBetween(moment(fromDate), moment(toDate))
           ) {
-            console.log(`r`, r)
-            rs.push(r)
+            console.log(`r`, r);
+            rs.push(r);
           }
         }
-      })
-      return rs
-    } else if (category !== "") {
-      let newReq = []
+      });
+      return rs;
+    } else if (category !== '') {
+      let newReq = [];
       firedb
-        .ref("requests")
-        .orderByChild("tourCategory")
+        .ref('requests')
+        .orderByChild('tourCategory')
         .equalTo(category)
-        .on("value", (data) => {
+        .on('value', (data) => {
           if (data.val() !== null || data.val() !== undefined) {
             data.forEach((d) => {
               newReq.push({
                 key: d.key,
                 value: d.val(),
-              })
-            })
+              });
+            });
           }
-        })
-      return newReq.reverse()
-    } else if (requestId !== "") {
-      let rs = []
+        });
+      return newReq.reverse();
+    } else if (requestId !== '') {
+      let rs = [];
       userRequestLength.map((r) => {
-        const { value } = r
+        const { value } = r;
         if (
           value?.requestID
             ?.trim()
             .toLowerCase()
             .includes(requestId.trim().toLowerCase())
         ) {
-          rs.push(r)
+          rs.push(r);
         }
-      })
-      return rs
-    } else if (number !== "") {
-      let rs = []
+      });
+      return rs;
+    } else if (number !== '') {
+      let rs = [];
       userRequestLength.map((r) => {
-        const { value } = r
+        const { value } = r;
         if (
           value?.number
             ?.toString()
@@ -482,50 +482,50 @@ const SalesRequest = () => {
             .toLowerCase()
             .includes(number.trim().toLowerCase())
         ) {
-          rs.push(r)
+          rs.push(r);
         }
-      })
-      return rs.reverse()
+      });
+      return rs.reverse();
     }
-  }
+  };
 
   const convert = () => {
-    const arr = []
+    const arr = [];
     if (
-      querystatus === "" &&
-      category === "" &&
-      number === "" &&
-      requestId === "" &&
-      reqDate === ""
+      querystatus === '' &&
+      category === '' &&
+      number === '' &&
+      requestId === '' &&
+      reqDate === ''
     ) {
-      return Object.values(userRequest)
+      return Object.values(userRequest);
     } else {
       filterRequests().map((ar) => {
-        arr.push(ar.value)
-      })
+        arr.push(ar.value);
+      });
     }
-    return arr
-  }
+    return arr;
+  };
 
-  let pagesCount = userRequestLength.length
+  let pagesCount = userRequestLength.length;
 
   const handleClick = (e, index) => {
-    e.preventDefault()
-    setCurrentpage(index)
-  }
+    e.preventDefault();
+    setCurrentpage(index);
+  };
 
   const renderSteps = (step) => {
     switch (step) {
       case 1:
         return (
-          <div className="modal-visadetails">
-            <div className="modal-req">
-              <div className="iternary">
+          <div className='modal-visadetails'>
+            <div className='modal-req'>
+              <div className='iternary'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-iternary">
-                        <TiTicket className="title-iternary-icon" />
+                      <th className='title-iternary'>
+                        <TiTicket className='title-iternary-icon' />
                         Itinerary
                       </th>
                     </tr>
@@ -570,12 +570,12 @@ const SalesRequest = () => {
                   </tbody>
                 </Table>
               </div>
-              <div className="companions">
+              <div className='companions'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-companions">
-                        <TiGroup className="title-companions-icon" />
+                      <th className='title-companions'>
+                        <TiGroup className='title-companions-icon' />
                         Companions
                       </th>
                     </tr>
@@ -599,8 +599,8 @@ const SalesRequest = () => {
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-companions">
-                        <TiGroup className="title-companions-icon" />
+                      <th className='title-companions'>
+                        <TiGroup className='title-companions-icon' />
                         User History
                       </th>
                     </tr>
@@ -612,108 +612,102 @@ const SalesRequest = () => {
                     </tr>
                     <tr>
                       <td>Total Request</td>
-                      <td id="totalPopover" style={{ cursor: "pointer" }}>
+                      <td id='totalPopover' style={{ cursor: 'pointer' }}>
                         {userRequestCount}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={totalPopover}
-                      target="totalPopover"
-                      toggle={toggleTotalPopover}
-                    >
+                      target='totalPopover'
+                      toggle={toggleTotalPopover}>
                       {userRequestDates.map((t, index) => {
                         return (
                           <h6
                             key={index}
                             style={{
                               padding: 8,
-                              overflow: "auto",
+                              overflow: 'auto',
                               margin: 0,
-                              cursor: "pointer",
+                              cursor: 'pointer',
                               backgroundColor:
                                 selectedRequest.requestID === t.requestID
-                                  ? "#53E0BC"
-                                  : "",
+                                  ? '#53E0BC'
+                                  : '',
                             }}
                             onClick={() => {
                               // setKey(c);
                               // setSelectedRequest(userRequest[c]);
                               // setStatus(userRequest[c].status);
 
-                              closeDetailsModal()
-                              setSelectedRequest(t)
-                              setStatus(t.status)
-                              setKey(getKey(t.requestID))
-                              openDetailsModal()
-                            }}
-                          >
+                              closeDetailsModal();
+                              setSelectedRequest(t);
+                              setStatus(t.status);
+                              setKey(getKey(t.requestID));
+                              openDetailsModal();
+                            }}>
                             {index + 1}.{t.requestID} - {t.requestDate},
                             {getTaskAssigne(t.requestID)}
                           </h6>
-                        )
+                        );
                       })}
                     </Popover>
 
                     <tr>
                       <td>Last Week Request</td>
-                      <td id="weekPopover" style={{ cursor: "pointer" }}>
+                      <td id='weekPopover' style={{ cursor: 'pointer' }}>
                         {weekRequest()}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={weekPopover}
-                      target="weekPopover"
-                      toggle={toggleWeekPopover}
-                    >
+                      target='weekPopover'
+                      toggle={toggleWeekPopover}>
                       {weekReq.map((w, index) => {
                         return (
                           <h6
                             key={index}
                             style={{
                               padding: 8,
-                              overflow: "auto",
+                              overflow: 'auto',
 
                               margin: 0,
-                              cursor: "pointer",
+                              cursor: 'pointer',
                               backgroundColor:
                                 selectedRequest.requestID === w.requestID
-                                  ? "#53E0BC"
-                                  : "",
+                                  ? '#53E0BC'
+                                  : '',
                             }}
                             onClick={() => {
-                              closeDetailsModal()
-                              setSelectedRequest(w)
-                              setStatus(w.status)
-                              setKey(getKey(w.requestID))
-                              openDetailsModal()
-                            }}
-                          >
+                              closeDetailsModal();
+                              setSelectedRequest(w);
+                              setStatus(w.status);
+                              setKey(getKey(w.requestID));
+                              openDetailsModal();
+                            }}>
                             {index + 1}.{w.requestID} - {w.requestDate},
                             {getTaskAssigne(w.requestID)}
                           </h6>
-                        )
+                        );
                       })}
                     </Popover>
                     <tr>
                       <td>Last Month Request</td>
 
-                      <td id="monthPopover" style={{ cursor: "pointer" }}>
+                      <td id='monthPopover' style={{ cursor: 'pointer' }}>
                         {monthRequest()}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={monthPopover}
-                      target="monthPopover"
-                      toggle={toggleMonthPopover}
-                    >
+                      target='monthPopover'
+                      toggle={toggleMonthPopover}>
                       <div
                         style={{
-                          overflow: "auto",
-                        }}
-                      >
+                          overflow: 'auto',
+                        }}>
                         {monthReq.map((m, index) => {
                           return (
                             <h6
@@ -721,26 +715,25 @@ const SalesRequest = () => {
                               style={{
                                 padding: 8,
                                 margin: 0,
-                                overflow: "auto",
-                                cursor: "pointer",
+                                overflow: 'auto',
+                                cursor: 'pointer',
                                 backgroundColor:
                                   selectedRequest.requestID === m.requestID
-                                    ? "#53E0BC"
-                                    : "",
+                                    ? '#53E0BC'
+                                    : '',
                               }}
                               onClick={() => {
-                                closeDetailsModal()
-                                setSelectedRequest(m)
-                                setStatus(m.status)
-                                setKey(getKey(m.requestID))
-                                openDetailsModal()
-                              }}
-                            >
-                              {index + 1}.{m.requestID} -{" "}
+                                closeDetailsModal();
+                                setSelectedRequest(m);
+                                setStatus(m.status);
+                                setKey(getKey(m.requestID));
+                                openDetailsModal();
+                              }}>
+                              {index + 1}.{m.requestID} -{' '}
                               {m.requestDate.toString()},
                               {getTaskAssigne(m.requestID)}
                             </h6>
-                          )
+                          );
                         })}
                       </div>
                     </Popover>
@@ -748,12 +741,12 @@ const SalesRequest = () => {
                 </Table>
               </div>
 
-              <div className="Information">
+              <div className='Information'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-Information">
-                        <HiInformationCircle className="title-Information-icon" />
+                      <th className='title-Information'>
+                        <HiInformationCircle className='title-Information-icon' />
                         Other Information
                       </th>
                     </tr>
@@ -781,12 +774,18 @@ const SalesRequest = () => {
                     </tr>
                   </tbody>
                 </Table>
-                {selectedRequest.tourCategory === "Surprise Tour" ? (
+                {selectedRequest.priority && (
+                  <div className='priorClass'>
+                    <p>{selectedRequest.priority}</p>
+                  </div>
+                )}
+
+                {selectedRequest.tourCategory === 'Surprise Tour' ? (
                   <Table bordered>
                     <thead>
                       <tr>
-                        <th className="title-Information">
-                          <GiJourney className="title-Information-icon" />
+                        <th className='title-Information'>
+                          <GiJourney className='title-Information-icon' />
                           Expedition
                         </th>
                       </tr>
@@ -810,73 +809,70 @@ const SalesRequest = () => {
               </div>
             </div>
             <>
-              <div className="status-flex">
-                <div className="status">
+              <div className='status-flex'>
+                <div className='status'>
                   <h1>Status:</h1>
                   <Input
-                    type="select"
+                    type='select'
                     onChange={(e) => setStatus(e.target.value)}
-                    value={status}
-                  >
+                    value={status}>
                     {colors.map((c, index) => {
                       return (
                         <option key={index} value={c.name}>
                           {c.name}
                         </option>
-                      )
+                      );
                     })}
                   </Input>
                 </div>
-                <div className="status">
+                <div className='status'>
                   <h1>Tour Cost:</h1>
                   <Input
-                    type="text"
+                    type='text'
                     onChange={(e) => setCost(e.target.value)}
                     value={cost}
                   />
                 </div>
 
-                <div className="update-button">
-                  <button className="btn btn-success" onClick={updateRequest}>
+                <div className='update-button'>
+                  <button className='btn btn-success' onClick={updateRequest}>
                     Update
                   </button>
                 </div>
                 <div>
                   <button
-                    className="btn btn-success"
-                    style={{ backgroundColor: "blue" }}
+                    className='btn btn-success'
+                    style={{ backgroundColor: 'blue' }}
                     onClick={() => {
-                      getPlannedDetails(selectedRequest.requestID)
-                      openSelfPlanModal()
-                    }}
-                  >
+                      getPlannedDetails(selectedRequest.requestID);
+                      openSelfPlanModal();
+                    }}>
                     Add plan
                   </button>
                 </div>
               </div>
-              <div className="status-flex">
-                <div className="status">
+              <div className='status-flex'>
+                <div className='status'>
                   <h1>Query Assigned</h1>
                   <Input
                     // value={getTaskAssigne(selectedRequest.requestID)}
                     value={taskAssigned}
                     onChange={(e) => setTaskAssigned(e.target.value)}
-                    type="select"
-                  >
-                    <option value="" selected disabled hidden>
+                    type='select'>
+                    <option value='' selected disabled hidden>
                       select One
                     </option>
-                    <option value="All">All</option>
+                    <option value='All'>All</option>
                     {employees?.map((e, i) => {
                       if (
-                        e.designation === "CEO" ||
-                        e.designation == "Travel Associate"
+                        e.designation === 'CEO' ||
+                        e.designation == 'Travel Associate'
                       )
                         return (
                           <option key={i} value={e.name}>
                             {e.name}
                           </option>
-                        )
+                        );
                     })}
                     {/* <option value="Ganesh">Ganesh</option>
                     <option value="Kirthika">Kirthika</option>
@@ -887,12 +883,12 @@ const SalesRequest = () => {
                   </Input>
                 </div>
 
-                <div className="update-button">
-                  <button className="btn btn-success" onClick={assignTask}>
+                <div className='update-button'>
+                  <button className='btn btn-success' onClick={assignTask}>
                     Assign
                   </button>
                 </div>
-                <div className="update-button">
+                <div className='update-button'>
                   <h1>
                     Handled By {getTaskAssigne(selectedRequest.requestID)}
                   </h1>
@@ -900,41 +896,41 @@ const SalesRequest = () => {
               </div>
             </>
           </div>
-        )
+        );
       case 2:
         const renderIcon = (name) => {
-          if (name === "Flight") return <MdFlight style={{ fontSize: 25 }} />
-          if (name === "Bus")
-            return <MdDirectionsBus style={{ fontSize: 25 }} />
-          if (name === "Train") return <MdTrain style={{ fontSize: 25 }} />
-        }
+          if (name === 'Flight') return <MdFlight style={{ fontSize: 25 }} />;
+          if (name === 'Bus')
+            return <MdDirectionsBus style={{ fontSize: 25 }} />;
+          if (name === 'Train') return <MdTrain style={{ fontSize: 25 }} />;
+        };
 
         const renderImage = (image) => {
-          if (image === "Flight") {
+          if (image === 'Flight') {
             var sectionStyle = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/379419/pexels-photo-379419.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                 )`,
-            }
-            return sectionStyle
+            };
+            return sectionStyle;
           }
-          if (image === "Train") {
+          if (image === 'Train') {
             var sectionStyle1 = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/730134/pexels-photo-730134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                 )`,
-            }
-            return sectionStyle1
+            };
+            return sectionStyle1;
           }
-          if (image === "Bus") {
+          if (image === 'Bus') {
             var sectionStyle2 = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/68629/pexels-photo-68629.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
                 )`,
-            }
-            return sectionStyle2
+            };
+            return sectionStyle2;
           }
-        }
+        };
 
         return (
           <>
@@ -947,13 +943,12 @@ const SalesRequest = () => {
                   <>{planning()}</>
                 ) : (
                   <div
-                    className="req-travel-main"
+                    className='req-travel-main'
                     style={renderImage(
                       plannedDetails.flightDetails.onward.onwardTransportMode
-                    )}
-                  >
-                    <div className="req-travel">
-                      <div className="req-travel-onward">
+                    )}>
+                    <div className='req-travel'>
+                      <div className='req-travel-onward'>
                         <h5>
                           Onward<span> </span>
                           {
@@ -962,8 +957,8 @@ const SalesRequest = () => {
                           }
                         </h5>
                       </div>
-                      <div className="req-onward-main">
-                        <div className="req-onward-details">
+                      <div className='req-onward-main'>
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.onward.from}</h6>
                           <h3>
                             {
@@ -978,7 +973,7 @@ const SalesRequest = () => {
                             {plannedDetails.flightDetails.onward.depatureDate}
                           </h6>
                         </div>
-                        <div className="req-onward-type">
+                        <div className='req-onward-type'>
                           <h5>-------</h5>
                           {renderIcon(
                             plannedDetails.flightDetails.onward
@@ -986,7 +981,7 @@ const SalesRequest = () => {
                           )}
                           <h5>-------</h5>
                         </div>
-                        <div className="req-onward-details">
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.onward.to}</h6>
                           <h3>
                             {
@@ -1002,14 +997,14 @@ const SalesRequest = () => {
                           </h6>
                         </div>
                       </div>
-                      <div className="req-onward-modeName">
+                      <div className='req-onward-modeName'>
                         <h5>
                           {plannedDetails.flightDetails.onward.flightName}
                         </h5>
                       </div>
                     </div>
-                    <div className="req-travel">
-                      <div className="req-travel-onward">
+                    <div className='req-travel'>
+                      <div className='req-travel-onward'>
                         <h5>
                           Return<span> </span>
                           {
@@ -1018,8 +1013,8 @@ const SalesRequest = () => {
                           }
                         </h5>
                       </div>
-                      <div className="req-onward-main">
-                        <div className="req-onward-details">
+                      <div className='req-onward-main'>
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.return.from}</h6>
                           <h3>
                             {
@@ -1034,7 +1029,7 @@ const SalesRequest = () => {
                             {plannedDetails.flightDetails.return.depatureDate}
                           </h6>
                         </div>
-                        <div className="req-onward-type">
+                        <div className='req-onward-type'>
                           <h5>-------</h5>
                           {renderIcon(
                             plannedDetails.flightDetails.return
@@ -1042,7 +1037,7 @@ const SalesRequest = () => {
                           )}
                           <h5>-------</h5>
                         </div>
-                        <div className="req-onward-details">
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.return.to}</h6>
                           <h3>
                             {
@@ -1058,7 +1053,7 @@ const SalesRequest = () => {
                           </h6>
                         </div>
                       </div>
-                      <div className="req-onward-modeName">
+                      <div className='req-onward-modeName'>
                         <h5>
                           {plannedDetails.flightDetails.return.flightName}
                         </h5>
@@ -1069,7 +1064,7 @@ const SalesRequest = () => {
               </>
             )}
           </>
-        )
+        );
       case 3:
         var settings3 = {
           infinite: true,
@@ -1079,7 +1074,7 @@ const SalesRequest = () => {
           slidesToScroll: 1,
           arrows: false,
           dots: true,
-        }
+        };
 
         return (
           <>
@@ -1091,39 +1086,39 @@ const SalesRequest = () => {
                 0 ? (
                   <>{planning()}</>
                 ) : (
-                  <div className="req-hotel">
+                  <div className='req-hotel'>
                     {plannedDetails.hotels.map((c, i) => {
-                      if (c.cityName !== "") {
+                      if (c.cityName !== '') {
                         return (
-                          <div key={i} className="slide-hotel-single">
-                            <Slider {...settings3} className="slide-hotel">
+                          <div key={i} className='slide-hotel-single'>
+                            <Slider {...settings3} className='slide-hotel'>
                               {c.hotelPicture.map((h, index) => {
                                 return (
-                                  <div className="req-hotels-main" key={index}>
-                                    <div className="req-hotels-image">
-                                      <img src={h} alt="hotelImage" />
+                                  <div className='req-hotels-main' key={index}>
+                                    <div className='req-hotels-image'>
+                                      <img src={h} alt='hotelImage' />
                                     </div>
                                   </div>
-                                )
+                                );
                               })}
                             </Slider>
-                            <div className="req-hotel-infrms">
-                              <div className="req-hotel-infrms-head">
-                                <div className="req-hotel-infrms-locate">
-                                  <div className="hotel-name-rating">
+                            <div className='req-hotel-infrms'>
+                              <div className='req-hotel-infrms-head'>
+                                <div className='req-hotel-infrms-locate'>
+                                  <div className='hotel-name-rating'>
                                     <h4 style={{ marginBottom: 0 }}>
                                       {new Array(parseInt(c.hotelRatings))
-                                        .fill("1")
+                                        .fill('1')
                                         .map((s, i) => {
                                           return (
                                             <AiFillStar
                                               key={i}
                                               style={{
-                                                color: "#F7CD2E",
+                                                color: '#F7CD2E',
                                                 fontSize: 18,
                                               }}
                                             />
-                                          )
+                                          );
                                         })}
                                     </h4>
                                     <h4>{c.hotelName}</h4>
@@ -1131,55 +1126,54 @@ const SalesRequest = () => {
                                   <div>
                                     <h4
                                       style={{
-                                        color: "black",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
+                                        color: 'black',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                      }}>
                                       {c.cityName}
                                     </h4>
                                   </div>
                                 </div>
-                                <div className="req-hotel-infrms-check">
-                                  <div className="req-hotel-infrms-checki">
+                                <div className='req-hotel-infrms-check'>
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>Check In</h6>
-                                    <ImEnter className="req-hotell-icon" />
+                                    <ImEnter className='req-hotell-icon' />
                                     <h6>
                                       {c.checkIn.slice(0, 10)},
                                       {c.checkIn.slice(11)}
                                     </h6>
                                   </div>
-                                  <div className="req-hotel-infrms-checki">
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>-----</h6>
-                                    <BiCalendar className="req-hotell-icon" />
+                                    <BiCalendar className='req-hotell-icon' />
                                     <h6>-----</h6>
                                   </div>
-                                  <div className="req-hotel-infrms-checki">
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>Check Out</h6>
-                                    <ImExit className="req-hotell-icon" />
+                                    <ImExit className='req-hotell-icon' />
                                     <h6>
                                       {c.checkOut.slice(0, 10)},
                                       {c.checkOut.slice(11)}
                                     </h6>
                                   </div>
                                 </div>
-                                <div className="req-hotel-infrms-itern">
-                                  <div className="req-hotel-infrms-room">
+                                <div className='req-hotel-infrms-itern'>
+                                  <div className='req-hotel-infrms-room'>
                                     <h6>Room Type</h6>
-                                    <FaBed className="req-hotell-icon" />
+                                    <FaBed className='req-hotell-icon' />
                                     <h6>{c.roomType}</h6>
                                   </div>
-                                  <div className="req-hotel-infrms-meal">
+                                  <div className='req-hotel-infrms-meal'>
                                     <h6>Meal Type</h6>
-                                    <GiMeal className="req-hotell-icon" />
+                                    <GiMeal className='req-hotell-icon' />
                                     <h6>{c.mealPlan}</h6>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        )
+                        );
                       }
                     })}
                   </div>
@@ -1187,7 +1181,7 @@ const SalesRequest = () => {
               </>
             )}
           </>
-        )
+        );
       case 4:
         var settings4 = {
           infinite: true,
@@ -1197,7 +1191,7 @@ const SalesRequest = () => {
           slidesToScroll: 1,
           arrows: false,
           dots: true,
-        }
+        };
         return (
           <>
             {Object.keys(plannedDetails).length === 0 ? (
@@ -1208,52 +1202,52 @@ const SalesRequest = () => {
                 0 ? (
                   <>{planning()}</>
                 ) : (
-                  <div className="req-taxi">
+                  <div className='req-taxi'>
                     <div>
-                      <div className="slide-taxiName">
+                      <div className='slide-taxiName'>
                         <h5>{plannedDetails.taxiDetails.taxiName}</h5>
                       </div>
-                      <Slider {...settings4} className="slide-taxi">
+                      <Slider {...settings4} className='slide-taxi'>
                         {plannedDetails.taxiDetails.taxiPicture.map((c, i) => {
                           return (
-                            <div key={i} className="req-taxi-main">
-                              <div className="req-taxi-image">
-                                <img src={c} alt="taxi" />
+                            <div key={i} className='req-taxi-main'>
+                              <div className='req-taxi-image'>
+                                <img src={c} alt='taxi' />
                               </div>
                             </div>
-                          )
+                          );
                         })}
                       </Slider>
                     </div>
-                    <div className="taxiInform">
-                      <div className="taxi-Informs">
-                        <div className="taxi-Informs-head">
+                    <div className='taxiInform'>
+                      <div className='taxi-Informs'>
+                        <div className='taxi-Informs-head'>
                           <h5>Taxi Informations</h5>
                         </div>
-                        <div className="taxi-single-infrms-main">
-                          <div className="taxi-single-infrms">
+                        <div className='taxi-single-infrms-main'>
+                          <div className='taxi-single-infrms'>
                             <h6>Distance</h6>
                             <FaTachometerAlt style={{ fontSize: 22 }} />
                             <h6>
                               {plannedDetails.basicDetails.kilometers} kms
                             </h6>
                           </div>
-                          <div className="taxi-single-infrms">
+                          <div className='taxi-single-infrms'>
                             <h6>Days</h6>
                             <FaRegCalendarAlt style={{ fontSize: 22 }} />
                             <h6>{plannedDetails.basicDetails.days} Days</h6>
                           </div>
-                          <div className="taxi-single-infrm">
+                          <div className='taxi-single-infrm'>
                             <h6>Days Limit</h6>
                             <BsClockHistory style={{ fontSize: 22 }} />
                             <h6>{plannedDetails.basicDetails.daysLimit} kms</h6>
                           </div>
                         </div>
-                        <div className="taxi-condition">
-                          <div className="taxi-condition-head">
+                        <div className='taxi-condition'>
+                          <div className='taxi-condition-head'>
                             <h5>Terms and Conditions</h5>
                           </div>
-                          <div className="taxi-condition-content">
+                          <div className='taxi-condition-content'>
                             <p>{plannedDetails.basicDetails.termsConditions}</p>
                           </div>
                         </div>
@@ -1264,54 +1258,51 @@ const SalesRequest = () => {
               </>
             )}
           </>
-        )
+        );
       default:
     }
-  }
+  };
 
   return (
     <>
       <div
-        className="booking-container"
+        className='booking-container'
         style={{
-          padding: "20px",
-        }}
-      >
+          padding: '20px',
+        }}>
         <div
-          className="booking-name-container"
+          className='booking-name-container'
           style={{
-            padding: "30px",
-          }}
-        >
+            padding: '30px',
+          }}>
           <div>
-            <h3 style={{ color: "#666666" }}>Request Management</h3>
+            <h3 style={{ color: '#666666' }}>Request Management</h3>
           </div>
         </div>
         <div
-          className="booking-stats-container"
+          className='booking-stats-container'
           style={{
-            padding: "30px",
-          }}
-        >
-          <div className="booking-stats">
+            padding: '30px',
+          }}>
+          <div className='booking-stats'>
             <h3>Submitted Request</h3>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <h6>{userRequestLength.length}</h6>
             </div>
           </div>
-          <div className="booking-stats">
+          <div className='booking-stats'>
             <h3>Completed Request</h3>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <h6>0</h6>
             </div>
           </div>
-          {reqDate != "" && (
-            <div className="booking-stats">
+          {reqDate != '' && (
+            <div className='booking-stats'>
               <h3>
-                No of Queries in{"\n"} {reqDate}{" "}
-                {reqToDate !== "" ? `- ${reqToDate}` : ""}
+                No of Queries in{'\n'} {reqDate}{' '}
+                {reqToDate !== '' ? `- ${reqToDate}` : ''}
               </h3>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <h6>{filterRequests().length}</h6>
               </div>
             </div>
@@ -1325,143 +1316,136 @@ const SalesRequest = () => {
         </div>
 
         <div
-          className="filters"
+          className='filters'
           style={{
-            padding: "30px",
-          }}
-        >
-          <div className="month">
+            padding: '30px',
+          }}>
+          <div className='month'>
             <label>Show Item : </label>
             <select
               value={pageSize}
-              onChange={(e) => setPageSize(e.target.value)}
-            >
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
+              onChange={(e) => setPageSize(e.target.value)}>
+              <option value='20'>20</option>
+              <option value='50'>50</option>
+              <option value='100'>100</option>
             </select>
           </div>
 
-          <div className="month">
+          <div className='month'>
             <label>Tour Category : </label>
             <select
               onChange={(e) => setCategory(e.target.value)}
-              value={category}
-            >
-              <option value="">All</option>
-              <option value="Planned Tour">Planned Tour</option>
-              <option value="Surprise Tour">Surprise Tour</option>
-              <option value="Honeymoon Trip">Honeymoon Trip</option>
-              <option value="Luxury Tour">Luxury Tour</option>
-              <option value="Road Trip">Road Trip</option>
-              <option value="Wildlife">Wildlife</option>
+              value={category}>
+              <option value=''>All</option>
+              <option value='Planned Tour'>Planned Tour</option>
+              <option value='Surprise Tour'>Surprise Tour</option>
+              <option value='Honeymoon Trip'>Honeymoon Trip</option>
+              <option value='Luxury Tour'>Luxury Tour</option>
+              <option value='Road Trip'>Road Trip</option>
+              <option value='Wildlife'>Wildlife</option>
             </select>
           </div>
-          <div className="month">
+          <div className='month'>
             <label>Query Status : </label>
             <select
               onChange={(e) => {
-                setQueryStatus(e.target.value)
+                setQueryStatus(e.target.value);
               }}
-              value={querystatus}
-            >
+              value={querystatus}>
               {colors.map((c, index) => {
                 return (
-                  <option key={index} value={c.name === "All" ? "" : c.name}>
+                  <option key={index} value={c.name === 'All' ? '' : c.name}>
                     {c.name}
                   </option>
-                )
+                );
               })}
             </select>
           </div>
-          <div className="month">
+          <div className='month'>
             <label> Phone Number or Name: </label>
             <input
-              type="text"
+              type='text'
               onChange={(e) => setNumber(e.target.value)}
               value={number}
             />
           </div>
-          <div className="month">
+          <div className='month'>
             <label> Request ID : </label>
             <input
-              type="text"
+              type='text'
               onChange={(e) => setRequestId(e.target.value)}
               value={requestId}
             />
           </div>
         </div>
-        <div className="exportCont">
-          <div className="datesCont">
-            <div className="month">
+        <div className='exportCont'>
+          <div className='datesCont'>
+            <div className='month'>
               <label>From Date : </label>
               <input
-                type="date"
+                type='date'
                 onChange={(e) => {
-                  if (reqToDate === "") {
-                    setReqDate(e.target.value)
+                  if (reqToDate === '') {
+                    setReqDate(e.target.value);
                   } else {
-                    setReqDate(e.target.value)
-                    setReqToDate("")
+                    setReqDate(e.target.value);
+                    setReqToDate('');
                   }
                 }}
                 value={reqDate}
               />
             </div>
-            <div className="month">
+            <div className='month'>
               <label> To : </label>
               <input
-                type="date"
+                type='date'
                 onChange={(e) => setReqToDate(e.target.value)}
                 value={reqToDate}
               />
             </div>
             <button
-              className="export"
+              className='export'
               style={{ marginLeft: 20 }}
               onClick={() => {
-                setReqDate("")
-                setReqToDate("")
-              }}
-            >
+                setReqDate('');
+                setReqToDate('');
+              }}>
               Clear Search
             </button>
           </div>
 
           <ExcelFile
-            element={<button className="export">Export to Excel</button>}
-          >
-            <ExcelSheet data={convert()} name="Queries">
-              <ExcelColumn label="Request ID" value="requestID" />
-              <ExcelColumn label="Request Date" value="requestDate" />
-              <ExcelColumn label="Tour Category" value="tourCategory" />
-              <ExcelColumn label="Destination" value="destination" />
-              <ExcelColumn label="Tour Category" value="tourCategory" />
-              <ExcelColumn label="Name" value="name" />
-              <ExcelColumn label="Phone Number" value="number" />
-              <ExcelColumn label="Budget" value="budget" />
+            element={<button className='export'>Export to Excel</button>}>
+            <ExcelSheet data={convert()} name='Queries'>
+              <ExcelColumn label='Request ID' value='requestID' />
+              <ExcelColumn label='Request Date' value='requestDate' />
+              <ExcelColumn label='Tour Category' value='tourCategory' />
+              <ExcelColumn label='Destination' value='destination' />
+              <ExcelColumn label='Tour Category' value='tourCategory' />
+              <ExcelColumn label='Name' value='name' />
+              <ExcelColumn label='Phone Number' value='number' />
+              <ExcelColumn label='Budget' value='budget' />
               <ExcelColumn
-                label="Remaining Days"
+                label='Remaining Days'
                 value={(col) =>
-                  `${moment(col.fromDate).diff(moment(), "days")} days`
+                  `${moment(col.fromDate).diff(moment(), 'days')} days`
                 }
               />
 
               <ExcelColumn
-                label="Assigned to"
+                label='Assigned to'
                 value={(col) => getTaskAssigne(col.requestID)}
               />
             </ExcelSheet>
           </ExcelFile>
         </div>
 
-        <div className="b-table" style={{ height: "auto" }}>
+        <div className='b-table' style={{ height: 'auto' }}>
           <div
-            className="table-heading-container request"
+            className='table-heading-container request'
             style={{
-              width: "100%",
-            }}
-          >
+              width: '100%',
+            }}>
             <h5>Request Status</h5>
             <h5>Request Id</h5>
             <h5>Name</h5>
@@ -1472,15 +1456,15 @@ const SalesRequest = () => {
             <h5>Handled By</h5>
           </div>
 
-          {querystatus === "" &&
-          reqDate === "" &&
-          category === "" &&
-          number === "" &&
-          requestId === "" ? (
+          {querystatus === '' &&
+          reqDate === '' &&
+          category === '' &&
+          number === '' &&
+          requestId === '' ? (
             <>
               {loading ? (
-                <div className="req-lo">
-                  Fetching Data <Ellipsis color="#0057ff" />
+                <div className='req-lo'>
+                  Fetching Data <Ellipsis color='#0057ff' />
                 </div>
               ) : (
                 <>
@@ -1495,43 +1479,41 @@ const SalesRequest = () => {
                           return (
                             <div
                               className={
-                                userRequest[c].status === "Duplicate Query"
-                                  ? "table-heading-row request duplicate"
-                                  : "table-heading-row request"
+                                userRequest[c].status === 'Duplicate Query'
+                                  ? 'table-heading-row request duplicate'
+                                  : 'table-heading-row request'
                               }
                               // className="table-heading-row request"
                               key={i}
                               onClick={() => {
-                                setKey(c)
-                                setSelectedRequest(userRequest[c])
-                                setCost(userRequest[c].tourCost)
-                                setStep(1)
-                                openDetailsModal()
-                                setStatus(userRequest[c].status)
-                                getUserRequestCount(userRequest[c].userID)
-                                getPlannedDetailsD(userRequest[c].requestID)
-                              }}
-                            >
+                                setKey(c);
+                                setSelectedRequest(userRequest[c]);
+                                setCost(userRequest[c].tourCost);
+                                setStep(1);
+                                openDetailsModal();
+                                setStatus(userRequest[c].status);
+                                getUserRequestCount(userRequest[c].userID);
+                                getPlannedDetailsD(userRequest[c].requestID);
+                              }}>
                               <h5
                                 style={{
                                   color: `${getColor(userRequest[c].status)}`,
-                                }}
-                              >
+                                }}>
                                 {userRequest[c].status}
                               </h5>
                               <h5>{userRequest[c].requestID}</h5>
                               <h5>{userRequest[c].name}</h5>
                               <h5>{userRequest[c].tourCategory}</h5>
                               <h5>
-                                {userRequest[c].tourCategory === "Surprise Tour"
-                                  ? "--"
+                                {userRequest[c].tourCategory === 'Surprise Tour'
+                                  ? '--'
                                   : userRequest[c].destination}
                               </h5>
                               <h5>{userRequest[c].fromDate}</h5>
                               <h5>
                                 {moment(userRequest[c].fromDate).diff(
                                   moment(),
-                                  "days"
+                                  'days'
                                 )}
                                 days
                               </h5>
@@ -1539,59 +1521,56 @@ const SalesRequest = () => {
                                 {getTaskAssigne(userRequest[c].requestID)}
                               </h5>
                             </div>
-                          )
+                          );
                         })}
-                      <div className="pagination-table">
+                      <div className='pagination-table'>
                         {currentPage === 1 ? null : (
                           <div
-                            className="pag-count"
+                            className='pag-count'
                             onClick={(e) => {
-                              handleClick(e, currentPage - 1)
+                              handleClick(e, currentPage - 1);
                             }}
                             style={{
-                              backgroundColor: "#0057ff",
-                              color: "#fff",
-                            }}
-                          >
-                            <h5>{"<"}</h5>
+                              backgroundColor: '#0057ff',
+                              color: '#fff',
+                            }}>
+                            <h5>{'<'}</h5>
                           </div>
                         )}
-                        {new Array(pagesCount).fill("1").map((c, i) => {
+                        {new Array(pagesCount).fill('1').map((c, i) => {
                           if (i + 1 < currentPage + 5 && i > currentPage - 2) {
                             return (
                               <div
                                 key={i}
-                                className="pag-count"
+                                className='pag-count'
                                 onClick={(e) => handleClick(e, i + 1)}
                                 style={{
                                   backgroundColor:
-                                    currentPage - 1 === i ? "#0057ff" : "#fff",
+                                    currentPage - 1 === i ? '#0057ff' : '#fff',
                                   color:
-                                    currentPage - 1 === i ? "#fff" : "#333",
-                                }}
-                              >
+                                    currentPage - 1 === i ? '#fff' : '#333',
+                                }}>
                                 <h5>{i + 1}</h5>
                               </div>
-                            )
+                            );
                           }
                         })}
                         {pagesCount - 1 === currentPage ? null : (
                           <div
-                            className="pag-count"
+                            className='pag-count'
                             onClick={(e) => handleClick(e, currentPage + 1)}
                             style={{
-                              backgroundColor: "#0057ff",
-                              color: "#fff",
-                            }}
-                          >
-                            <h5>{">"}</h5>
+                              backgroundColor: '#0057ff',
+                              color: '#fff',
+                            }}>
+                            <h5>{'>'}</h5>
                           </div>
                         )}
                       </div>
                     </>
                   ) : (
                     <tr>
-                      <div className="noFind">No Request found</div>
+                      <div className='noFind'>No Request found</div>
                     </tr>
                   )}
                 </>
@@ -1600,154 +1579,145 @@ const SalesRequest = () => {
           ) : (
             <>
               {filterRequests().map((c, i) => {
-                const { value, key } = c
+                const { value, key } = c;
                 return (
                   <div
                     className={
-                      value.status === "Duplicate Query"
-                        ? "table-heading-row request duplicate"
-                        : "table-heading-row request"
+                      value.status === 'Duplicate Query'
+                        ? 'table-heading-row request duplicate'
+                        : 'table-heading-row request'
                     }
                     // className="table-heading-row request"
                     key={i}
                     onClick={() => {
-                      setKey(key)
-                      setSelectedRequest(value)
-                      openDetailsModal()
-                      setCost(value.tourCost)
-                      setStep(1)
-                      openDetailsModal()
-                      setStatus(value.status)
-                      getUserRequestCount(value.userID)
-                      getPlannedDetailsD(value.requestID)
-                    }}
-                  >
+                      setKey(key);
+                      setSelectedRequest(value);
+                      openDetailsModal();
+                      setCost(value.tourCost);
+                      setStep(1);
+                      openDetailsModal();
+                      setStatus(value.status);
+                      getUserRequestCount(value.userID);
+                      getPlannedDetailsD(value.requestID);
+                    }}>
                     <h5
                       style={{
                         color: `${getColor(value.status)}`,
-                      }}
-                    >
+                      }}>
                       {value.status}
                     </h5>
                     <h5>{value.requestID}</h5>
                     <h5>{value.name}</h5>
                     <h5>{value.tourCategory}</h5>
                     <h5>
-                      {value.tourCategory === "Surprise Tour"
-                        ? "--"
+                      {value.tourCategory === 'Surprise Tour'
+                        ? '--'
                         : value.destination}
                     </h5>
                     <h5>{value.fromDate}</h5>
-                    <h5>{moment(value.fromDate).diff(moment(), "days")}</h5>
+                    <h5>{moment(value.fromDate).diff(moment(), 'days')}</h5>
                     {/* <h5>{getDepatureDate(value.fromDate)} days</h5> */}
                     <h5>{getTaskAssigne(value.requestID)}</h5>
                   </div>
-                )
+                );
               })}
             </>
           )}
         </div>
 
         <Modal
-          className="modal-dialog-centered modal-danger"
-          contentClassName="bg-gradient-danger"
-          isOpen={domesticModal}
-        >
-          <div className="modal-header">
-            <h6 className="modal-title" id="modal-title-notification">
+          className='modal-dialog-centered modal-danger'
+          contentClassName='bg-gradient-danger'
+          isOpen={domesticModal}>
+          <div className='modal-header'>
+            <h6 className='modal-title' id='modal-title-notification'>
               Domestic
             </h6>
             <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeDomesticModal}
-            >
+              aria-label='Close'
+              className='close'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeDomesticModal}>
               <span aria-hidden={true}>×</span>
             </button>
           </div>
-          <div className="modal-body">
-            <div className="py-3 text-center">
-              <i className="ni ni-bell-55 ni-3x" />
-              <h4 className="heading mt-4">You should read this!</h4>
+          <div className='modal-body'>
+            <div className='py-3 text-center'>
+              <i className='ni ni-bell-55 ni-3x' />
+              <h4 className='heading mt-4'>You should read this!</h4>
               <p>
                 A small river named Duden flows by their place and supplies it
                 with the necessary regelialia.
               </p>
             </div>
           </div>
-          <div className="modal-footer">
-            <Button className="btn-white" color="default" type="button">
+          <div className='modal-footer'>
+            <Button className='btn-white' color='default' type='button'>
               Ok, Got it
             </Button>
             <Button
-              className="text-white ml-auto"
-              color="link"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeDomesticModal}
-            >
+              className='text-white ml-auto'
+              color='link'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeDomesticModal}>
               Close
             </Button>
           </div>
         </Modal>
         <Modal
-          className="modal-dialog-centered modal-danger"
-          contentClassName="bg-gradient-danger"
-          isOpen={internationalModal}
-        >
-          <div className="modal-header">
-            <h6 className="modal-title" id="modal-title-notification">
+          className='modal-dialog-centered modal-danger'
+          contentClassName='bg-gradient-danger'
+          isOpen={internationalModal}>
+          <div className='modal-header'>
+            <h6 className='modal-title' id='modal-title-notification'>
               International
             </h6>
             <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeInternationalModal}
-            >
+              aria-label='Close'
+              className='close'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeInternationalModal}>
               <span aria-hidden={true}>×</span>
             </button>
           </div>
-          <div className="modal-body">
-            <div className="py-3 text-center">
-              <i className="ni ni-bell-55 ni-3x" />
-              <h4 className="heading mt-4">You should read this!</h4>
+          <div className='modal-body'>
+            <div className='py-3 text-center'>
+              <i className='ni ni-bell-55 ni-3x' />
+              <h4 className='heading mt-4'>You should read this!</h4>
               <p>
                 A small river named Duden flows by their place and supplies it
                 with the necessary regelialia.
               </p>
             </div>
           </div>
-          <div className="modal-footer">
-            <Button className="btn-white" color="default" type="button">
+          <div className='modal-footer'>
+            <Button className='btn-white' color='default' type='button'>
               Ok, Got it
             </Button>
             <Button
-              className="text-white ml-auto"
-              color="link"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeInternationalModal}
-            >
+              className='text-white ml-auto'
+              color='link'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeInternationalModal}>
               Close
             </Button>
           </div>
         </Modal>
-        <Modal contentClassName="modal-request" isOpen={selfPlanModal}>
-          <div className="modal-header">
-            <h6 className="modal-title" id="modal-title-notification">
+        <Modal contentClassName='modal-request' isOpen={selfPlanModal}>
+          <div className='modal-header'>
+            <h6 className='modal-title' id='modal-title-notification'>
               Add Tour Plans
             </h6>
             <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeSelfPlanModal}
-            >
+              aria-label='Close'
+              className='close'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeSelfPlanModal}>
               <span aria-hidden={true}>×</span>
             </button>
           </div>
@@ -1757,32 +1727,31 @@ const SalesRequest = () => {
             planKey={planKey}
           />
         </Modal>
-        <Modal contentClassName="modal-request" isOpen={detailsModal}>
-          <div className="modal-header">
-            <h3 className="modal-title" id="modal-title-notification">
+        <Modal contentClassName='modal-request' isOpen={detailsModal}>
+          <div className='modal-header'>
+            <h3 className='modal-title' id='modal-title-notification'>
               Request Info
             </h3>
             <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={closeDetailsModal}
-            >
+              aria-label='Close'
+              className='close'
+              data-dismiss='modal'
+              type='button'
+              onClick={closeDetailsModal}>
               <span aria-hidden={true}>×</span>
             </button>
           </div>
-          <div className="req-head">
-            <div className={step === 1 ? "req-single" : "req-single-none"}>
+          <div className='req-head'>
+            <div className={step === 1 ? 'req-single' : 'req-single-none'}>
               <h6 onClick={() => setStep(1)}>General</h6>
             </div>
-            <div className={step === 2 ? "req-single" : "req-single-none"}>
+            <div className={step === 2 ? 'req-single' : 'req-single-none'}>
               <h6 onClick={() => setStep(2)}>Travel</h6>
             </div>
-            <div className={step === 3 ? "req-single" : "req-single-none"}>
+            <div className={step === 3 ? 'req-single' : 'req-single-none'}>
               <h6 onClick={() => setStep(3)}>Hotels</h6>
             </div>
-            <div className={step === 4 ? "req-single" : "req-single-none"}>
+            <div className={step === 4 ? 'req-single' : 'req-single-none'}>
               <h6 onClick={() => setStep(4)}>Transfer</h6>
             </div>
           </div>
@@ -1790,7 +1759,7 @@ const SalesRequest = () => {
         </Modal>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SalesRequest
+export default SalesRequest;

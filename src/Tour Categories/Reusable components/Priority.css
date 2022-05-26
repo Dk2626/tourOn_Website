@@ -1,0 +1,19 @@
+.priors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+.priorss {
+  display: flex;
+  align-items: center;
+}
+.priors label {
+  font-family: 'Andika';
+  margin-left: 10px;
+  margin-bottom: 0px;
+  padding: 10px 0;
+  cursor: pointer;
+  width: 500px;
+}
