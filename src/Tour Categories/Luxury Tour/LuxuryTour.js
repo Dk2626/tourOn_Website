@@ -37,7 +37,7 @@ const LuxuryTour = () => {
   const [startPoint, setStartPoint] = useState('');
   const [budget, setBudget] = useState('');
   const [priority, setPriority] = useState('');
-  const [step, setStep] = useState(6);
+  const [step, setStep] = useState(1);
   const { user } = isAuthenticated();
   const [isLoggedin, setIsLoggedin] = useState(false);
   useEffect(() => {
