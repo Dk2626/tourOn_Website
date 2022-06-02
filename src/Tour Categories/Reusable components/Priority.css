@@ -17,3 +17,20 @@
   cursor: pointer;
   width: 500px;
 }
+
+@media (max-height: 768px) {
+  .priors {
+    padding-left: 5px;
+    align-items: flex-start;
+  }
+  .priors label {
+    width: auto;
+  }
+}
+
+@media (max-height: 360px) {
+  .priors {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}

@@ -1142,7 +1142,28 @@ const BookingRecord = () => {
                       </div>
                       {showGenBook ? (
                         <div className='generalLi2'>
-                          <li
+                          {employees?.map((e, i) => {
+                            if (
+                              e.designation !== 'Junior Software Engg' &&
+                              e.designation !== 'CFO' &&
+                              e.designation !== 'Travel Associate' &&
+                              e.designation !== 'Accounts'
+                            )
+                              return (
+                                <li
+                                  key={i}
+                                  onClick={() => {
+                                    setGeneral({
+                                      ...general,
+                                      bookingHandleName: e.name,
+                                    });
+                                    setShowGenBook(!showGenBook);
+                                  }}>
+                                  {e.name}
+                                </li>
+                              );
+                          })}
+                          {/* <li
                             onClick={() => {
                               setGeneral({
                                 ...general,
@@ -1161,7 +1182,7 @@ const BookingRecord = () => {
                               setShowGenBook(!showGenBook);
                             }}>
                             Sam
-                          </li>
+                          </li> */}
                         </div>
                       ) : null}
                     </div>
