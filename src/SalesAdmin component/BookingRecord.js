@@ -17,7 +17,8 @@ import { ApiContext } from './../Context/ApiContext';
 const BookingRecord = () => {
   const { surveyid } = useParams();
   const [surveyId, setSurveyId] = useState('');
-  const [custDocuments, setCustDocuments] = useState([]);
+  const [travellerDocuments, setTravellerDocuments] = useState([]);
+  const [childrenDocuments, setChildrenDocuments] = useState([]);
   const { addToast } = useToasts();
   const { employees } = useContext(ApiContext);
   const [deleteId, setDeleteId] = useState('');
@@ -48,31 +49,29 @@ const BookingRecord = () => {
   const [recvType, setRecvType] = useState('');
   const [genVendorName, setGenVendorName] = useState('');
 
-  console.log(`custDocuments`, custDocuments);
+  console.log(`travellerDocuments`, travellerDocuments);
+  console.log(`childrenDocuments`, childrenDocuments);
 
   const getDocuments = (email, destination, onwardDate) => {
-    console.log(`object`, email, destination);
-    // firedb.ref(`onBoard`).on("value", (data) => {
-    //   console.log(`data.val()`, data.val());
-    // });
+    console.log(`object`, email, destination, onwardDate);
     firedb
       .ref(`onBoard`)
       .orderByChild('email')
       .equalTo(email)
-
       .on('value', (data) => {
         if (!data) {
           console.log('no data');
-          setCustDocuments([]);
+          setTravellerDocuments([]);
+          setChildrenDocuments([]);
         } else {
           console.log(`data.val()`, data.val());
-
           data.forEach((d) => {
             if (
               d.val().destination === destination &&
               d.val().onwardDate === onwardDate
             ) {
-              setCustDocuments(d.val().travellers);
+              setTravellerDocuments(d.val().travellers);
+              setChildrenDocuments(d.val().childrens);
             }
           });
         }
@@ -2407,27 +2406,68 @@ const BookingRecord = () => {
         );
       case 5:
         return (
-          <div className='bookingGeneral'>
-            <h2 style={{ fontFamily: 'Andika' }}>Documents</h2>
-            {custDocuments.map((d, i) => {
-              const { documents, name } = d;
-              return (
-                <div>
-                  {documents?.map((file, index) => {
-                    return (
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <h5 className='docHeading'>Documents for {name}</h5>
-                        <a
-                          href={file.fileUrl}
-                          style={{ fontFamily: 'Andika', paddingTop: 5 }}>
-                          {index + 1}.{file.fileName}
-                        </a>
+          <div className='bookingGenerall'>
+            {travellerDocuments.length > 0 && (
+              <div>
+                {travellerDocuments.map((d, i) => {
+                  const { documents, name } = d;
+                  return (
+                    <div>
+                      <h5 className='docHeading'>Documents for {name}</h5>
+                      <div>
+                        {documents?.map((file, index) => {
+                          return (
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                              }}>
+                              <a
+                                target='_blank'
+                                href={file.fileUrl}
+                                style={{ fontFamily: 'Andika', paddingTop: 5 }}>
+                                {index + 1}.{file.fileName}
+                              </a>
+                            </div>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {childrenDocuments.length > 0 && (
+              <div>
+                {childrenDocuments.map((d, i) => {
+                  const { documentsc, namec } = d;
+                  return (
+                    <div>
+                      <h5 className='docHeading'>Documents for {namec}</h5>
+                      <div>
+                        {documentsc?.map((file, index) => {
+                          return (
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                              }}>
+                              <a
+                                target='_blank'
+                                href={file.fileUrl}
+                                style={{ fontFamily: 'Andika', paddingTop: 5 }}>
+                                {index + 1}.{file.fileName}
+                              </a>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         );
       default:
@@ -2582,7 +2622,7 @@ const BookingRecord = () => {
             Reminders
           </h6>
 
-          {custDocuments?.length > 0 && (
+          {travellerDocuments?.length > 0 && (
             <>
               <div className='bookingBorder'></div>
 
