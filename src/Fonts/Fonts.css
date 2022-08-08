@@ -1,19 +1,27 @@
 @font-face {
-  font-family: "newyorklargeblack";
-  src: url("./NewYorkLargeBlack.otf");
+  font-family: 'newyorklargeblack';
+  src: url('./NewYorkLargeBlack.otf');
 }
 @font-face {
-  font-family: "playscript";
-  src: url("./Playlist\ Script.otf");
+  font-family: 'playscript';
+  src: url('./Playlist\ Script.otf');
 }
 @font-face {
-  font-family: "Mont-light";
-  src: url("./Mont-light.otf");
+  font-family: 'Mont-light';
+  src: url('./Mont-light.otf');
 }
 @font-face {
-  font-family: "Mont";
-  src: url("./Mont-bold.otf");
+  font-family: 'Mont';
+  src: url('./Mont-bold.otf');
 }
+@font-face {
+  font-family: 'Selima';
+  src: url('./Selima\ .otf');
+}
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 * {
   margin: 0px;
   padding: 0px;
@@ -25,7 +33,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 /* width */
