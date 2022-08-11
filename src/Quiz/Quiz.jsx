@@ -1,45 +1,163 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Quiz.css';
 import '../Fonts/Fonts.css';
-import { BsArrowRight } from 'react-icons/bs';
 import { FiSend } from 'react-icons/fi';
-import { FaStoreAlt } from 'react-icons/fa';
-import { GrTrophy } from 'react-icons/gr';
-import { BsBook, BsStarFill } from 'react-icons/bs';
-import { MdExitToApp } from 'react-icons/md';
+import { FaStoreAlt, FaMobileAlt } from 'react-icons/fa';
+import {
+  BsBook,
+  BsStarFill,
+  BsTrophy,
+  BsPerson,
+  BsArrowRight,
+  BsLockFill,
+} from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
+import { MdExitToApp, MdEmail } from 'react-icons/md';
 import { ImBook } from 'react-icons/im';
-import cert from '../assests/Quiz/certi.png';
-import countriess from '../assests/Quiz/18countries.png';
+import cert from '../assests/Quiz/cert.png';
+import countriess from '../assests/Quiz/18count.png';
 import islandIcon from '../assests/Quiz/islandIcon.png';
 import logo from '../assests/Quiz/logo.png';
-import logotitle from '../assests/Quiz/logotitle.png';
+import logotitle from '../assests/Quiz/logot.png';
 import celeb1 from '../assests/Quiz/celeb1.JPG';
 import celeb2 from '../assests/Quiz/celeb2.JPG';
 import celeb3 from '../assests/Quiz/celeb3.JPG';
 import celeb4 from '../assests/Quiz/celeb4.JPG';
-import insta from '../assests/Quiz/insta.png';
-import instaf from '../assests/Quiz/instaf.png';
-import yesl from '../assests/Quiz/yesl.png';
-import nol from '../assests/Quiz/nol.png';
-import njoy from '../assests/Quiz/njoy.png';
+import insta from '../assests/Quiz/int.png';
+import instaf from '../assests/Quiz/intf.png';
+import yesl from '../assests/Quiz/yyes.png';
+import nol from '../assests/Quiz/nno.png';
+import njoy from '../assests/Quiz/njoyy.png';
+import male from '../assests/Quiz/male.png';
+import female from '../assests/Quiz/female.png';
+import Sort from './Question';
+import { firedb } from '../firebase';
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappShareButton,
+  WhatsappIcon,
+} from 'react-share';
 
 const Quiz = () => {
-  const [step, setstep] = useState(1);
+  const [step, setStep] = useState(1);
+  const [store, setStore] = useState('');
+  const [lucky, setLucky] = useState('');
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    gender: '',
+    opting: '',
+  });
+  const { name, email, phone, gender, opting } = user;
+  const [nextQuiz, setNextQuiz] = useState('');
+  const [questionBank, setQuestionBank] = useState(
+    Sort.sort((a, b) => a.randomQuiz - b.randomQuiz)
+  );
+  const [counter, setCounter] = useState('');
+  const [correct, setCorrect] = useState(0);
+  const [start, setStart] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [exist, setExist] = useState(false);
+  const [openExistModal, setOpenExistModal] = useState(false);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const shareUrl = 'https://magenta-scone-caf47b.netlify.app/quiz-win-prize';
+  var nTime;
+  var cTime;
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setstep(step + 1);
-  //   }, 3000);
-  // }, [step == 1]);
+  const submitForm = () => {
+    let end = new Date();
+    firedb
+      .ref('quizcomp')
+      .push({
+        name,
+        email,
+        phone,
+        gender,
+        opting,
+        seconds: (end - start) / 1000,
+        correct,
+      })
+      .then(() => {
+        setStore('');
+        setLucky('');
+        setCorrect(0);
+        setStep(1);
+        setUser({
+          name: '',
+          email: '',
+          phone: '',
+          gender: '',
+          opting: '',
+        });
+        setOpenModal(true);
+      })
+      .catch((error) => console.log('error', error));
+  };
+
+  useEffect(() => {
+    clearTimeout(cTime);
+    nTime = setTimeout(() => {
+      if (nextQuiz < questionBank.length - 1) {
+        setNextQuiz((prevQuiz) => prevQuiz + 1);
+        setCounter(5);
+      }
+    }, 5000);
+    return () => {
+      clearTimeout(nTime);
+    };
+  }, [nextQuiz]);
+
+  useEffect(() => {
+    cTime = setTimeout(() => {
+      if (counter >= 1) {
+        setCounter(counter - 1);
+        if (nextQuiz + 1 == questionBank.length && counter == 1) {
+          submitForm();
+        }
+      }
+    }, 1000);
+    return () => {
+      clearTimeout(cTime);
+    };
+  }, [counter]);
+
+  const getData = () => {
+    firedb.ref('quizcomp').on('value', (data) => {
+      data.forEach((d) => {
+        if (d.val().email == email || d.val().phone == phone) {
+          setExist(true);
+        } else {
+          setExist(false);
+        }
+      });
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, [email, phone]);
 
   const renderPage = () => {
     switch (step) {
       case 1:
         return (
           <div className='quizPg0'>
-            <img src={logo} alt='logo' className='aniLogo' />
-            <img src={logotitle} alt='logotitle' />
-            <div className='quizArrowMain0' onClick={() => setstep(step + 1)}>
+            <div className='aniLogo'>
+              <img src={logo} alt='logo' />
+            </div>
+            <div className='aniLogoTitle'>
+              <img src={logotitle} alt='logotitle' />
+            </div>
+            <div className='quizArrowMain0' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow2' />
             </div>
           </div>
@@ -50,7 +168,7 @@ const Quiz = () => {
             <div className='quizTitle1'>Hello</div>
             <div className='quizTitle2'>traveller</div>
             <div className='quizVertLine1' />
-            <div className='quizArrowMain1' onClick={() => setstep(step + 1)}>
+            <div className='quizArrowMain1' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow1' />
             </div>
           </div>
@@ -65,9 +183,16 @@ const Quiz = () => {
             <div className='quizPg2SubM'>
               <div className='quizPg2Sub'>
                 <div className='quizPg2SubL'>
-                  <div className='Storequiz'>
-                    <FaStoreAlt className='storeIcon' />
-                    <div className='storeName'>Store</div>
+                  <div
+                    className={store == 'Store' ? 'Storequizz' : 'Storequiz'}
+                    onClick={() => setStore('Store')}>
+                    <FaStoreAlt
+                      className={store == 'Store' ? 'storeIconn' : 'storeIcon'}
+                    />
+                    <div
+                      className={store == 'Store' ? 'storeNamee' : 'storeName'}>
+                      Store
+                    </div>
                   </div>
                   <div className='knowaboutp'>
                     <p className='knowaboutq'>Know about us in 6 Pages</p>
@@ -76,9 +201,22 @@ const Quiz = () => {
                 </div>
                 <div className='quizVertLine2' />
                 <div className='quizPg2SubLB'>
-                  <div className='Contestquiz'>
-                    <GrTrophy className='contestIcon' />
-                    <div className='contestName'>Contest</div>
+                  <div
+                    className={
+                      store == 'Contest' ? 'Contestquizz' : 'Contestquiz'
+                    }
+                    onClick={() => setStore('Contest')}>
+                    <BsTrophy
+                      className={
+                        store == 'Contest' ? 'contestIconn' : 'contestIcon'
+                      }
+                    />
+                    <div
+                      className={
+                        store == 'Contest' ? 'contestNamee' : 'contestName'
+                      }>
+                      Contest
+                    </div>
                   </div>
                   <div className='win2nights'>
                     <p className='win2nightsq'>
@@ -92,7 +230,16 @@ const Quiz = () => {
                   </div>
                 </div>
               </div>
-              <div className='quizArrowMain2' onClick={() => setstep(step + 1)}>
+              <div
+                className='quizArrowMain2'
+                onClick={() => {
+                  if (store == 'Store') {
+                    setStep(step + 1);
+                  }
+                  if (store == 'Contest') {
+                    setStep(10);
+                  }
+                }}>
                 <BsArrowRight className='quizArrow2' />
               </div>
             </div>
@@ -115,7 +262,7 @@ const Quiz = () => {
               <p className='kuttyPara2'>Have a new beginning with us!</p>
             </div>
             <div className='quizVertLine3' />
-            <div className='quizArrowMain3' onClick={() => setstep(step + 1)}>
+            <div className='quizArrowMain3' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow3' />
             </div>
           </div>
@@ -127,9 +274,9 @@ const Quiz = () => {
               <img src={cert} alt='cert' />
             </div>
             <div className='quizPg4Main'>
-              <img src={countriess} alt='18countries' />
+              <img src={countriess} alt='18countries' className='countImg' />
               <div className='quizVertLine3' />
-              <div className='quizArrowMain2' onClick={() => setstep(step + 1)}>
+              <div className='quizArrowMain2' onClick={() => setStep(step + 1)}>
                 <BsArrowRight className='quizArrow2' />
               </div>
             </div>
@@ -194,7 +341,7 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div className='quizArrowMain2' onClick={() => setstep(step + 1)}>
+            <div className='quizArrowMain2' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow2' />
             </div>
           </div>
@@ -224,7 +371,7 @@ const Quiz = () => {
                 </div>
               </div>
             </div>
-            <div className='quizArrowMain2' onClick={() => setstep(step + 1)}>
+            <div className='quizArrowMain2' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow2' />
             </div>
           </div>
@@ -233,13 +380,17 @@ const Quiz = () => {
         return (
           <div className='quizPg8'>
             <div className='instasll'>
-              <img src={insta} alt='insta' />
-              <div className='quizHoriLine' />
+              <img src={insta} alt='insta' className='intImgs' />
             </div>
             <div>
-              <img src={instaf} alt='instf' className='instafImg' />
+              <a
+                href='https://www.instagram.com/touronholidays/'
+                target='_blank'
+                rel='noopener noreferrer'>
+                <img src={instaf} alt='instf' className='instafImg' />
+              </a>
             </div>
-            <div className='quizArrowMain2' onClick={() => setstep(step + 1)}>
+            <div className='quizArrowMain2' onClick={() => setStep(step + 1)}>
               <BsArrowRight className='quizArrow2' />
             </div>
           </div>
@@ -251,56 +402,352 @@ const Quiz = () => {
               <p>Willing to opt for the Lucky Draw ?</p>
               <div className='quizHoriLine' />
             </div>
-            <div className='yesnoQ'>
-              <div className='yesnoQR' onClick={() => setstep(step + 1)}>
-                <img src={yesl} alt='yesl' />
+            <div className='yesnoQM'>
+              <div className='yesnoQ'>
+                <div
+                  className={lucky == 'yes' ? 'yesnoQRR' : 'yesnoQR'}
+                  onClick={() => setLucky('yes')}>
+                  <img src={yesl} alt='yesl' />
+                </div>
+                <div className='quizVertLine4' />
+                <div
+                  className={lucky == 'no' ? 'yesnoQRNN' : 'yesnoQRN'}
+                  onClick={() => setLucky('no')}>
+                  <img src={nol} alt='nol' />
+                </div>
               </div>
-              <div className='quizVertLine4' />
-              <div className='yesnoQR' onClick={() => setstep(step + 2)}>
-                <img src={nol} alt='nol' />
+              <div
+                className='quizArrowMain2'
+                onClick={() => {
+                  if (lucky == 'yes') {
+                    setStep(step + 1);
+                  }
+                  if (lucky == 'no') {
+                    setStep(step + 2);
+                  }
+                }}>
+                <BsArrowRight className='quizArrow2' />
               </div>
             </div>
           </div>
         );
       case 10:
         return (
-          <div>
-            <div>User detail form</div>
+          <div className='quizPg9Main'>
+            <div className='quizPg9'>
+              <div>
+                <p className='luckyHello'>Hello Traveller!</p>
+                <p className='luckyHelloIn'>
+                  This information will help us to connect with you if you're
+                  winning the lucky draw
+                </p>
+              </div>
+              <div>
+                <div className='luckyyInputMa'>
+                  <input
+                    type='text'
+                    className='luckyyInput'
+                    placeholder='Full Name'
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        name: e.target.value,
+                      })
+                    }
+                    value={name}
+                  />
+                  <BsPerson className='luckydrawIcon' />
+                </div>
+                <div className='luckyyInputMa'>
+                  <input
+                    type='text'
+                    className='luckyyInput'
+                    placeholder='Email ID'
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        email: e.target.value,
+                      })
+                    }
+                    value={email}
+                  />
+                  <MdEmail className='luckydrawIcon' />
+                </div>
+                <div className='luckyyInputMa'>
+                  <input
+                    type='text'
+                    className='luckyyInput'
+                    placeholder='Phone number'
+                    onChange={(e) =>
+                      setUser({
+                        ...user,
+                        phone: e.target.value,
+                      })
+                    }
+                    value={phone}
+                  />
+                  <FaMobileAlt className='luckydrawIcon' />
+                </div>
+              </div>
+              <div className='genderLucky'>
+                <div className='genderLuckySub1'>
+                  <p>Female</p>
+                  <div
+                    className={gender == 'female' ? 'feeimgg' : 'feeimg'}
+                    onClick={() =>
+                      setUser({
+                        ...user,
+                        gender: 'female',
+                      })
+                    }>
+                    <img src={female} alt='female' />
+                  </div>
+                </div>
+                <div className='genderLuckySub1'>
+                  <p>Male</p>
+                  <div
+                    className={gender == 'male' ? 'meeimgg' : 'meeimg'}
+                    onClick={() =>
+                      setUser({
+                        ...user,
+                        gender: 'male',
+                      })
+                    }>
+                    <img src={male} alt='male' />
+                  </div>
+                </div>
+                <div className='genderLuckySub1'>
+                  <p>I'm Opting for</p>
+                  <div className='genderLuckySub11M'>
+                    <div
+                      className='genderLuckySub11'
+                      onClick={() =>
+                        setUser({
+                          ...user,
+                          opting: 'Offer Updates',
+                        })
+                      }>
+                      <div
+                        className={
+                          opting == 'Offer Updates'
+                            ? 'LuckyCirclee'
+                            : 'LuckyCircle'
+                        }
+                      />
+                      <p>Offer Updates</p>
+                    </div>
+                    <div
+                      className='genderLuckySub11'
+                      onClick={() =>
+                        setUser({
+                          ...user,
+                          opting: 'Product Knowledge',
+                        })
+                      }>
+                      <div
+                        className={
+                          opting == 'Product Knowledge'
+                            ? 'LuckyCirclee'
+                            : 'LuckyCircle'
+                        }
+                      />
+                      <p>Product Knowledge</p>
+                    </div>
+                    <div
+                      className='genderLuckySub11'
+                      onClick={() =>
+                        setUser({
+                          ...user,
+                          opting: 'Do no disturb',
+                        })
+                      }>
+                      <div
+                        className={
+                          opting == 'Do no disturb'
+                            ? 'LuckyCirclee'
+                            : 'LuckyCircle'
+                        }
+                      />
+                      <p>Do no disturb</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {exist == true ? (
+                <div
+                  className='luckySubmit'
+                  onClick={() => setOpenExistModal(true)}>
+                  <p>Submit</p>
+                </div>
+              ) : (
+                <div
+                  className='luckySubmit'
+                  onClick={() => {
+                    if (name && email && phone && gender && opting) {
+                      setStep(step + 2);
+                      setStart(new Date());
+                      setNextQuiz(0);
+                      setCounter(5);
+                    }
+                  }}>
+                  <p>Submit</p>
+                </div>
+              )}
+            </div>
+            <div className='luckyProtect'>
+              <p>Privacy protected</p>
+              <BsLockFill className='prtectIcon' />
+            </div>
           </div>
         );
       case 11:
         return (
           <div className='quizPg8'>
             <div>
-              <img src={njoy} alt='njoy' />
+              <img src={njoy} alt='njoy' className='njoyyImg' />
             </div>
-            <div className='njoyBtn'>
-              <p>Click here to Visit our Website</p>
+            <Link to='/' className='njoyBtnLink'>
+              <div className='njoyBtn'>
+                <p>Click here to Visit our Website</p>
+              </div>
+            </Link>
+          </div>
+        );
+      case 12:
+        return (
+          <div className='quizPg1'>
+            <div className='quizImggg'>
+              <img src={questionBank[nextQuiz].imageQuiz} alt='imgQuiz' />
             </div>
+            <div className='quizQuestionOut'>
+              <p>Question {nextQuiz + 1} out of 10</p>
+              <p>{questionBank[nextQuiz].question}</p>
+            </div>
+            <div className='quizQuestion'>
+              <p>{questionBank[nextQuiz].questionText}</p>
+            </div>
+            {questionBank[nextQuiz].answerOptions.map((q, i) => {
+              return (
+                <div
+                  key={i}
+                  className='quizAnswers'
+                  onClick={() => {
+                    clearTimeout(nTime);
+                    if (nextQuiz < questionBank.length - 1) {
+                      setNextQuiz(nextQuiz + 1);
+                    }
+                    setCounter(5);
+                    q == questionBank[nextQuiz].answerCorrect &&
+                      setCorrect(correct + 1);
+                    if (nextQuiz + 1 == questionBank.length) {
+                      setCounter(0);
+                      submitForm();
+                    }
+                  }}>
+                  <p>{q}</p>
+                </div>
+              );
+            })}
           </div>
         );
       default:
-        setstep(1);
+        setStep(1);
     }
   };
 
   return (
     <div className='AllMainss'>
-      {step !== 1 && step !== 2 ? (
+      {step !== 1 && step !== 2 && step !== 12 ? (
         <div className='quizSendMainD'>
           <MdExitToApp
             className='prevquiz'
             onClick={() => {
               if (step == 11) {
-                setstep(step - 2);
+                setStep(step - 2);
+              } else if (step == 10 && store == 'Contest') {
+                setStep(3);
               } else {
-                setstep(step - 1);
+                setStep(step - 1);
               }
             }}
           />
-          <FiSend className='quizSend' />
+          <FiSend
+            className='quizSend'
+            onClick={() => setOpenShareModal(true)}
+          />
         </div>
       ) : null}
+      {step == 12 && (
+        <div className='quizSendMainDD'>
+          {/* <AiOutlineClose className='closeQuiz' /> */}
+          <div className='countQuizz'>
+            <p>{counter}</p>
+          </div>
+        </div>
+      )}
+      {openModal && (
+        <div className='quizPopup'>
+          <div className='quizPopup_content'>
+            <div
+              className='quizPopup__content-close'
+              onClick={() => setOpenModal(false)}>
+              &times;
+            </div>
+            <p className='quizPopup_para'>Thanks for participating the Quiz</p>
+            <Link to='/' className='njoyBtnLink'>
+              <div className='quizPopup_btn'>
+                <p>Visit our Website</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      )}
+      {openExistModal && (
+        <div className='quizPopup'>
+          <div className='quizPopup_content'>
+            <div
+              className='quizPopup__content-close'
+              onClick={() => setOpenExistModal(false)}>
+              &times;
+            </div>
+            <p className='quizPopup_para'>Email / Mobile already Exist!</p>
+          </div>
+        </div>
+      )}
+      {openShareModal && (
+        <div className='quizPopup'>
+          <div className='quizPopup_contentShare'>
+            <div
+              className='quizPopup__content-closeShare'
+              onClick={() => setOpenShareModal(false)}>
+              &times;
+            </div>
+            <div className='quizPopup__content-BtnShare'>
+              <WhatsappShareButton
+                url={shareUrl}
+                title='tourOn Quiz, Win prize'>
+                <WhatsappIcon size={40} round={true} />
+              </WhatsappShareButton>
+              <FacebookShareButton
+                url={shareUrl}
+                title='tourOn Quiz, Win prize'>
+                <FacebookIcon size={40} round={true} />
+              </FacebookShareButton>
+              <EmailShareButton url={shareUrl} title='tourOn Quiz, Win prize'>
+                <EmailIcon size={40} round={true} />
+              </EmailShareButton>
+              <LinkedinShareButton
+                url={shareUrl}
+                title='tourOn Quiz, Win prize'>
+                <LinkedinIcon size={40} round={true} />
+              </LinkedinShareButton>
+              <TwitterShareButton url={shareUrl} title='tourOn Quiz, Win prize'>
+                <TwitterIcon size={40} round={true} />
+              </TwitterShareButton>
+            </div>
+          </div>
+        </div>
+      )}
       <div className='mainQuiz'>{renderPage()}</div>
     </div>
   );
