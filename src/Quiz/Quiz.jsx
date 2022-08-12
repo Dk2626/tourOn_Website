@@ -12,7 +12,6 @@ import {
   BsArrowRight,
   BsLockFill,
 } from 'react-icons/bs';
-import { AiOutlineClose } from 'react-icons/ai';
 import { MdExitToApp, MdEmail } from 'react-icons/md';
 import { ImBook } from 'react-icons/im';
 import cert from '../assests/Quiz/cert.png';
@@ -104,7 +103,6 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    clearTimeout(cTime);
     nTime = setTimeout(() => {
       if (nextQuiz < questionBank.length - 1) {
         setNextQuiz((prevQuiz) => prevQuiz + 1);
@@ -269,7 +267,7 @@ const Quiz = () => {
         );
       case 5:
         return (
-          <div className='quizPg8'>
+          <div className='quizPg11'>
             <div className='certtImg'>
               <img src={cert} alt='cert' />
             </div>
@@ -516,7 +514,7 @@ const Quiz = () => {
                     <img src={male} alt='male' />
                   </div>
                 </div>
-                <div className='genderLuckySub1'>
+                <div className='genderLuckySub111'>
                   <p>I'm Opting for</p>
                   <div className='genderLuckySub11M'>
                     <div
@@ -558,30 +556,30 @@ const Quiz = () => {
                       onClick={() =>
                         setUser({
                           ...user,
-                          opting: 'Do no disturb',
+                          opting: 'WhatApp Only',
                         })
                       }>
                       <div
                         className={
-                          opting == 'Do no disturb'
+                          opting == 'WhatApp Only'
                             ? 'LuckyCirclee'
                             : 'LuckyCircle'
                         }
                       />
-                      <p>Do no disturb</p>
+                      <p>WhatApp Only</p>
                     </div>
                   </div>
                 </div>
               </div>
               {exist == true ? (
-                <div
-                  className='luckySubmit'
+                <button
+                  className='luckySubmitBtn'
                   onClick={() => setOpenExistModal(true)}>
-                  <p>Submit</p>
-                </div>
+                  Submit
+                </button>
               ) : (
-                <div
-                  className='luckySubmit'
+                <button
+                  className='luckySubmitBtn'
                   onClick={() => {
                     if (name && email && phone && gender && opting) {
                       setStep(step + 2);
@@ -590,8 +588,8 @@ const Quiz = () => {
                       setCounter(5);
                     }
                   }}>
-                  <p>Submit</p>
-                </div>
+                  Submit
+                </button>
               )}
             </div>
             <div className='luckyProtect'>
@@ -607,9 +605,9 @@ const Quiz = () => {
               <img src={njoy} alt='njoy' className='njoyyImg' />
             </div>
             <Link to='/' className='njoyBtnLink'>
-              <div className='njoyBtn'>
-                <p>Click here to Visit our Website</p>
-              </div>
+              <button className='njoyBtn'>
+                Click here to Visit our Website
+              </button>
             </Link>
           </div>
         );
@@ -628,11 +626,10 @@ const Quiz = () => {
             </div>
             {questionBank[nextQuiz].answerOptions.map((q, i) => {
               return (
-                <div
+                <button
                   key={i}
                   className='quizAnswers'
                   onClick={() => {
-                    clearTimeout(nTime);
                     if (nextQuiz < questionBank.length - 1) {
                       setNextQuiz(nextQuiz + 1);
                     }
@@ -640,12 +637,11 @@ const Quiz = () => {
                     q == questionBank[nextQuiz].answerCorrect &&
                       setCorrect(correct + 1);
                     if (nextQuiz + 1 == questionBank.length) {
-                      setCounter(0);
                       submitForm();
                     }
                   }}>
-                  <p>{q}</p>
-                </div>
+                  {q}
+                </button>
               );
             })}
           </div>
@@ -679,7 +675,6 @@ const Quiz = () => {
       ) : null}
       {step == 12 && (
         <div className='quizSendMainDD'>
-          {/* <AiOutlineClose className='closeQuiz' /> */}
           <div className='countQuizz'>
             <p>{counter}</p>
           </div>
@@ -695,9 +690,7 @@ const Quiz = () => {
             </div>
             <p className='quizPopup_para'>Thanks for participating the Quiz</p>
             <Link to='/' className='njoyBtnLink'>
-              <div className='quizPopup_btn'>
-                <p>Visit our Website</p>
-              </div>
+              <button className='quizPopup_btn'>Visit our Website</button>
             </Link>
           </div>
         </div>
