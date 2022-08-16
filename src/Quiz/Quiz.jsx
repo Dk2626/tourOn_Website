@@ -68,7 +68,7 @@ const Quiz = () => {
   const [exist, setExist] = useState(false);
   const [openExistModal, setOpenExistModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
-  const shareUrl = 'https://magenta-scone-caf47b.netlify.app/quiz-win-prize';
+  const shareUrl = 'https://www.touron.in/quiz-win-prize';
   var nTime;
   var cTime;
 
@@ -106,9 +106,9 @@ const Quiz = () => {
     nTime = setTimeout(() => {
       if (nextQuiz < questionBank.length - 1) {
         setNextQuiz((prevQuiz) => prevQuiz + 1);
-        setCounter(5);
+        setCounter(10);
       }
-    }, 5000);
+    }, 10000);
     return () => {
       clearTimeout(nTime);
     };
@@ -458,7 +458,7 @@ const Quiz = () => {
                 </div>
                 <div className='luckyyInputMa'>
                   <input
-                    type='text'
+                    type='email'
                     className='luckyyInput'
                     placeholder='Email ID'
                     onChange={(e) =>
@@ -473,7 +473,7 @@ const Quiz = () => {
                 </div>
                 <div className='luckyyInputMa'>
                   <input
-                    type='text'
+                    type='number'
                     className='luckyyInput'
                     placeholder='Phone number'
                     onChange={(e) =>
@@ -585,7 +585,7 @@ const Quiz = () => {
                       setStep(step + 2);
                       setStart(new Date());
                       setNextQuiz(0);
-                      setCounter(5);
+                      setCounter(10);
                     }
                   }}>
                   Submit
@@ -633,10 +633,11 @@ const Quiz = () => {
                     if (nextQuiz < questionBank.length - 1) {
                       setNextQuiz(nextQuiz + 1);
                     }
-                    setCounter(5);
+                    setCounter(10);
                     q == questionBank[nextQuiz].answerCorrect &&
                       setCorrect(correct + 1);
                     if (nextQuiz + 1 == questionBank.length) {
+                      setCounter(0);
                       submitForm();
                     }
                   }}>

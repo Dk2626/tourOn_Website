@@ -1,67 +1,21 @@
 .quizDashMain {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 50px 10px;
+  width: 95%;
+  margin: 30px auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-.quizDashMainull {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+.quizDashMain thead tr {
   background-color: #0c247b;
-  padding: 20px;
   color: #f7cd2e;
   border-radius: 10px;
-  font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
 }
-.quizDashMainSub {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.quizDashMainulll {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: #fff;
+.quizDashMain th,
+.quizDashMain td {
   padding: 20px;
-  color: #0c247b;
-  border-radius: 10px;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
-.nameQuizC {
-  width: 100px;
-  text-align: center;
-}
-.emailQuizC {
-  width: 250px;
-  text-align: center;
-}
-.mobileQuizC {
-  width: 102px;
-  text-align: center;
-}
-.genderQuizC {
-  width: 63px;
-  text-align: center;
-}
-.scoreQuizC {
-  width: 10px;
-  text-align: center;
-}
-.optingQuizC {
-  width: 163px;
-  text-align: center;
-}
-.timeQuizC {
-  width: 53px;
-  text-align: center;
+.quizDashMain tbody tr {
+  border-bottom: 1px solid #cad5e2;
 }
