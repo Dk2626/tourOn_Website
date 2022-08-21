@@ -59,6 +59,7 @@ import OnBoardForm from './OnBoard/OnBoardForm';
 import OnBoardReport from './OnBoard/OnBoardReport';
 import Quiz from './Quiz/Quiz';
 import QuizDash from './Quiz/QuizDash';
+import ReadyQns from './Quiz/ReadyQns';
 
 export default function Routes() {
   const [countries, setCountries] = useState([]);
@@ -157,6 +158,7 @@ export default function Routes() {
               />
               <Route path='/quiz-win-prize' component={Quiz} />
               <Route path='/quiz-dashboard' component={QuizDash} />
+              <Route path='/quiz-qns' component={ReadyQns} />
               <AdminRoute exact path='/resort' component={Resort} />
               <AdminRoute path='/resort/:resortid' component={Resort} />
               <AdminRoute path='/resortview' component={ViewResort} />

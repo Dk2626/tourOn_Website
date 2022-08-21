@@ -30,7 +30,7 @@ import nol from '../assests/Quiz/nno.png';
 import njoy from '../assests/Quiz/njoyy.png';
 import male from '../assests/Quiz/male.png';
 import female from '../assests/Quiz/female.png';
-import Sort from './Question';
+// import Sort from './Question';
 import { firedb } from '../firebase';
 import {
   EmailShareButton,
@@ -44,6 +44,14 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from 'react-share';
+import quiz1 from '../assests/Quiz/quiz1.png';
+// import quiz2 from '../assests/Quiz/quiz2.png';
+// import quiz3 from '../assests/Quiz/quiz3.png';
+// import quiz4 from '../assests/Quiz/quiz4.png';
+// import quiz5 from '../assests/Quiz/quiz5.png';
+// import quiz6 from '../assests/Quiz/quiz6.png';
+// import quiz7 from '../assests/Quiz/quiz7.png';
+// import quiz8 from '../assests/Quiz/quiz8.png';
 
 const Quiz = () => {
   const [step, setStep] = useState(1);
@@ -58,9 +66,10 @@ const Quiz = () => {
   });
   const { name, email, phone, gender, opting } = user;
   const [nextQuiz, setNextQuiz] = useState('');
-  const [questionBank, setQuestionBank] = useState(
-    Sort.sort((a, b) => a.randomQuiz - b.randomQuiz)
-  );
+  const [questionBank, setQuestionBank] = useState([]);
+  // const [questionBank, setQuestionBank] = useState(
+  //   Sort.sort((a, b) => a.randomQuiz - b.randomQuiz)
+  // );
   const [counter, setCounter] = useState('');
   const [correct, setCorrect] = useState(0);
   const [start, setStart] = useState('');
@@ -72,10 +81,12 @@ const Quiz = () => {
   var nTime;
   var cTime;
 
+  // console.log('questionBank', questionBank);
+
   const submitForm = () => {
     let end = new Date();
     firedb
-      .ref('quizcomp')
+      .ref('quiz')
       .push({
         name,
         email,
@@ -127,6 +138,28 @@ const Quiz = () => {
       clearTimeout(cTime);
     };
   }, [counter]);
+
+  const getQns = () => {
+    let finalQns = [];
+    firedb.ref('quizqns').on('value', (data) => {
+      data.forEach((d) => {
+        finalQns.push({
+          qno: d.val().qno,
+          questionText: d.val().questionText,
+          answerOptions: d.val().answerOptions,
+          answerCorrect: d.val().answerCorrect,
+          randomQuiz: Math.random(),
+        });
+      });
+      if (finalQns.length == 20) {
+        setQuestionBank(finalQns.sort((a, b) => a.randomQuiz - b.randomQuiz));
+      }
+    });
+  };
+
+  useEffect(() => {
+    getQns();
+  }, []);
 
   const getData = () => {
     firedb.ref('quizcomp').on('value', (data) => {
@@ -615,11 +648,12 @@ const Quiz = () => {
         return (
           <div className='quizPg1'>
             <div className='quizImggg'>
-              <img src={questionBank[nextQuiz].imageQuiz} alt='imgQuiz' />
+              <img src={quiz1} alt='imgQuiz' />
             </div>
             <div className='quizQuestionOut'>
-              <p>Question {nextQuiz + 1} out of 10</p>
-              <p>{questionBank[nextQuiz].question}</p>
+              <p>
+                Question {nextQuiz + 1} out of {questionBank.length}
+              </p>
             </div>
             <div className='quizQuestion'>
               <p>{questionBank[nextQuiz].questionText}</p>
