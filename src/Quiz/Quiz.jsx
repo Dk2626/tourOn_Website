@@ -54,7 +54,7 @@ import quiz1 from '../assests/Quiz/quiz1.png';
 // import quiz8 from '../assests/Quiz/quiz8.png';
 
 const Quiz = () => {
-  const [step, setStep] = useState(10);
+  const [step, setStep] = useState(1);
   const [store, setStore] = useState('');
   const [lucky, setLucky] = useState('');
   const [user, setUser] = useState({
