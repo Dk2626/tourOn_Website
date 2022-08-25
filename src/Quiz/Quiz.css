@@ -706,6 +706,19 @@
   width: 350px;
   border-radius: 30px;
   text-align: center;
+  /* margin-top: 20px; */
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+.luckySubmitBtnn {
+  background-color: #0c247b;
+  padding: 10px;
+  width: 350px;
+  border-radius: 30px;
+  text-align: center;
   margin-top: 20px;
   border: none;
   outline: none;
@@ -816,7 +829,7 @@
 }
 .luckyProtect {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 }
 .luckyProtect p {
@@ -966,4 +979,11 @@
 }
 .njoyBtnLink {
   text-decoration: none;
+}
+.quiz-req p {
+  margin: 15px 0;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: red;
+  font-weight: bold;
 }

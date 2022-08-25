@@ -54,7 +54,7 @@ import quiz1 from '../assests/Quiz/quiz1.png';
 // import quiz8 from '../assests/Quiz/quiz8.png';
 
 const Quiz = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(10);
   const [store, setStore] = useState('');
   const [lucky, setLucky] = useState('');
   const [user, setUser] = useState({
@@ -77,11 +77,21 @@ const Quiz = () => {
   const [exist, setExist] = useState(false);
   const [openExistModal, setOpenExistModal] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
+  const [openReq, setOpenReq] = useState(false);
   const shareUrl = 'https://www.touron.in/quiz-win-prize';
   var nTime;
   var cTime;
 
   // console.log('questionBank', questionBank);
+  // console.log('openReq', openReq);
+  // console.log(
+  //   'and',
+  //   name == '' && email == '' && phone == '' && gender == '' && opting == ''
+  // );
+  // console.log(
+  //   'or',
+  //   name == '' || email == '' || phone == '' || gender == '' || opting == ''
+  // );
 
   const submitForm = () => {
     let end = new Date();
@@ -486,6 +496,13 @@ const Quiz = () => {
                       })
                     }
                     value={name}
+                    onBlur={() => {
+                      if (name == '') {
+                        setOpenReq(true);
+                      } else {
+                        setOpenReq(false);
+                      }
+                    }}
                   />
                   <BsPerson className='luckydrawIcon' />
                 </div>
@@ -501,6 +518,13 @@ const Quiz = () => {
                       })
                     }
                     value={email}
+                    onBlur={() => {
+                      if (email == '') {
+                        setOpenReq(true);
+                      } else {
+                        setOpenReq(false);
+                      }
+                    }}
                   />
                   <MdEmail className='luckydrawIcon' />
                 </div>
@@ -516,6 +540,13 @@ const Quiz = () => {
                       })
                     }
                     value={phone}
+                    onBlur={() => {
+                      if (phone == '') {
+                        setOpenReq(true);
+                      } else {
+                        setOpenReq(false);
+                      }
+                    }}
                   />
                   <FaMobileAlt className='luckydrawIcon' />
                 </div>
@@ -525,12 +556,13 @@ const Quiz = () => {
                   <p>Female</p>
                   <div
                     className={gender == 'female' ? 'feeimgg' : 'feeimg'}
-                    onClick={() =>
+                    onClick={() => {
                       setUser({
                         ...user,
                         gender: 'female',
-                      })
-                    }>
+                      });
+                      setOpenReq(false);
+                    }}>
                     <img src={female} alt='female' />
                   </div>
                 </div>
@@ -538,12 +570,13 @@ const Quiz = () => {
                   <p>Male</p>
                   <div
                     className={gender == 'male' ? 'meeimgg' : 'meeimg'}
-                    onClick={() =>
+                    onClick={() => {
                       setUser({
                         ...user,
                         gender: 'male',
-                      })
-                    }>
+                      });
+                      setOpenReq(false);
+                    }}>
                     <img src={male} alt='male' />
                   </div>
                 </div>
@@ -552,12 +585,13 @@ const Quiz = () => {
                   <div className='genderLuckySub11M'>
                     <div
                       className='genderLuckySub11'
-                      onClick={() =>
+                      onClick={() => {
                         setUser({
                           ...user,
                           opting: 'Offer Updates',
-                        })
-                      }>
+                        });
+                        setOpenReq(false);
+                      }}>
                       <div
                         className={
                           opting == 'Offer Updates'
@@ -569,12 +603,13 @@ const Quiz = () => {
                     </div>
                     <div
                       className='genderLuckySub11'
-                      onClick={() =>
+                      onClick={() => {
                         setUser({
                           ...user,
                           opting: 'Product Knowledge',
-                        })
-                      }>
+                        });
+                        setOpenReq(false);
+                      }}>
                       <div
                         className={
                           opting == 'Product Knowledge'
@@ -586,12 +621,13 @@ const Quiz = () => {
                     </div>
                     <div
                       className='genderLuckySub11'
-                      onClick={() =>
+                      onClick={() => {
                         setUser({
                           ...user,
                           opting: 'WhatApp Only',
-                        })
-                      }>
+                        });
+                        setOpenReq(false);
+                      }}>
                       <div
                         className={
                           opting == 'WhatApp Only'
@@ -604,21 +640,34 @@ const Quiz = () => {
                   </div>
                 </div>
               </div>
+              {openReq && (
+                <div className='quiz-req'>
+                  <p>All Fields are Required!</p>
+                </div>
+              )}
               {exist == true ? (
                 <button
-                  className='luckySubmitBtn'
+                  className={openReq ? 'luckySubmitBtn' : 'luckySubmitBtnn'}
                   onClick={() => setOpenExistModal(true)}>
                   Submit
                 </button>
               ) : (
                 <button
-                  className='luckySubmitBtn'
+                  className={openReq ? 'luckySubmitBtn' : 'luckySubmitBtnn'}
                   onClick={() => {
                     if (name && email && phone && gender && opting) {
                       setStep(step + 2);
                       setStart(new Date());
                       setNextQuiz(0);
                       setCounter(10);
+                    } else if (
+                      name == '' ||
+                      email == '' ||
+                      phone == '' ||
+                      gender == '' ||
+                      opting == ''
+                    ) {
+                      setOpenReq(true);
                     }
                   }}>
                   Submit
