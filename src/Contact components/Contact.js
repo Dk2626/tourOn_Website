@@ -143,8 +143,9 @@ export default function Contact() {
                 <i className='fa fa-phone'></i>
               </div>
               <h3 className='connect'>Contact Number</h3>
-              <p className='locate'>+91 97510 09500</p>
-              <p className='locate'>+91 97510 09400</p>
+              <p className='locate'>+91 91766 67761</p>
+              {/* <p className='locate'>+91 97510 09500</p> */}
+              {/* <p className='locate'>+91 97510 09400</p> */}
               {/* {address === 'address1' ? (
                 <p className='locate'>+91 97510 09400</p>
               ) : (
