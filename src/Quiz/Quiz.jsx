@@ -82,7 +82,7 @@ const Quiz = () => {
   var nTime;
   var cTime;
 
-  // console.log('questionBank', questionBank);
+  console.log('questionBank', questionBank);
   // console.log('openReq', openReq);
   // console.log(
   //   'and',
@@ -162,7 +162,9 @@ const Quiz = () => {
         });
       });
       if (finalQns.length == 20) {
-        setQuestionBank(finalQns.sort((a, b) => a.randomQuiz - b.randomQuiz));
+        setQuestionBank(
+          finalQns.sort((a, b) => a.randomQuiz - b.randomQuiz).slice(0, 10)
+        );
       }
     });
   };
