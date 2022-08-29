@@ -82,17 +82,6 @@ const Quiz = () => {
   var nTime;
   var cTime;
 
-  console.log('questionBank', questionBank);
-  // console.log('openReq', openReq);
-  // console.log(
-  //   'and',
-  //   name == '' && email == '' && phone == '' && gender == '' && opting == ''
-  // );
-  // console.log(
-  //   'or',
-  //   name == '' || email == '' || phone == '' || gender == '' || opting == ''
-  // );
-
   const submitForm = () => {
     let end = new Date();
     firedb
@@ -174,15 +163,19 @@ const Quiz = () => {
   }, []);
 
   const getData = () => {
-    firedb.ref('quizcomp').on('value', (data) => {
+    let quizdataEmail = [];
+    let quizdataPhone = [];
+    firedb.ref('quiz').on('value', (data) => {
       data.forEach((d) => {
-        if (d.val().email == email || d.val().phone == phone) {
-          setExist(true);
-        } else {
-          setExist(false);
-        }
+        quizdataEmail.push(d.val().email);
+        quizdataPhone.push(d.val().phone);
       });
     });
+    if (quizdataEmail.includes(email) || quizdataPhone.includes(phone)) {
+      setExist(true);
+    } else {
+      setExist(false);
+    }
   };
 
   useEffect(() => {
