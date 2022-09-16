@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
-import { firedb } from "../firebase";
-import { TiGroup, TiTicket } from "react-icons/ti";
-import { HiInformationCircle } from "react-icons/hi";
-import { Table, Modal, Input, Popover } from "reactstrap";
-import { Ellipsis } from "react-spinners-css";
-import { FaBed } from "react-icons/fa";
-import { BsClockHistory } from "react-icons/bs";
-import { FaRegCalendarAlt, FaTachometerAlt } from "react-icons/fa";
-import { GiMeal } from "react-icons/gi";
-import { BiCalendar } from "react-icons/bi";
-import SalesAdmin from "./SalesAdmin";
-import { useToasts } from "react-toast-notifications";
-import Planning from "../assests/Planning.jpg";
-import Slider from "react-slick";
+import React, { useState, useEffect, useContext } from 'react';
+import { firedb } from '../firebase';
+import { TiGroup, TiTicket } from 'react-icons/ti';
+import { HiInformationCircle } from 'react-icons/hi';
+import { Table, Modal, Input, Popover } from 'reactstrap';
+import { Ellipsis } from 'react-spinners-css';
+import { FaBed } from 'react-icons/fa';
+import { BsClockHistory } from 'react-icons/bs';
+import { FaRegCalendarAlt, FaTachometerAlt } from 'react-icons/fa';
+import { GiMeal } from 'react-icons/gi';
+import { BiCalendar } from 'react-icons/bi';
+import SalesAdmin from './SalesAdmin';
+import { useToasts } from 'react-toast-notifications';
+import Planning from '../assests/Planning.jpg';
+import Slider from 'react-slick';
 import {
   getExpoToken,
   sendPushNotification,
-} from "./../Login components/PushNotification";
+} from './../Login components/PushNotification';
 
-import { MdFlight, MdDirectionsBus, MdTrain } from "react-icons/md";
-import { AiFillStar } from "react-icons/ai";
-import { ImEnter, ImExit } from "react-icons/im";
-import moment from "moment";
-import { ApiContext } from "./../Context/ApiContext";
+import { MdFlight, MdDirectionsBus, MdTrain } from 'react-icons/md';
+import { AiFillStar } from 'react-icons/ai';
+import { ImEnter, ImExit } from 'react-icons/im';
+import moment from 'moment';
+import { ApiContext } from './../Context/ApiContext';
 
 const SalesSelfPlan = () => {
   const { addToast } = useToasts();
@@ -30,26 +30,26 @@ const SalesSelfPlan = () => {
   const [selfPlans, setSelfPlans] = useState([]);
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
-  const [querystatus, setQueryStatus] = useState("");
+  const [querystatus, setQueryStatus] = useState('');
 
   const [detailsModal, setDetailsModal] = useState(false);
   const [selectedPlans, setSelectedPlans] = useState({});
   const [selfPlanModal, setSelfPlanModal] = useState(false);
-  const [key, setKey] = useState("");
-  const [status, setStatus] = useState("");
+  const [key, setKey] = useState('');
+  const [status, setStatus] = useState('');
   const [planKey, setPlanKey] = useState({});
   const [cost, setCost] = useState(0);
   const [plannedDetails, setPlannedDetails] = useState({});
   const [pageSize, setPageSize] = useState(10);
   let pagesCount = Math.ceil(Object.keys(selfPlans).length / pageSize);
   const [currentPage, setCurrentpage] = useState(0);
-  const [taskAssigned, setTaskAssigned] = useState("");
+  const [taskAssigned, setTaskAssigned] = useState('');
   const [assignedTasks, setAssignedTasks] = useState([]);
   const [userRequestDates, setUserRequestDates] = useState([]);
   const [userRequestCount, setUserRequestCount] = useState(0);
 
   const getTaskAssigne = (requestID) => {
-    let name = "";
+    let name = '';
     assignedTasks.forEach((a) => {
       if (a.requestID === requestID) {
         name = a.name;
@@ -60,52 +60,52 @@ const SalesSelfPlan = () => {
 
   const colors = [
     {
-      name: "All",
-      color: "#f39c12",
+      name: 'All',
+      color: '#f39c12',
     },
     {
-      name: "Query Received",
-      color: "#f39c12",
+      name: 'Query Received',
+      color: '#f39c12',
     },
     {
-      name: "On Progress",
-      color: "#8e44ad",
+      name: 'On Progress',
+      color: '#8e44ad',
     },
     {
-      name: "Plan Shared",
-      color: "#7f8c8d",
+      name: 'Plan Shared',
+      color: '#7f8c8d',
     },
     {
-      name: "Cancelled",
-      color: "red",
+      name: 'Cancelled',
+      color: 'red',
     },
     {
-      name: "On Hold",
-      color: "#3498db",
+      name: 'On Hold',
+      color: '#3498db',
     },
     {
-      name: "Duplicate Query",
-      color: "#FFF",
+      name: 'Duplicate Query',
+      color: '#FFF',
     },
     {
-      name: "Tour Booked",
-      color: "#2d3436",
+      name: 'Tour Booked',
+      color: '#2d3436',
     },
     {
-      name: "Awaiting Payment",
-      color: "#00cec9",
+      name: 'Awaiting Payment',
+      color: '#00cec9',
     },
     {
-      name: "Cancellation Requested",
-      color: "#d63031",
+      name: 'Cancellation Requested',
+      color: '#d63031',
     },
     {
-      name: "Estimated",
-      color: "red",
+      name: 'Estimated',
+      color: 'red',
     },
     {
-      name: "Completed",
-      color: "#55efc4",
+      name: 'Completed',
+      color: '#55efc4',
     },
   ];
 
@@ -117,9 +117,9 @@ const SalesSelfPlan = () => {
         requestID: selectedPlans.requestID,
       })
       .then(() => {
-        setTaskAssigned("");
-        addToast("Task assigned Successfully", {
-          appearance: "success",
+        setTaskAssigned('');
+        addToast('Task assigned Successfully', {
+          appearance: 'success',
         });
       })
       .catch((err) => console.log(`err`, err));
@@ -127,7 +127,7 @@ const SalesSelfPlan = () => {
 
   const getAssignTask = () => {
     let task = [];
-    firedb.ref(`assignedTasks`).on("value", (data) => {
+    firedb.ref(`assignedTasks`).on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         return;
       }
@@ -166,9 +166,9 @@ const SalesSelfPlan = () => {
 
   const planning = () => {
     return (
-      <div className="req-plan-main">
-        <div className="req-plan-image">
-          <img src={Planning} alt="taxi-ijmage" />
+      <div className='req-plan-main'>
+        <div className='req-plan-image'>
+          <img src={Planning} alt='taxi-ijmage' />
         </div>
         <div>
           <h3>
@@ -196,7 +196,7 @@ const SalesSelfPlan = () => {
   // };
 
   const getColor = (status) => {
-    let color = "";
+    let color = '';
     colors.filter((c) => {
       if (c.name === status) color = c.color;
     });
@@ -215,32 +215,32 @@ const SalesSelfPlan = () => {
         tourCost: cost,
       })
       .then(() => {
-        setKey("");
-        setStatus("");
+        setKey('');
+        setStatus('');
         setCost(0);
 
         closeDetailsModal();
-        addToast("Request Status Updated Successfully", {
-          appearance: "success",
+        addToast('Request Status Updated Successfully', {
+          appearance: 'success',
         });
         const token = getExpoToken(selectedPlans.userID);
 
         const message = {
           to: token,
-          sound: "default",
+          sound: 'default',
           title: `Request Status Changed`,
           body: `Request Status Changed for your ${selectedPlans.tourCategory} of id ${selectedPlans.requestID} has been changed to  ${status}`,
           data: selectedPlans,
         };
         sendPushNotification(message);
       })
-      .catch((err) => console.log("err :>> ", err));
+      .catch((err) => console.log('err :>> ', err));
   };
 
   const getSelfPlans = () => {
     let plans = [];
     setLoading(true);
-    firedb.ref("self-planned-tours").on("value", (data) => {
+    firedb.ref('self-planned-tours').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         setLoading(false);
         return;
@@ -280,7 +280,7 @@ const SalesSelfPlan = () => {
   const toggleTotalPopover = () => setTotalPopover(!totalPopover);
 
   const getKey = (id) => {
-    let key = "";
+    let key = '';
     Object.keys(selfPlans).map((r) => {
       if (selfPlans[r].requestID === id) {
         key = r;
@@ -298,9 +298,9 @@ const SalesSelfPlan = () => {
       const m = requestID.slice(5, 7);
       const y = requestID.slice(7, 9);
       const ds = moment();
-      const date = moment().subtract(7, "days");
+      const date = moment().subtract(7, 'days');
 
-      if (moment(`${d}-${m}-20${y}`, "DD-MM-YYYY").isBetween(date, ds)) {
+      if (moment(`${d}-${m}-20${y}`, 'DD-MM-YYYY').isBetween(date, ds)) {
         count = count + 1;
         weekReq[da] = selfPlans[da];
       }
@@ -309,7 +309,7 @@ const SalesSelfPlan = () => {
   };
 
   const filterSelfPlan = () => {
-    if (querystatus == "") return selfPlans;
+    if (querystatus == '') return selfPlans;
     const req = {};
     Object.keys(selfPlans).forEach((s) => {
       if (selfPlans[s].status === querystatus) {
@@ -328,8 +328,8 @@ const SalesSelfPlan = () => {
       const m = requestID.slice(5, 7);
       const y = requestID.slice(7, 9);
       const ds = moment();
-      const month = moment().subtract(31, "days");
-      if (moment(`${d}-${m}-20${y}`, "DD-MM-YYYY").isBetween(month, ds)) {
+      const month = moment().subtract(31, 'days');
+      if (moment(`${d}-${m}-20${y}`, 'DD-MM-YYYY').isBetween(month, ds)) {
         count = count + 1;
         monthReq[da] = selfPlans[da];
       }
@@ -338,7 +338,7 @@ const SalesSelfPlan = () => {
   };
 
   const getPlannedDetails = (key) => {
-    firedb.ref("plannedDetails").on("value", (data) => {
+    firedb.ref('plannedDetails').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         return;
       }
@@ -357,7 +357,7 @@ const SalesSelfPlan = () => {
   };
 
   const getPlannedDetailsD = (key) => {
-    firedb.ref("plannedDetails").on("value", (data) => {
+    firedb.ref('plannedDetails').on('value', (data) => {
       if (data.val() === null || data.val() === undefined) {
         // setLoading(false);
         return;
@@ -395,14 +395,14 @@ const SalesSelfPlan = () => {
     switch (step) {
       case 1:
         return (
-          <div className="modal-visadetails">
-            <div className="modal-req">
-              <div className="iternary">
+          <div className='modal-visadetails'>
+            <div className='modal-req'>
+              <div className='iternary'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-iternary">
-                        <TiTicket className="title-iternary-icon" />
+                      <th className='title-iternary'>
+                        <TiTicket className='title-iternary-icon' />
                         Itinerary
                       </th>
                     </tr>
@@ -440,7 +440,7 @@ const SalesSelfPlan = () => {
                       <td>Destination</td>
                       <td>
                         {Object.keys(selectedPlans).includes(
-                          "selectedCities"
+                          'selectedCities'
                         ) ? (
                           <>
                             {selectedPlans.selectedCities.length ===
@@ -464,12 +464,12 @@ const SalesSelfPlan = () => {
                   </tbody>
                 </Table>
               </div>
-              <div className="companions">
+              <div className='companions'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-companions">
-                        <TiGroup className="title-companions-icon" />
+                      <th className='title-companions'>
+                        <TiGroup className='title-companions-icon' />
                         Companions
                       </th>
                     </tr>
@@ -492,8 +492,8 @@ const SalesSelfPlan = () => {
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-companions">
-                        <TiGroup className="title-companions-icon" />
+                      <th className='title-companions'>
+                        <TiGroup className='title-companions-icon' />
                         User History
                       </th>
                     </tr>
@@ -505,30 +505,29 @@ const SalesSelfPlan = () => {
                     </tr>
                     <tr>
                       <td>Total Request</td>
-                      <td id="totalPopover" style={{ cursor: "pointer" }}>
+                      <td id='totalPopover' style={{ cursor: 'pointer' }}>
                         {userRequestCount}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={totalPopover}
-                      target="totalPopover"
-                      toggle={toggleTotalPopover}
-                    >
+                      target='totalPopover'
+                      toggle={toggleTotalPopover}>
                       {Object.keys(userRequestDates).map((t, index) => {
                         return (
                           <h6
                             key={index}
                             style={{
                               padding: 8,
-                              overflow: "auto",
+                              overflow: 'auto',
                               margin: 0,
-                              cursor: "pointer",
+                              cursor: 'pointer',
                               backgroundColor:
                                 selectedPlans.requestID ===
                                 selfPlans[t].requestID
-                                  ? "#53E0BC"
-                                  : "",
+                                  ? '#53E0BC'
+                                  : '',
                             }}
                             onClick={() => {
                               closeDetailsModal();
@@ -536,9 +535,8 @@ const SalesSelfPlan = () => {
                               setStatus(selfPlans[t].status);
                               setKey(getKey(selfPlans[t].requestID));
                               openDetailsModal();
-                            }}
-                          >
-                            {index + 1}.{selfPlans[t].requestID} -{" "}
+                            }}>
+                            {index + 1}.{selfPlans[t].requestID} -{' '}
                             {selfPlans[t].requestDate},
                             {getTaskAssigne(selfPlans[t].requestID)}
                           </h6>
@@ -548,30 +546,29 @@ const SalesSelfPlan = () => {
                     {/* popover-1 */}
                     <tr>
                       <td>Last Week Request</td>
-                      <td id="weekPopover" style={{ cursor: "pointer" }}>
+                      <td id='weekPopover' style={{ cursor: 'pointer' }}>
                         {weekRequest()}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={weekPopover}
-                      target="weekPopover"
-                      toggle={toggleWeekPopover}
-                    >
+                      target='weekPopover'
+                      toggle={toggleWeekPopover}>
                       {Object.keys(weekReq).map((w, index) => {
                         return (
                           <h6
                             key={index}
                             style={{
                               padding: 8,
-                              overflow: "auto",
+                              overflow: 'auto',
                               margin: 0,
-                              cursor: "pointer",
+                              cursor: 'pointer',
                               backgroundColor:
                                 selectedPlans.requestID ===
                                 selfPlans[w].requestID
-                                  ? "#53E0BC"
-                                  : "",
+                                  ? '#53E0BC'
+                                  : '',
                             }}
                             onClick={() => {
                               closeDetailsModal();
@@ -579,9 +576,8 @@ const SalesSelfPlan = () => {
                               setStatus(selfPlans[w].status);
                               setKey(getKey(selfPlans[w].requestID));
                               openDetailsModal();
-                            }}
-                          >
-                            {index + 1}.{selfPlans[w].requestID} -{" "}
+                            }}>
+                            {index + 1}.{selfPlans[w].requestID} -{' '}
                             {w.requestDate},
                             {getTaskAssigne(selfPlans[w].requestID)}
                           </h6>
@@ -590,17 +586,16 @@ const SalesSelfPlan = () => {
                     </Popover>
                     <tr>
                       <td>Last Month Request</td>
-                      <td id="monthPopover" style={{ cursor: "pointer" }}>
+                      <td id='monthPopover' style={{ cursor: 'pointer' }}>
                         {monthRequest()}
                       </td>
                     </tr>
                     <Popover
-                      placement="right"
+                      placement='right'
                       isOpen={monthPopover}
-                      target="monthPopover"
-                      toggle={toggleMonthPopover}
-                    >
-                      <div style={{ overflow: "auto" }}>
+                      target='monthPopover'
+                      toggle={toggleMonthPopover}>
+                      <div style={{ overflow: 'auto' }}>
                         {Object.keys(monthReq).map((m, index) => {
                           return (
                             <h6
@@ -608,13 +603,13 @@ const SalesSelfPlan = () => {
                               style={{
                                 padding: 8,
                                 margin: 0,
-                                overflow: "auto",
-                                cursor: "pointer",
+                                overflow: 'auto',
+                                cursor: 'pointer',
                                 backgroundColor:
                                   selectedPlans.requestID ===
                                   selfPlans[m].requestID
-                                    ? "#53E0BC"
-                                    : "",
+                                    ? '#53E0BC'
+                                    : '',
                               }}
                               onClick={() => {
                                 closeDetailsModal();
@@ -622,8 +617,7 @@ const SalesSelfPlan = () => {
                                 setStatus(selfPlans[m].status);
                                 setKey(getKey(selfPlans[m].requestID));
                                 openDetailsModal();
-                              }}
-                            >
+                              }}>
                               {index + 1}.{selfPlans[m].requestID} -
                               {getTaskAssigne(selfPlans[m].requestID)}
                             </h6>
@@ -636,12 +630,12 @@ const SalesSelfPlan = () => {
                 </Table>
               </div>
 
-              <div className="Information">
+              <div className='Information'>
                 <Table bordered>
                   <thead>
                     <tr>
-                      <th className="title-Information">
-                        <HiInformationCircle className="title-Information-icon" />
+                      <th className='title-Information'>
+                        <HiInformationCircle className='title-Information-icon' />
                         Other Information
                       </th>
                     </tr>
@@ -665,16 +659,16 @@ const SalesSelfPlan = () => {
                     </tr>
                   </tbody>
                 </Table>
-                {selectedPlans.tourType === "International" ? (
+                {selectedPlans.tourType === 'International' ? (
                   <Table bordered>
                     <thead>
                       <tr>
-                        <th className="title-companions">Sl.No</th>
-                        <th className="title-companions">Tours Name</th>
+                        <th className='title-companions'>Sl.No</th>
+                        <th className='title-companions'>Tours Name</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {Object.keys(selectedPlans).includes("tourDetails") && (
+                      {Object.keys(selectedPlans).includes('tourDetails') && (
                         <>
                           {Object.keys(selectedPlans.tourDetails).map(
                             (t, index) => {
@@ -696,8 +690,8 @@ const SalesSelfPlan = () => {
                   <Table bordered>
                     <thead>
                       <tr>
-                        <th className="title-companions">
-                          <TiGroup className="title-companions-icon" />
+                        <th className='title-companions'>
+                          <TiGroup className='title-companions-icon' />
                           Travel Details
                         </th>
                       </tr>
@@ -717,14 +711,13 @@ const SalesSelfPlan = () => {
               </div>
             </div>
             <>
-              <div className="status-flex">
-                <div className="status">
+              <div className='status-flex'>
+                <div className='status'>
                   <h1>Status:</h1>
                   <Input
-                    type="select"
+                    type='select'
                     onChange={(e) => setStatus(e.target.value)}
-                    value={status}
-                  >
+                    value={status}>
                     {colors.map((c, index) => {
                       return (
                         <option key={index} value={c.name}>
@@ -734,50 +727,48 @@ const SalesSelfPlan = () => {
                     })}
                   </Input>
                 </div>
-                <div className="status">
+                <div className='status'>
                   <h1>Tour Cost:</h1>
                   <Input
-                    type="text"
+                    type='text'
                     onChange={(e) => setCost(e.target.value)}
                     value={cost}
                   />
                 </div>
 
-                <div className="update-button">
-                  <button className="btn btn-success" onClick={updateRequest}>
+                <div className='update-button'>
+                  <button className='btn btn-success' onClick={updateRequest}>
                     Update
                   </button>
                 </div>
                 <div>
                   <button
-                    className="btn btn-success"
-                    style={{ backgroundColor: "blue" }}
+                    className='btn btn-success'
+                    style={{ backgroundColor: 'blue' }}
                     onClick={() => {
                       getPlannedDetails(selectedPlans.requestID);
                       openSelfPlanModal();
-                    }}
-                  >
+                    }}>
                     Add plan
                   </button>
                 </div>
               </div>
 
-              <div className="status-flex">
-                <div className="status">
+              <div className='status-flex'>
+                <div className='status'>
                   <h1>Query Assigned</h1>
                   <Input
                     value={taskAssigned}
                     onChange={(e) => setTaskAssigned(e.target.value)}
-                    type="select"
-                  >
-                    <option value="" selected disabled hidden>
+                    type='select'>
+                    <option value='' selected disabled hidden>
                       select One
                     </option>
-                    <option value="All">All</option>
+                    <option value='All'>All</option>
                     {employees?.map((e, i) => {
                       if (
-                        e.designation === "CEO" ||
-                        e.designation == "Travel Associate"
+                        e.designation === 'CEO' ||
+                        e.designation == 'Travel Associate'
                       )
                         return (
                           <option key={i} value={e.name}>
@@ -788,12 +779,12 @@ const SalesSelfPlan = () => {
                   </Input>
                 </div>
 
-                <div className="update-button">
-                  <button className="btn btn-success" onClick={assignTask}>
+                <div className='update-button'>
+                  <button className='btn btn-success' onClick={assignTask}>
                     Assign
                   </button>
                 </div>
-                <div className="update-button">
+                <div className='update-button'>
                   <h1>Handled By {getTaskAssigne(selectedPlans.requestID)}</h1>
                 </div>
               </div>
@@ -802,14 +793,14 @@ const SalesSelfPlan = () => {
         );
       case 2:
         const renderIcon = (name) => {
-          if (name === "Flight") return <MdFlight style={{ fontSize: 25 }} />;
-          if (name === "Bus")
+          if (name === 'Flight') return <MdFlight style={{ fontSize: 25 }} />;
+          if (name === 'Bus')
             return <MdDirectionsBus style={{ fontSize: 25 }} />;
-          if (name === "Train") return <MdTrain style={{ fontSize: 25 }} />;
+          if (name === 'Train') return <MdTrain style={{ fontSize: 25 }} />;
         };
 
         const renderImage = (image) => {
-          if (image === "Flight") {
+          if (image === 'Flight') {
             var sectionStyle = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/379419/pexels-photo-379419.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -817,7 +808,7 @@ const SalesSelfPlan = () => {
             };
             return sectionStyle;
           }
-          if (image === "Train") {
+          if (image === 'Train') {
             var sectionStyle1 = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/730134/pexels-photo-730134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -825,7 +816,7 @@ const SalesSelfPlan = () => {
             };
             return sectionStyle1;
           }
-          if (image === "Bus") {
+          if (image === 'Bus') {
             var sectionStyle2 = {
               backgroundImage: `url(
                 "https://images.pexels.com/photos/68629/pexels-photo-68629.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -845,13 +836,12 @@ const SalesSelfPlan = () => {
                   <>{planning()}</>
                 ) : (
                   <div
-                    className="req-travel-main"
+                    className='req-travel-main'
                     style={renderImage(
                       plannedDetails.flightDetails.onward.onwardTransportMode
-                    )}
-                  >
-                    <div className="req-travel">
-                      <div className="req-travel-onward">
+                    )}>
+                    <div className='req-travel'>
+                      <div className='req-travel-onward'>
                         <h5>
                           Onward<span> </span>
                           {
@@ -860,8 +850,8 @@ const SalesSelfPlan = () => {
                           }
                         </h5>
                       </div>
-                      <div className="req-onward-main">
-                        <div className="req-onward-details">
+                      <div className='req-onward-main'>
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.onward.from}</h6>
                           <h3>
                             {
@@ -876,7 +866,7 @@ const SalesSelfPlan = () => {
                             {plannedDetails.flightDetails.onward.depatureDate}
                           </h6>
                         </div>
-                        <div className="req-onward-type">
+                        <div className='req-onward-type'>
                           <h5>-------</h5>
                           {renderIcon(
                             plannedDetails.flightDetails.onward
@@ -884,7 +874,7 @@ const SalesSelfPlan = () => {
                           )}
                           <h5>-------</h5>
                         </div>
-                        <div className="req-onward-details">
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.onward.to}</h6>
                           <h3>
                             {
@@ -900,14 +890,14 @@ const SalesSelfPlan = () => {
                           </h6>
                         </div>
                       </div>
-                      <div className="req-onward-modeName">
+                      <div className='req-onward-modeName'>
                         <h5>
                           {plannedDetails.flightDetails.onward.flightName}
                         </h5>
                       </div>
                     </div>
-                    <div className="req-travel">
-                      <div className="req-travel-onward">
+                    <div className='req-travel'>
+                      <div className='req-travel-onward'>
                         <h5>
                           Return<span> </span>
                           {
@@ -916,8 +906,8 @@ const SalesSelfPlan = () => {
                           }
                         </h5>
                       </div>
-                      <div className="req-onward-main">
-                        <div className="req-onward-details">
+                      <div className='req-onward-main'>
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.return.from}</h6>
                           <h3>
                             {
@@ -932,7 +922,7 @@ const SalesSelfPlan = () => {
                             {plannedDetails.flightDetails.return.depatureDate}
                           </h6>
                         </div>
-                        <div className="req-onward-type">
+                        <div className='req-onward-type'>
                           <h5>-------</h5>
                           {renderIcon(
                             plannedDetails.flightDetails.return
@@ -940,7 +930,7 @@ const SalesSelfPlan = () => {
                           )}
                           <h5>-------</h5>
                         </div>
-                        <div className="req-onward-details">
+                        <div className='req-onward-details'>
                           <h6>{plannedDetails.flightDetails.return.to}</h6>
                           <h3>
                             {
@@ -956,7 +946,7 @@ const SalesSelfPlan = () => {
                           </h6>
                         </div>
                       </div>
-                      <div className="req-onward-modeName">
+                      <div className='req-onward-modeName'>
                         <h5>
                           {plannedDetails.flightDetails.return.flightName}
                         </h5>
@@ -989,35 +979,35 @@ const SalesSelfPlan = () => {
                 0 ? (
                   <>{planning()}</>
                 ) : (
-                  <div className="req-hotel">
+                  <div className='req-hotel'>
                     {plannedDetails.hotels.map((c, i) => {
-                      if (c.cityName !== "") {
+                      if (c.cityName !== '') {
                         return (
-                          <div className="slide-hotel-single">
-                            <Slider {...settings3} className="slide-hotel">
+                          <div className='slide-hotel-single'>
+                            <Slider {...settings3} className='slide-hotel'>
                               {c.hotelPicture.map((h, i) => {
                                 return (
-                                  <div className="req-hotels-main" key={i}>
-                                    <div className="req-hotels-image">
-                                      <img src={h} alt="hotelImage" />
+                                  <div className='req-hotels-main' key={i}>
+                                    <div className='req-hotels-image'>
+                                      <img src={h} alt='hotelImage' />
                                     </div>
                                   </div>
                                 );
                               })}
                             </Slider>
-                            <div className="req-hotel-infrms">
-                              <div className="req-hotel-infrms-head">
-                                <div className="req-hotel-infrms-locate">
-                                  <div className="hotel-name-rating">
+                            <div className='req-hotel-infrms'>
+                              <div className='req-hotel-infrms-head'>
+                                <div className='req-hotel-infrms-locate'>
+                                  <div className='hotel-name-rating'>
                                     <h4 style={{ marginBottom: 0 }}>
                                       {new Array(parseInt(c.hotelRatings))
-                                        .fill("1")
+                                        .fill('1')
                                         .map((s, i) => {
                                           return (
                                             <AiFillStar
                                               key={i}
                                               style={{
-                                                color: "#F7CD2E",
+                                                color: '#F7CD2E',
                                                 fontSize: 18,
                                               }}
                                             />
@@ -1029,42 +1019,41 @@ const SalesSelfPlan = () => {
                                   <div>
                                     <h4
                                       style={{
-                                        color: "black",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
+                                        color: 'black',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                      }}>
                                       {c.cityName}
                                     </h4>
                                   </div>
                                 </div>
-                                <div className="req-hotel-infrms-check">
-                                  <div className="req-hotel-infrms-checki">
+                                <div className='req-hotel-infrms-check'>
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>Check In</h6>
-                                    <ImEnter className="req-hotell-icon" />
+                                    <ImEnter className='req-hotell-icon' />
                                     <h6>{c.checkIn}</h6>
                                   </div>
-                                  <div className="req-hotel-infrms-checki">
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>-----</h6>
-                                    <BiCalendar className="req-hotell-icon" />
+                                    <BiCalendar className='req-hotell-icon' />
                                     <h6>-----</h6>
                                   </div>
-                                  <div className="req-hotel-infrms-checki">
+                                  <div className='req-hotel-infrms-checki'>
                                     <h6>Check Out</h6>
-                                    <ImExit className="req-hotell-icon" />
+                                    <ImExit className='req-hotell-icon' />
                                     <h6>{c.checkOut}</h6>
                                   </div>
                                 </div>
-                                <div className="req-hotel-infrms-itern">
-                                  <div className="req-hotel-infrms-room">
+                                <div className='req-hotel-infrms-itern'>
+                                  <div className='req-hotel-infrms-room'>
                                     <h6>Room Type</h6>
-                                    <FaBed className="req-hotell-icon" />
+                                    <FaBed className='req-hotell-icon' />
                                     <h6>{c.roomType}</h6>
                                   </div>
-                                  <div className="req-hotel-infrms-meal">
+                                  <div className='req-hotel-infrms-meal'>
                                     <h6>Meal Type</h6>
-                                    <GiMeal className="req-hotell-icon" />
+                                    <GiMeal className='req-hotell-icon' />
                                     <h6>{c.mealPlan}</h6>
                                   </div>
                                 </div>
@@ -1100,52 +1089,52 @@ const SalesSelfPlan = () => {
                 0 ? (
                   <>{planning()}</>
                 ) : (
-                  <div className="req-taxi">
+                  <div className='req-taxi'>
                     <div>
-                      <div className="slide-taxiName">
+                      <div className='slide-taxiName'>
                         <h5>{plannedDetails.taxiDetails.taxiName}</h5>
                       </div>
-                      <Slider {...settings4} className="slide-taxi">
+                      <Slider {...settings4} className='slide-taxi'>
                         {plannedDetails.taxiDetails.taxiPicture.map((c, i) => {
                           return (
-                            <div key={i} className="req-taxi-main">
-                              <div className="req-taxi-image">
-                                <img src={c} alt="taxiImage" />
+                            <div key={i} className='req-taxi-main'>
+                              <div className='req-taxi-image'>
+                                <img src={c} alt='taxiImage' />
                               </div>
                             </div>
                           );
                         })}
                       </Slider>
                     </div>
-                    <div className="taxiInform">
-                      <div className="taxi-Informs">
-                        <div className="taxi-Informs-head">
+                    <div className='taxiInform'>
+                      <div className='taxi-Informs'>
+                        <div className='taxi-Informs-head'>
                           <h5>Taxi Informations</h5>
                         </div>
-                        <div className="taxi-single-infrms-main">
-                          <div className="taxi-single-infrms">
+                        <div className='taxi-single-infrms-main'>
+                          <div className='taxi-single-infrms'>
                             <h6>Distance</h6>
                             <FaTachometerAlt style={{ fontSize: 22 }} />
                             <h6>
                               {plannedDetails.basicDetails.kilometers} kms
                             </h6>
                           </div>
-                          <div className="taxi-single-infrms">
+                          <div className='taxi-single-infrms'>
                             <h6>Days</h6>
                             <FaRegCalendarAlt style={{ fontSize: 22 }} />
                             <h6>{plannedDetails.basicDetails.days} Days</h6>
                           </div>
-                          <div className="taxi-single-infrm">
+                          <div className='taxi-single-infrm'>
                             <h6>Days Limit</h6>
                             <BsClockHistory style={{ fontSize: 22 }} />
                             <h6>{plannedDetails.basicDetails.daysLimit} kms</h6>
                           </div>
                         </div>
-                        <div className="taxi-condition">
-                          <div className="taxi-condition-head">
+                        <div className='taxi-condition'>
+                          <div className='taxi-condition-head'>
                             <h5>Terms and Conditions</h5>
                           </div>
-                          <div className="taxi-condition-content">
+                          <div className='taxi-condition-content'>
                             <p>{plannedDetails.basicDetails.termsConditions}</p>
                           </div>
                         </div>
@@ -1163,61 +1152,55 @@ const SalesSelfPlan = () => {
 
   return (
     <div
-      className="booking-container"
+      className='booking-container'
       style={{
-        padding: "20px",
-      }}
-    >
+        padding: '20px',
+      }}>
       <div
-        className="booking-name-container"
+        className='booking-name-container'
         style={{
-          padding: "30px",
-        }}
-      >
+          padding: '30px',
+        }}>
         <div>
-          <h3 style={{ color: "#666666" }}>Self Plan Management</h3>
+          <h3 style={{ color: '#666666' }}>Self Plan Management</h3>
         </div>
       </div>
       <div
-        className="booking-stats-container"
+        className='booking-stats-container'
         style={{
-          padding: "30px",
-        }}
-      >
-        <div className="booking-stats">
+          padding: '30px',
+        }}>
+        <div className='booking-stats'>
           <h3>Submitted Request</h3>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <h6>{Object.keys(selfPlans).length}</h6>
           </div>
         </div>
         <div
-          className="filters"
+          className='filters'
           style={{
-            padding: "30px",
-          }}
-        >
-          <div className="month">
+            padding: '30px',
+          }}>
+          <div className='month'>
             <label>Show Item : </label>
             <select
               value={pageSize}
-              onChange={(e) => setPageSize(e.target.value)}
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
+              onChange={(e) => setPageSize(e.target.value)}>
+              <option value='10'>10</option>
+              <option value='20'>20</option>
+              <option value='50'>50</option>
             </select>
           </div>
-          <div className="month">
+          <div className='month'>
             <label>Query Status : </label>
             <select
               onChange={(e) => {
                 setQueryStatus(e.target.value);
               }}
-              value={querystatus}
-            >
+              value={querystatus}>
               {colors.map((c, index) => {
                 return (
-                  <option key={index} value={c.name === "All" ? "" : c.name}>
+                  <option key={index} value={c.name === 'All' ? '' : c.name}>
                     {c.name}
                   </option>
                 );
@@ -1227,24 +1210,24 @@ const SalesSelfPlan = () => {
         </div>
       </div>
 
-      <div className="b-table" style={{ height: "auto" }}>
+      <div className='b-table' style={{ height: 'auto' }}>
         <div
-          className="table-heading-container request"
+          className='table-heading-container request'
           style={{
-            width: "100%",
-          }}
-        >
+            width: '100%',
+          }}>
           <h5>Request Status</h5>
           <h5>Request Id</h5>
+          <h5>Name</h5>
           <h5>Travel Mode</h5>
-          <h5>Selected Cities</h5>
+          {/* <h5>Selected Cities</h5> */}
           <h5>Departure Date</h5>
           <h5>Total No of Days</h5>
           <h5>Handle By </h5>
         </div>
         {loading ? (
-          <div className="req-lo">
-            Fetching Data <Ellipsis color="#0057ff" />
+          <div className='req-lo'>
+            Fetching Data <Ellipsis color='#0057ff' />
           </div>
         ) : (
           <>
@@ -1255,13 +1238,13 @@ const SalesSelfPlan = () => {
                   .map((c, i) => {
                     return (
                       <div
-                        className="table-heading-row request"
+                        className='table-heading-row request'
                         key={i}
                         style={{
                           backgroundColor:
-                            selfPlans[c].status === "Duplicate Query"
-                              ? "#FF6666"
-                              : "",
+                            selfPlans[c].status === 'Duplicate Query'
+                              ? '#FF6666'
+                              : '',
                         }}
                         onClick={() => {
                           openDetailsModal();
@@ -1274,18 +1257,16 @@ const SalesSelfPlan = () => {
                           setTaskAssigned(
                             getTaskAssigne(selfPlans[c].requestID)
                           );
-                        }}
-                      >
+                        }}>
                         <h5
                           style={{
                             color: `${getColor(selfPlans[c].status)}`,
-                          }}
-                        >
+                          }}>
                           {selfPlans[c].status}
                         </h5>
                         <h5>{selfPlans[c].requestID}</h5>
+                        <h5>{selfPlans[c].name}</h5>
                         <h5>{selfPlans[c].travelmode}</h5>
-
                         <h5>{selfPlans[c].fromData}</h5>
                         <h5>{selfPlans[c].totalDays}</h5>
                         <h5>{getTaskAssigne(selfPlans[c].requestID)}</h5>
@@ -1294,38 +1275,36 @@ const SalesSelfPlan = () => {
                   })}
               </>
             ) : (
-              <tr className="noFind">No Plans found</tr>
+              <tr className='noFind'>No Plans found</tr>
             )}
           </>
         )}
       </div>
-      <div className="pagination-table">
+      <div className='pagination-table'>
         {currentPage === 0 ? null : (
           <div
-            className="pag-count"
+            className='pag-count'
             onClick={(e) => {
               handleClick(e, currentPage - 1);
             }}
             style={{
-              backgroundColor: "#0057ff",
-              color: "#fff",
-            }}
-          >
-            <h5>{"<"}</h5>
+              backgroundColor: '#0057ff',
+              color: '#fff',
+            }}>
+            <h5>{'<'}</h5>
           </div>
         )}
-        {new Array(pagesCount).fill("1").map((c, i) => {
+        {new Array(pagesCount).fill('1').map((c, i) => {
           if (i + 1 < currentPage + 5 && i > currentPage - 2) {
             return (
               <div
                 key={i}
-                className="pag-count"
+                className='pag-count'
                 onClick={(e) => handleClick(e, i)}
                 style={{
-                  backgroundColor: currentPage === i ? "#0057ff" : "#fff",
-                  color: currentPage === i ? "#fff" : "#333",
-                }}
-              >
+                  backgroundColor: currentPage === i ? '#0057ff' : '#fff',
+                  color: currentPage === i ? '#fff' : '#333',
+                }}>
                 <h5>{i + 1}</h5>
               </div>
             );
@@ -1333,43 +1312,41 @@ const SalesSelfPlan = () => {
         })}
         {pagesCount - 1 === currentPage ? null : (
           <div
-            className="pag-count"
+            className='pag-count'
             onClick={(e) => handleClick(e, currentPage + 1)}
             style={{
-              backgroundColor: "#0057ff",
-              color: "#fff",
-            }}
-          >
-            <h5>{">"}</h5>
+              backgroundColor: '#0057ff',
+              color: '#fff',
+            }}>
+            <h5>{'>'}</h5>
           </div>
         )}
       </div>
-      <Modal contentClassName="modal-request" isOpen={detailsModal}>
-        <div className="modal-header">
-          <h3 className="modal-title" id="modal-title-notification">
+      <Modal contentClassName='modal-request' isOpen={detailsModal}>
+        <div className='modal-header'>
+          <h3 className='modal-title' id='modal-title-notification'>
             Self Plan Info
           </h3>
           <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-            onClick={closeDetailsModal}
-          >
+            aria-label='Close'
+            className='close'
+            data-dismiss='modal'
+            type='button'
+            onClick={closeDetailsModal}>
             <span aria-hidden={true}>×</span>
           </button>
         </div>
-        <div className="req-head">
-          <div className={step === 1 ? "req-single" : "req-single-none"}>
+        <div className='req-head'>
+          <div className={step === 1 ? 'req-single' : 'req-single-none'}>
             <h6 onClick={() => setStep(1)}>General</h6>
           </div>
-          <div className={step === 2 ? "req-single" : "req-single-none"}>
+          <div className={step === 2 ? 'req-single' : 'req-single-none'}>
             <h6 onClick={() => setStep(2)}>Travel</h6>
           </div>
-          <div className={step === 3 ? "req-single" : "req-single-none"}>
+          <div className={step === 3 ? 'req-single' : 'req-single-none'}>
             <h6 onClick={() => setStep(3)}>Hotels</h6>
           </div>
-          <div className={step === 4 ? "req-single" : "req-single-none"}>
+          <div className={step === 4 ? 'req-single' : 'req-single-none'}>
             <h6 onClick={() => setStep(4)}>Transfer</h6>
           </div>
         </div>

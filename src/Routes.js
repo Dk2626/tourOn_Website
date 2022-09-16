@@ -60,6 +60,7 @@ import OnBoardReport from './OnBoard/OnBoardReport';
 import Quiz from './Quiz/Quiz';
 import QuizDash from './Quiz/QuizDash';
 import ReadyQns from './Quiz/ReadyQns';
+import SalesSelfPlanning from './Sales component/SalesSelfPlanning';
 
 export default function Routes() {
   const [countries, setCountries] = useState([]);
@@ -165,6 +166,7 @@ export default function Routes() {
               {/* <Route path="/how-it-works" component={HowItWorks} /> */}
               <AdminRoute path='/backupdata' component={Backup} />
               <AdminRoute path='/onBoardReport' component={OnBoardReport} />
+              <AdminRoute path='/selfplans' component={SalesSelfPlanning} />
               <AdminRoute path='/totalsales' component={TotalSaleReport} />
               <AdminRoute
                 exact
@@ -176,10 +178,10 @@ export default function Routes() {
                 component={BookingRecord}
               />
               <AdminRoute path='/salesadmin' component={SalesSidebar} />
-              <AdminRoute
+              {/* <AdminRoute
                 path='/salesadmin/selfplan'
                 component={SalesSidebar}
-              />
+              /> */}
               <Route path='/visa' component={Visa} />
               <Route path='/contact' component={Contact} />
               <Route path='/gaia' component={Destination} />

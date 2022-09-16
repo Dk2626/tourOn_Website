@@ -1,3 +1,16 @@
+.quizDashMainHome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+.quizDashMainHomeHead h3 {
+  color: #0c247b;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 20px;
+  font-weight: bold;
+}
 .quizDashMain {
   width: 95%;
   margin: 30px auto;

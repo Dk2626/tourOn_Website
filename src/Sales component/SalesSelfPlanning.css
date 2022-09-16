@@ -1,0 +1,82 @@
+.selfPlannningMains {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px 0;
+}
+.selfPlannningHeads h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #23c4ed;
+}
+.selfPlanMainTable {
+  width: 95%;
+  margin: 30px auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.selfPlanMainTable thead tr {
+  background-color: #23c4ed;
+  color: #fff;
+  border-radius: 10px;
+}
+.selfPlanMainTable th,
+.selfPlanMainTable td {
+  padding: 20px;
+  font-size: 14px;
+}
+.selfPlanMainTable td {
+  cursor: pointer;
+  font-weight: bold;
+}
+.selfPlanMainTable tbody tr {
+  border-bottom: 1px solid #cad5e2;
+}
+.selfPlannningArrows {
+  display: flex;
+  margin-bottom: 20px;
+}
+.selfPlannningArrowsPrev,
+.selfPlannningArrowsNext,
+.selfPlannningArrowsCen,
+.selfPlannningArrowsCenDis {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+.selfPlannningArrowsPrev h5,
+.selfPlannningArrowsNext h5,
+.selfPlannningArrowsCen h5 {
+  color: #fff;
+  background-color: #23c4ed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+.selfPlannningArrowsCenDis h5 {
+  color: #23c4ed;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  border: 1px solid #23c4ed;
+}
+.selfPlannningArrowsCenMain {
+  display: flex;
+}
+.selfPlannningSubmits {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}

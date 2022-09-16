@@ -939,6 +939,41 @@
   transform: translate(-50%, -50%);
   border-radius: 3px;
 }
+.quizPopup_contentResort {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 30%;
+  background-color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+}
+.quizPopup_contentResortImg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+}
+.resort_view_imgsss {
+  width: 80%;
+  height: 80%;
+  margin: auto;
+}
 .quizPopup_para {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
@@ -977,6 +1012,11 @@
   align-items: center;
   justify-content: space-evenly;
 }
+.quizPopup__content-ResortShare {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
 .njoyBtnLink {
   text-decoration: none;
 }
@@ -986,4 +1026,537 @@
   font-family: 'Montserrat', sans-serif;
   color: red;
   font-weight: bold;
+}
+.letsBeginRes {
+  background-color: #fddea0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid gray;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+.letsBeginRespara {
+  font-family: 'League Spartan', sans-serif;
+  color: #16375f;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.letsBeginRescraftImg {
+  width: 100px;
+  height: 100px;
+}
+.quixExploreImg {
+  width: 350px;
+  height: 280px;
+}
+.quixExplorePara1 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #000000;
+  font-size: 26px;
+  width: 300px;
+}
+.quixExplorePara2 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0;
+  color: #000000;
+  font-size: 12px;
+}
+.quixExploreBtn,
+.quixDestniBtn {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  background-color: #6d6d6d;
+  padding: 10px;
+  border-radius: 10px;
+}
+.quixExploreBtnTxt1 {
+  margin-bottom: 0;
+  background-color: #67e0f1;
+  padding: 15px 10px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.quixExploreBtnTxt2,
+.quixDestniBtnTxt2 {
+  margin-bottom: 0;
+  color: #feffff;
+  font-size: 16px;
+  margin-left: 20px;
+}
+.quixDestniImg {
+  width: 250px;
+  height: 250px;
+}
+.quixDestniPara1 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #000000;
+  font-size: 26px;
+  width: 250px;
+}
+.quixDestniPara2 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0;
+  color: #000000;
+  font-size: 12px;
+}
+.quixDestniBtnTxt1 {
+  margin-bottom: 0;
+  background-color: #67e0f1;
+  padding: 15px 10px;
+  font-size: 14px;
+  border-radius: 10px;
+  transform: rotate(90deg);
+}
+.quizPopup__content-ResortShareBtn {
+  outline: none;
+  border: none;
+  background-color: #6d6d6d;
+  color: #fff;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: 'League Spartan', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.quizMaldImg {
+  width: 350px;
+  height: 150px;
+}
+.malTextMains {
+  padding: 0px 20px;
+}
+.malTextImg {
+  width: 120px;
+  height: 50px;
+}
+.malTextpara1 {
+  font-family: 'Montserrat', sans-serif;
+  color: #737373;
+  font-size: 12px;
+  text-align: justify;
+}
+.malTextpara2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #737373;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.malMain2Img {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.malIslandsss {
+  height: 230px;
+  width: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.malIslandsss img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.malres1Text1 {
+  width: 100px;
+  margin-bottom: 10px;
+}
+.malres2Text2 {
+  width: 120px;
+  height: 23px;
+  margin-bottom: 10px;
+}
+.malMain2Subb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.islandssMainDeta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 35vh;
+  width: 100%;
+  z-index: -1;
+  object-fit: cover;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  overflow: hidden;
+}
+.islandssMainDeta img {
+  width: 100%;
+  height: 100%;
+}
+.fuzimaltextMaain {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 260px;
+}
+.fuzimaltextMaainn {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 290px;
+}
+.fuzimaltextImg {
+  width: 250px;
+}
+.oblumaltextImg {
+  width: 250px;
+  height: 40px;
+}
+.fuzimaltextImgPara {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #4d4d50;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+.oblumaltextImgPara {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #4d4d50;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+.fuziiImgssMainn {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.fuziiImgss {
+  height: 230px;
+  width: 150px;
+}
+.fuziiBtnss button {
+  border: none;
+  outline: none;
+  margin-top: 30px;
+}
+.fuziiBtnss1,
+.fuziiBtnss2,
+.fuziiBtnss3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.fuziiBtnss1 {
+  background-color: #8eadc2;
+}
+.fuziiBtnss2 {
+  background-color: #b19777;
+}
+.fuziiBtnss3 {
+  background-color: #80d47d;
+}
+.resort_quiz_Imggg {
+  width: 95%;
+  height: 250px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.resort_quiz_Imggg img {
+  width: 100%;
+  height: 100%;
+}
+.resort_quiz_Imggg_conts {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.resort_rupee_conts_mains,
+.resort_rupee_conts_mainss {
+  display: flex;
+  align-items: center;
+}
+.resort_rupee_conts {
+  color: #e28633;
+  padding-left: 5px;
+}
+.resort_rupee_contss {
+  color: #fff;
+}
+.resort_rupee_conts_mains p {
+  margin-bottom: 0;
+  color: #e28633;
+  text-decoration-line: line-through;
+  font-weight: 700;
+}
+.resort_rupee_conts_mainss p {
+  margin-bottom: 0;
+  color: #fff;
+  font-weight: 700;
+}
+.resort_rupee_conts_mainssss {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0004;
+  padding-left: 5px;
+}
+.resort_rupee_conts_mainssss button {
+  border: none;
+  outline: none;
+  background-color: #e28633;
+  color: #fff;
+  padding: 10px;
+  font-weight: 700;
+}
+.resort_d_conts {
+  padding-left: 10px;
+}
+.resort_d_conts p {
+  margin-bottom: 0;
+}
+.resort_d_conts_star {
+  color: #f5bf00;
+  font-size: 14px;
+}
+.resort_d_conts_star_name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #000000;
+  font-size: 18px;
+}
+.resort_d_conts_star_cat {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #000000;
+  font-size: 17px;
+}
+.resort_d_conts_star_loc {
+  display: flex;
+  align-items: center;
+}
+.resort_d_conts_star_loc p {
+  font-family: 'Open Sans', sans-serif;
+  padding-left: 5px;
+  font-size: 18px;
+}
+.resort_d_conts_star_loc_icon {
+  font-size: 18px;
+}
+.resort_d_conts_star_meter {
+  display: flex;
+  align-items: center;
+}
+.resort_d_conts_star_meter p {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 18px;
+}
+.resort_d_conts_star_meter_h {
+  color: red;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 28px;
+}
+.resort_d_conts_star_val {
+  display: flex;
+  align-items: center;
+}
+.resort_d_conts_star_val1 {
+  font-weight: bold;
+  padding-right: 5px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+.resort_d_conts_star_val2 {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+}
+.resort_d_list_mainss {
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.resort_d_list_mainsss {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 0;
+}
+.resort_d_list_mainssn {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: #e28633;
+  border-bottom: 1.5px solid #e28633;
+  margin-bottom: 0;
+}
+.resort_about_img_mainn {
+  height: 250px;
+  overflow: scroll;
+}
+.resort_about_img_main {
+  overflow: scroll;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.resort_about_img {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.resort_about_img img {
+  height: 100%;
+  width: 100%;
+  margin: 10px;
+  border-radius: 10px;
+}
+.resort_about_img_main2 {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.resort_about_img_main2 p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #000;
+}
+.resort_about_img_catImg {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.resort_about_img_catImg img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+.resort_about_img_mainnnn {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+.resort_about_img_catImgmm {
+  display: flex;
+}
+.resort_about_img_catImgmm p {
+  margin-bottom: 0;
+}
+.resort_cat_nameee {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+}
+.resort_cat_nameee1 {
+  display: flex;
+  align-items: center;
+}
+.resort_cat_nameee1 p {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 20px;
+  padding-left: 5px;
+}
+.resort_cat_nameeepara {
+  padding: 20px;
+}
+.resort_cat_nameeepara p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+.ami_class_icon {
+  color: #33a6aa;
+}
+.ami_resort_iconsss {
+  display: flex;
+  align-items: center;
+  width: 160px;
+  padding: 10px 0px;
+}
+.ami_resort_iconsss p {
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.ami_resort_iconsss_mains {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.resort_about_img_mainn_keyn_btn,
+.resort_about_img_mainn_cancel_btn,
+.resort_about_img_mainn_rest_btn,
+.resort_about_img_mainn_rules_btn {
+  outline: none;
+  border: none;
+  background-color: #33a6aa;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.resort_about_img_mainn_keyn p,
+.resort_about_img_mainn_cancel p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 0;
+  padding-left: 5px;
+}
+.resort_about_img_mainn_rest_mpara_sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 5px;
+}
+.resort_about_img_mainn_rest_mpara p {
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+.resort_about_img_mainn_rest_mpara1 {
+  font-weight: 700;
+}
+.resort_about_img_mainn_rules_sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+.resort_about_img_mainn_rules_sub p {
+  margin-bottom: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+.resort_about_img_mainn_rules_sub_p1 {
+  font-weight: 700;
+}
+.resort_about_img_mainn_rules_sub1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.resort_about_img_mainn_high {
+  padding: 20px;
 }
