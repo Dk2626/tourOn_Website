@@ -93,7 +93,7 @@ import fuzi4 from '../assests/Quiz/fuzi4.png';
 import oblu1 from '../assests/Quiz/oblu1.jpg';
 import oblu2 from '../assests/Quiz/oblu2.jpg';
 import oblu3 from '../assests/Quiz/oblu3.png';
-import oblu4 from '../assests/Quiz/oblu4.png';
+import oblu4 from '../assests/Quiz/oblu4.jpg';
 import fuzimaltext from '../assests/Quiz/fuzimaltext.png';
 import oblumaltext from '../assests/Quiz/oblumaltext.png';
 // import Sort from './Question';
@@ -1105,9 +1105,9 @@ const Quiz = () => {
                       target='_blank'>
                       <button className='fuziiBtnss1'>Factsheet</button>
                     </a>
-                    <Link to='/'>
+                    <a href='https://www.fushifaru.com/' target='_blank'>
                       <button className='fuziiBtnss2'>Website</button>
-                    </Link>
+                    </a>
                     <button
                       className='fuziiBtnss3'
                       onClick={() => {
@@ -1144,7 +1144,7 @@ const Quiz = () => {
                     <div>
                       <img
                         src={oblu3}
-                        alt='fuzi3'
+                        alt='oblu3'
                         className='fuziiImgss'
                         onClick={() => {
                           setOpenResortModalImg(true);
@@ -1152,11 +1152,10 @@ const Quiz = () => {
                         }}
                       />
                     </div>
-                    <div>
+                    <div className='malIslandsss'>
                       <img
                         src={oblu4}
-                        alt='fuzi4'
-                        className='fuziiImgss'
+                        alt='oblu4'
                         onClick={() => {
                           setOpenResortModalImg(true);
                           setResortImgs(oblu4);
@@ -1170,9 +1169,11 @@ const Quiz = () => {
                       target='_blank'>
                       <button className='fuziiBtnss1'>Factsheet</button>
                     </a>
-                    <Link to='/'>
+                    <a
+                      href='https://www.coloursofoblu.com/oblu-xperience-ailafushi'
+                      target='_blank'>
                       <button className='fuziiBtnss2'>Website</button>
-                    </Link>
+                    </a>
                     <button
                       className='fuziiBtnss3'
                       onClick={() => {
