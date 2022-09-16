@@ -86,13 +86,14 @@ import malisland from '../assests/Quiz/malisland.png';
 import maltext from '../assests/Quiz/maltext.png';
 import malres1 from '../assests/Quiz/malres1.png';
 import malres2 from '../assests/Quiz/malres2.png';
-import fuzi1 from '../assests/Quiz/fuzi1.png';
+import fuzi1 from '../assests/Quiz/fuzi1.jpg';
+import fuzi2 from '../assests/Quiz/fuzi2.jpg';
 import fuzi3 from '../assests/Quiz/fuzi3.png';
 import fuzi4 from '../assests/Quiz/fuzi4.png';
-import oblu1 from '../assests/Quiz/oblu1.png';
+import oblu1 from '../assests/Quiz/oblu1.jpg';
+import oblu2 from '../assests/Quiz/oblu2.jpg';
 import oblu3 from '../assests/Quiz/oblu3.png';
 import oblu4 from '../assests/Quiz/oblu4.png';
-import fuzi2 from '../assests/Quiz/fuzi2.jpg';
 import fuzimaltext from '../assests/Quiz/fuzimaltext.png';
 import oblumaltext from '../assests/Quiz/oblumaltext.png';
 // import Sort from './Question';
@@ -157,7 +158,6 @@ const Quiz = () => {
   const [resortImgs, setResortImgs] = useState('');
 
   // console.log('resortDetails', resortDetails);
-  console.log('first', resortImgs, typeof resortImgs);
 
   let resorts = ['Maldives'];
 
@@ -1122,7 +1122,7 @@ const Quiz = () => {
             ) : (
               <>
                 <div className='islandssMainDeta'>
-                  <img src={fuzi2} alt='fuzi2' />
+                  <img src={oblu2} alt='oblu2' />
                 </div>
                 <div className='fuzimaltextMaainn'>
                   <img
