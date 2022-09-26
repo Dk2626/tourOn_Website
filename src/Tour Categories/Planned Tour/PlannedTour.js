@@ -36,7 +36,6 @@ const PlannedTour = () => {
   const [destination, setDestination] = useState('');
   const [startPoint, setStartPoint] = useState('');
   const [priority, setPriority] = useState('');
-
   const [budget, setBudget] = useState('');
   const [step, setStep] = useState(1);
   const { user } = isAuthenticated();

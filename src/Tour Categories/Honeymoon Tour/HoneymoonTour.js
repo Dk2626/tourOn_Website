@@ -29,9 +29,11 @@ const HoneymoonTour = () => {
   const [preferanece, setPreferanece] = useState('');
   const [destination, setDestination] = useState('');
   const [startPoint, setStartPoint] = useState('');
-  const [name, setName] = useState(userInfo.name);
   const [budget, setBudget] = useState('');
-  const [number, setNumber] = useState(userInfo.phoneNumber);
+  // const [number, setNumber] = useState(userInfo.phoneNumber);
+  // const [name, setName] = useState(userInfo.name);
+  const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
   const [step, setStep] = useState(1);
   const { user } = isAuthenticated();
   const [isLoggedin, setIsLoggedin] = useState(false);

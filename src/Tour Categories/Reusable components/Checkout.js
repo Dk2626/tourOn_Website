@@ -33,7 +33,7 @@ const Checkout = ({
   //   getCurrentUserData()
   // }, [])
 
-  // console.log("dfsd", number)
+  // console.log('dfsd', number);
   // console.log("dfsd", typeof(number))
   // console.log("dfsd", name !== "" && budget >= 50000 && number !== "" && number !== undefined && (number !== undefined && number.length == 10))
 

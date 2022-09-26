@@ -25,8 +25,10 @@ import Priority from '../Reusable components/Priority';
 
 const SurpriseTour = (params) => {
   const { userInfo } = useContext(ApiContext);
-  const [number, setNumber] = useState(userInfo.phoneNumber);
-  const [name, setName] = useState(userInfo.name);
+  // const [number, setNumber] = useState(userInfo.phoneNumber);
+  // const [name, setName] = useState(userInfo.name);
+  const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
   const [tourType, setTourType] = React.useState('');
   const [travellerType, setTravellerType] = React.useState('');
   const [adult, setAdult] = React.useState(0);

@@ -24,8 +24,10 @@ import Priority from '../Reusable components/Priority';
 const LuxuryTour = () => {
   const [subLoaded, setSubLoaded] = useState(false);
   const { userInfo } = useContext(ApiContext);
-  const [number, setNumber] = useState(userInfo.phoneNumber);
-  const [name, setName] = useState(userInfo.name);
+  // const [number, setNumber] = useState(userInfo.phoneNumber);
+  // const [name, setName] = useState(userInfo.name);
+  const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
   const [adult, setAdult] = useState(0);
   const [children, setChildren] = useState(0);
   const [tourType, setTourType] = useState('');
