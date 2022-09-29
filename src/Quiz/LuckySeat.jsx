@@ -49,7 +49,7 @@ const LuckySeat = () => {
   const [luckyDatas, setLuckyDatas] = useState([]);
   const [singleLuckyData, setSingleLuckyData] = useState({});
 
-  console.log('singleLuckyData', singleLuckyData);
+  //   console.log('singleLuckyData', singleLuckyData);
 
   const getData = () => {
     let quizdataEmail = [];
