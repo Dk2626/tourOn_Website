@@ -70,7 +70,7 @@
 }
 .quizVertLine2 {
   background-color: #d2e8fa;
-  height: 350px;
+  height: 270px;
   width: 2px;
 }
 .quizArrowMain1 {
@@ -1559,4 +1559,17 @@
 }
 .resort_about_img_mainn_high {
   padding: 20px;
+}
+.Pvr_lucky_button {
+  background-color: #fff;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px 15px 5px 15px;
+  margin-bottom: 0;
+  color: #000;
+}
+.Pvr_lucky_button_link {
+  text-decoration: none;
 }

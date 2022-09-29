@@ -61,6 +61,8 @@ import Quiz from './Quiz/Quiz';
 import QuizDash from './Quiz/QuizDash';
 import ReadyQns from './Quiz/ReadyQns';
 import SalesSelfPlanning from './Sales component/SalesSelfPlanning';
+import LuckySeat from './Quiz/LuckySeat';
+import LuckySeatAdmin from './Quiz/LuckySeatAdmin';
 
 export default function Routes() {
   const [countries, setCountries] = useState([]);
@@ -157,6 +159,8 @@ export default function Routes() {
                 path='/onboardform/:names/:emails/:dest/:type/:onward/:returns/:bv/:adult/:child'
                 component={OnBoardForm}
               />
+              <Route path='/lucky-seat' component={LuckySeat} />
+              <Route path='/lucky-seat-admin' component={LuckySeatAdmin} />
               <Route path='/quiz-win-prize' component={Quiz} />
               <Route path='/quiz-dashboard' component={QuizDash} />
               <Route path='/quiz-qns' component={ReadyQns} />

@@ -1,13 +1,14 @@
 .onBoardListMainn {
-  background-image: url("../assests/onboardlist.jpg");
+  /* background-image: url("../assests/onboardlist.jpg"); */
   width: 100%;
   height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* background-size: cover; */
+  /* background-repeat: no-repeat; */
+  /* background-attachment: fixed; */
+  background-color: #fff;
 }
-.onBoardListMainn::after {
-  content: "";
+/* .onBoardListMainn::after {
+  content: '';
   opacity: 0.8;
   position: absolute;
   top: 0;
@@ -15,7 +16,7 @@
   right: 0;
   bottom: 0;
   background: #000;
-}
+} */
 .onBoardListMainns {
   position: relative;
   z-index: 1;
@@ -25,18 +26,18 @@
   padding: 20px;
 }
 .onBoardListH1 {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   font-weight: 700;
   color: #ff7f00;
 }
 .upcomingText {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   color: #6ec72d;
   font-weight: 600;
   padding-bottom: 20px;
 }
 .completedText {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   color: #e21717;
   font-weight: 600;
   padding-bottom: 20px;
@@ -70,7 +71,7 @@
   padding: 20px;
   border-radius: 15px;
   cursor: pointer;
-  /* box-shadow: 0px 2px 8px #ccc; */
+  box-shadow: 0px 2px 8px #ccc;
   margin-bottom: 20px;
 }
 .completedInnerContentMain {
@@ -78,7 +79,7 @@
   width: 700px;
   padding: 20px;
   border-radius: 15px;
-  /* box-shadow: 0px 2px 8px #ccc; */
+  box-shadow: 0px 2px 8px #ccc;
   margin-bottom: 20px;
 }
 
@@ -100,38 +101,38 @@
   align-items: center;
 }
 .upcoimgInnerContentname {
-  font-family: "Andika";
+  font-family: 'Andika';
   font-weight: 600;
   padding: 5px;
   color: black;
 }
 .upcoimgInnerContentdest {
-  font-family: "Andika";
+  font-family: 'Andika';
   font-weight: 500;
   padding: 5px;
   color: black;
 }
 .upcoimgInnerContentemail {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   font-weight: 700;
   padding: 5px;
   color: black;
 }
 
 .completedInnerContentname {
-  font-family: "Andika";
+  font-family: 'Andika';
   font-weight: 600;
   padding: 5px;
   color: grey;
 }
 .completedInnerContentdest {
-  font-family: "Andika";
+  font-family: 'Andika';
   font-weight: 500;
   padding: 5px;
   color: grey;
 }
 .completedInnerContentemail {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   font-weight: 700;
   padding: 5px;
   color: grey;
@@ -146,7 +147,7 @@
   height: 450px;
 }
 .onBoardImg h6 {
-  font-family: "Avenir";
+  font-family: 'Avenir';
   font-weight: 700;
   font-size: 20px;
 }

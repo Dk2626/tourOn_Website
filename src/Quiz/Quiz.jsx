@@ -156,8 +156,24 @@ const Quiz = () => {
   const [resortDetails, setResortDetails] = useState('');
   const [resortStep, setResortStep] = useState('About');
   const [resortImgs, setResortImgs] = useState('');
+  const [showLuck, setShowLuck] = useState('');
 
   // console.log('resortDetails', resortDetails);
+
+  const getLuckData = () => {
+    firedb.ref('luckySeat').on('value', (data) => {
+      data.forEach((d) => {
+        setShowLuck(d.val());
+      });
+    });
+  };
+
+  useEffect(() => {
+    getLuckData();
+    return () => {
+      getLuckData();
+    };
+  }, []);
 
   let resorts = ['Maldives'];
 
@@ -457,6 +473,11 @@ const Quiz = () => {
               <div className='letsName'>Let's travel..</div>
               <div className='beginName'>The new beginning</div>
             </div>
+            {showLuck == 'on' && (
+              <Link to='/lucky-seat' className='njoyBtnLink'>
+                <p className='Pvr_lucky_button'>PVR Lucky Seats</p>
+              </Link>
+            )}
             <div
               className='letsBeginRes'
               onClick={() => {
